@@ -68,7 +68,21 @@ let project = Project(
             sources: ["DripNote/Sources/Presentation/**"],
             resources: [],
             dependencies: [
-                .target(name: "DripNoteDomain")
+                .target(name: "DripNoteDomain"),
+                .target(name: "DripNoteDI")
+            ]
+        ),
+        .target(
+            name: "DripNoteDI",
+            destinations: .iOS,
+            product: .framework,
+            bundleId: "com.krwd.dripnote.di",
+            infoPlist: .default,
+            sources: ["DripNote/Sources/DI/**"],
+            resources: [],
+            dependencies: [
+                .target(name: "DripNoteDomain"),
+                .target(name: "DripNoteData"),
             ]
         ),
         .target(
