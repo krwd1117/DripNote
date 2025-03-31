@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct DripNoteApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     @State private var showingSplash = true
     @StateObject private var splashViewModel: SplashViewModel = SplashViewModel()
     
