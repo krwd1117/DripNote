@@ -59,7 +59,7 @@ public struct RecipeView: View {
                             .padding(.horizontal, 16)
                             .padding(.top, 16)
                         }
-                        .background(Color(uiColor: .systemGroupedBackground))
+                        .background(Color.Custom.primaryBackground.color)
                     }
                 }
                 .navigationTitle("나의 레시피")
@@ -67,6 +67,7 @@ public struct RecipeView: View {
                     coordinator.view(for: route)
                         .environmentObject(coordinator)
                 }
+                .tint(Color.Custom.accentBrown.color)
                 .onAppear {
                     tabBarState.isVisible = true
                 }
@@ -87,7 +88,7 @@ private struct RecipeRow: View {
             // 상단 아이콘 및 메소드
             HStack {
                 Image(systemName: recipe.brewingTemperature == .hot ? "flame.fill" : "snowflake")
-                    .foregroundStyle(recipe.brewingTemperature == .hot ? Color.red : Color.blue)
+                    .foregroundStyle(recipe.brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
                     .font(.system(size: 18))
                 
                 Spacer()
@@ -96,7 +97,7 @@ private struct RecipeRow: View {
                     .font(.caption)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(Color(uiColor: .secondarySystemBackground))
+                    .background(Color.Custom.secondaryBackground.color)
                     .clipShape(Capsule())
             }
             
@@ -108,7 +109,7 @@ private struct RecipeRow: View {
                 
                 Text(recipe.baristaName)
                     .font(.system(size: 12))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.Custom.darkBrown.color)
             }
             
             Divider()
@@ -121,7 +122,7 @@ private struct RecipeRow: View {
                     Text("\(recipe.totalBrewTime, specifier: "%.0f")초")
                         .font(.system(size: 12))
                 }
-                .foregroundColor(.gray)
+                .foregroundColor(Color.Custom.darkBrown.color)
                 
                 HStack(spacing: 4) {
                     Text("\(recipe.coffeeWeight, specifier: "%.0f")g")
@@ -129,13 +130,13 @@ private struct RecipeRow: View {
                     Text("\(recipe.waterWeight, specifier: "%.0f")ml")
                 }
                 .font(.system(size: 12))
-                .foregroundColor(.gray)
+                .foregroundColor(Color.Custom.darkBrown.color)
             }
         }
         .padding(16)
-        .background(Color(uiColor: .systemBackground))
+        .background(Color.Custom.secondaryBackground.color)
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
+        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 8, x: 0, y: 2)
     }
 }
 

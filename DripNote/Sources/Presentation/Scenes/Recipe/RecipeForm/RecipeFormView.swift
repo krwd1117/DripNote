@@ -27,10 +27,22 @@ public struct RecipeFormView: View {
             NotesSection(notes: $viewModel.notes)
         }
         .scrollContentBackground(.hidden)
-        .background(Color(uiColor: .systemGroupedBackground))
+        .background(Color.Custom.primaryBackground.color)
+        .tint(Color.Custom.darkBrown.color)
         .navigationTitle(viewModel.recipe == nil ? "레시피 작성" : "레시피 수정")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(Color.Custom.accentBrown.color)
+                }
+            }
+            
             ToolbarItem(placement: .topBarTrailing) {
                 Button("저장") {
                     Task {
@@ -41,6 +53,7 @@ public struct RecipeFormView: View {
                 .disabled(!viewModel.isValidRecipe)
             }
         }
+        .tint(Color.Custom.accentBrown.color)
         .sheet(isPresented: $showingStepSheet) {
             AddStepView(viewModel: viewModel)
         }
@@ -228,22 +241,22 @@ fileprivate struct BrewingStepRow: View {
             HStack {
                 Text("#\(step.pourNumber)")
                     .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(Color.Custom.darkBrown.color)
                 
                 Spacer()
                 
                 HStack(spacing: 4) {
                     Image(systemName: "drop.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.Custom.accentBrown.color)
                     Text("\(Int(step.pourAmount))ml")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.Custom.accentBrown.color)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.blue.opacity(0.1))
+                        .fill(Color.Custom.lightBrown.color.opacity(0.2))
                 )
             }
             
@@ -251,24 +264,24 @@ fileprivate struct BrewingStepRow: View {
             HStack(spacing: 6) {
                 Image(systemName: "clock.fill")
                     .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.Custom.darkBrown.color)
                 Text("\(step.formattedTime)에 시작")
                     .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.Custom.darkBrown.color)
             }
             
             // 하단: 설명 (있는 경우에만)
             if !step.desc.isEmpty {
                 Text(step.desc)
                     .font(.system(size: 15))
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.Custom.darkBrown.color)
                     .padding(.top, 4)
             }
         }
         .padding(16)
-        .background(Color(uiColor: .systemBackground))
+        .background(Color.Custom.secondaryBackground.color)
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 1)
+        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
         .onTapGesture {
             onEdit()
         }
@@ -301,11 +314,11 @@ fileprivate struct TemperatureSegment: View {
                         .font(.system(size: 14, weight: .medium))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .foregroundColor(brewingTemperature == temperature ? .white : .gray)
+                        .foregroundColor(brewingTemperature == temperature ? .white : Color.Custom.darkBrown.color)
                         .background {
                             if brewingTemperature == temperature {
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(temperature == .hot ? .red : .blue)
+                                    .fill(temperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
                                     .matchedGeometryEffect(id: "TAB", in: animation)
                             }
                         }
@@ -316,7 +329,7 @@ fileprivate struct TemperatureSegment: View {
         }
         .background {
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color(uiColor: .secondarySystemBackground))
+                .fill(Color.Custom.secondaryBackground.color)
         }
     }
 }
@@ -333,16 +346,15 @@ fileprivate struct ValueSliderInputView: View {
     var body: some View {
         VStack {
             HStack {
-                
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text("*")
-                        .foregroundColor(.red)
+                        .foregroundColor(Color.Custom.warmTerracotta.color)
                         .font(.footnote)
                         .bold()
                     
                     Text(title)
                         .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color.Custom.darkBrown.color)
                         .fontWeight(.semibold)
                 }
                 
@@ -360,10 +372,12 @@ fileprivate struct ValueSliderInputView: View {
                             }
                         }
                     Text(unit)
+                        .foregroundColor(Color.Custom.darkBrown.color)
                 }
             }
             
             Slider(value: $value, in: range, step: step)
+                .tint(Color.Custom.accentBrown.color)
                 .onChange(of: value) { _, newValue in
                     let newValueString = String(format: "%.1f", newValue)
                     if newValueString != stringValue {
@@ -413,6 +427,8 @@ private struct AddStepView: View {
                     TextField("설명 (예: 중심부터 원을 그리며 부어주세요)", text: $desc)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.Custom.primaryBackground.color)
             .navigationTitle("푸어링 단계 추가")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -434,6 +450,7 @@ private struct AddStepView: View {
                     }
                 }
             }
+            .tint(Color.Custom.accentBrown.color)
         }
     }
 }
@@ -463,14 +480,15 @@ private struct AddStepButton: View {
         } label: {
             HStack {
                 Image(systemName: "plus.circle.fill")
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(Color.Custom.accentBrown.color)
                 Text("푸어링 단계 추가")
                     .font(.footnote)
                     .fontWeight(.semibold)
+                    .foregroundColor(Color.Custom.accentBrown.color)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
-            .background(Color(uiColor: .secondarySystemBackground))
+            .background(Color.Custom.secondaryBackground.color)
             .cornerRadius(12)
         }
     }
@@ -521,6 +539,8 @@ private struct EditStepView: View {
                     TextField("설명 (예: 중심부터 원을 그리며 부어주세요)", text: $desc)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.Custom.primaryBackground.color)
             .navigationTitle("푸어링 단계 수정")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -543,6 +563,7 @@ private struct EditStepView: View {
                     }
                 }
             }
+            .tint(Color.Custom.accentBrown.color)
         }
     }
 }

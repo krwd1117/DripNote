@@ -35,6 +35,16 @@ public struct RecipeDetailView: View {
                 }
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        coordinator.pop()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(Color.Custom.darkBrown.color)
+                    }
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("수정") {
                         coordinator.push(.recipeEdit(viewModel.recipe))
@@ -43,15 +53,17 @@ public struct RecipeDetailView: View {
             }
             .padding()
         }
+        .tint(Color.Custom.darkBrown.color)
         .onAppear {
             tabBarState.isVisible = false
         }
         .onDisappear {
             tabBarState.isVisible = true
         }
-        .background(Color(uiColor: .systemGroupedBackground))
+        .background(Color.Custom.primaryBackground.color)
         .navigationTitle(viewModel.recipe.title)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -71,7 +83,7 @@ private struct TemperatureBadge: View {
             .padding(.vertical, 8)
             .background(
                 Capsule()
-                    .fill(temperature == .hot ? Color.red : Color.blue)
+                    .fill(temperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
             )
             
             Spacer()
@@ -181,36 +193,45 @@ private struct StepCard: View {
             HStack {
                 Text("#\(step.pourNumber)")
                     .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(Color.Custom.darkBrown.color)
                 
                 Spacer()
                 
                 HStack(spacing: 4) {
                     Image(systemName: "drop.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.Custom.darkBrown.color)
                     Text("\(Int(step.pourAmount))ml")
-                        .foregroundColor(.blue)
-                        .fontWeight(.semibold)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(Color.Custom.darkBrown.color)
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.Custom.lightBrown.color.opacity(0.2))
+                )
             }
             
-            HStack {
-                Image(systemName: "clock")
-                    .foregroundColor(.gray)
+            HStack(spacing: 6) {
+                Image(systemName: "clock.fill")
+                    .font(.system(size: 14))
+                    .foregroundColor(Color.Custom.darkBrown.color)
                 Text("\(step.formattedTime)에 시작")
-                    .foregroundColor(.gray)
+                    .font(.system(size: 14))
+                    .foregroundColor(Color.Custom.darkBrown.color)
             }
-            .font(.system(size: 14))
             
             if !step.desc.isEmpty {
                 Text(step.desc)
                     .font(.system(size: 15))
+                    .foregroundColor(Color.Custom.darkBrown.color)
                     .padding(.top, 4)
             }
         }
-        .padding()
-        .background(Color(uiColor: .systemBackground))
+        .padding(16)
+        .background(Color.Custom.secondaryBackground.color)
         .cornerRadius(12)
+        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
     }
 }
 
@@ -262,8 +283,8 @@ private struct CardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(16)
-            .background(Color(uiColor: .systemBackground))
+            .background(Color.Custom.secondaryBackground.color)
             .cornerRadius(16)
-            .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
+            .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 8, x: 0, y: 2)
     }
 }

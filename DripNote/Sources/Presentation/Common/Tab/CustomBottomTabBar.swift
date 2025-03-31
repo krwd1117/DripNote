@@ -43,9 +43,9 @@ public struct CustomBottomTabBar: View {
                     Button(action: onTapFloatingButton) {
                         ZStack {
                             Circle()
-                                .fill(Color.accentColor)
+                                .fill(Color.Custom.accentBrown.color)
                                 .frame(width: 60, height: 60)
-                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                .shadow(color: Color.Custom.darkBrown.color.opacity(0.2), radius: 5)
                             
                             Image(systemName: "plus")
                                 .font(.system(size: 24, weight: .semibold))
@@ -73,7 +73,7 @@ public struct CustomBottomTabBar: View {
                 Text(tab.title)
                     .font(.system(size: 12))
             }
-            .foregroundColor(selectedTab == tab ? .accentColor : .gray)
+            .foregroundColor(selectedTab == tab ? Color.Custom.darkBrown.color : Color.Custom.darkBrown.color.opacity(0.5))
         }
     }
 }
