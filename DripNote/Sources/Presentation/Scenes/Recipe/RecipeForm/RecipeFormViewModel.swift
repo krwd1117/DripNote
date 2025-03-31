@@ -65,24 +65,39 @@ public final class RecipeFormViewModel: ObservableObject {
     }
     
     func saveRecipe(modelContext: ModelContext) async throws {
-        let recipe = BrewingRecipe(
-            title: title,
-            baristaName: baristaName,
-            coffeeBeans: coffeeBeans,
-            brewingMethod: selectedMethod,
-            brewingTemperature: brewingTemperature,
-            coffeeWeight: coffeeWeight,
-            waterWeight: waterWeight,
-            waterTemperature: waterTemperature,
-            grindSize: grindSize,
-            steps: steps,
-            notes: notes
-        )
-        
-        if let _ = self.recipe {
-            try await useCase.updateRecipe(recipe)
+        if let existingRecipe = recipe {
+            // 기존 레시피 업데이트
+            existingRecipe.title = title
+            existingRecipe.baristaName = baristaName
+            existingRecipe.coffeeBeans = coffeeBeans
+            existingRecipe.brewingMethod = selectedMethod
+            existingRecipe.brewingTemperature = brewingTemperature
+            existingRecipe.coffeeWeight = coffeeWeight
+            existingRecipe.waterWeight = waterWeight
+            existingRecipe.waterTemperature = waterTemperature
+            existingRecipe.grindSize = grindSize
+            existingRecipe.steps = steps
+            existingRecipe.notes = notes
+            
+            try await useCase.updateRecipe(existingRecipe)
         } else {
-            try await useCase.createRecipe(recipe)
+            // 새 레시피 생성
+            let newRecipe = BrewingRecipe(
+                id: UUID(),
+                title: title,
+                baristaName: baristaName,
+                coffeeBeans: coffeeBeans,
+                brewingMethod: selectedMethod,
+                brewingTemperature: brewingTemperature,
+                coffeeWeight: coffeeWeight,
+                waterWeight: waterWeight,
+                waterTemperature: waterTemperature,
+                grindSize: grindSize,
+                steps: steps,
+                notes: notes
+            )
+            
+            try await useCase.createRecipe(newRecipe)
         }
     }
-} 
+}

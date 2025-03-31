@@ -3,6 +3,8 @@ import SwiftData
 import DripNoteDomain
 
 public struct RecipeDetailView: View {
+    @EnvironmentObject private var coordinator: RecipeCoordinator
+    @EnvironmentObject private var tabBarState: TabBarState
     @StateObject private var viewModel: RecipeDetailViewModel
     
     public init(viewModel: RecipeDetailViewModel) {
@@ -22,15 +24,30 @@ public struct RecipeDetailView: View {
                 // 추출 설정 섹션
                 BrewingSettingsSection(viewModel: viewModel)
                 
-                // 추출 단계 섹션
-                BrewingStepsSection(steps: viewModel.recipe.steps)
+                if viewModel.recipe.steps.isEmpty == false {
+                    // 추출 단계 섹션
+                    BrewingStepsSection(steps: viewModel.recipe.steps)
+                }
                 
                 // 메모 섹션
-                if !viewModel.recipe.notes.isEmpty {
+                if viewModel.recipe.notes.isEmpty == false {
                     NotesSection(notes: viewModel.recipe.notes)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("수정") {
+                        coordinator.push(.recipeEdit(viewModel.recipe))
+                    }
+                }
+            }
             .padding()
+        }
+        .onAppear {
+            tabBarState.isVisible = false
+        }
+        .onDisappear {
+            tabBarState.isVisible = true
         }
         .background(Color(uiColor: .systemGroupedBackground))
         .navigationTitle(viewModel.recipe.title)

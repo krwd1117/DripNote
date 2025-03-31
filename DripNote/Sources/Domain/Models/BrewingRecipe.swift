@@ -3,7 +3,7 @@ import SwiftData
 
 @Model
 public final class BrewingRecipe: Identifiable {
-    public var id: String = UUID().uuidString
+    @Attribute(.unique) public var id: UUID
     public var title: String
     public var baristaName: String
     public var coffeeBeans: String
@@ -17,6 +17,7 @@ public final class BrewingRecipe: Identifiable {
     public var notes: String
     
     public init(
+        id: UUID?,
         title: String,
         baristaName: String,
         coffeeBeans: String,
@@ -29,6 +30,7 @@ public final class BrewingRecipe: Identifiable {
         steps: [BrewingStep] = [],
         notes: String
     ) {
+        self.id = id ?? UUID()
         self.title = title
         self.baristaName = baristaName
         self.coffeeBeans = coffeeBeans

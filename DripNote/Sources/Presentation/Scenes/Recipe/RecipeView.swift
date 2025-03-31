@@ -65,6 +65,7 @@ public struct RecipeView: View {
                 .navigationTitle("나의 레시피")
                 .navigationDestination(for: RecipeCoordinator.Route.self) { route in
                     coordinator.view(for: route)
+                        .environmentObject(coordinator)
                 }
                 .onAppear {
                     tabBarState.isVisible = true
@@ -148,6 +149,7 @@ private struct RecipeRow: View {
 
 #Preview(body: {
     let recipe = BrewingRecipe(
+        id: UUID(),
         title: "레시피 제목",
         baristaName: "바리스타 이름",
         coffeeBeans: "원두",
