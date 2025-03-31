@@ -180,6 +180,7 @@ fileprivate struct CoffeeWaterTemperatureView: View {
 private struct BrewingStepsSection: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     @Binding var showingStepSheet: Bool
+    @State private var editingStep: BrewingStep?
     
     var body: some View {
         Section {
@@ -191,9 +192,12 @@ private struct BrewingStepsSection: View {
                         viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
                         id: \.pourNumber
                     ) { step in
-                        BrewingStepRow(step: step)
-                            .background(Color(uiColor: .secondarySystemBackground))
-                            .cornerRadius(12)
+                        BrewingStepRow(
+                            step: step,
+                            onEdit: { editingStep = step }
+                        )
+                        .background(Color(uiColor: .secondarySystemBackground))
+                        .cornerRadius(12)
                     }
                     .onDelete { indexSet in
                         indexSet.forEach { viewModel.removeStep(at: $0) }
@@ -204,37 +208,70 @@ private struct BrewingStepsSection: View {
             }
             .padding(.vertical, 8)
         }
+        .sheet(item: $editingStep) { step in
+            EditStepView(
+                viewModel: viewModel,
+                step: step
+            )
+        }
     }
 }
 
 // MARK: - Brewing Step Row
 fileprivate struct BrewingStepRow: View {
     let step: BrewingStep
+    let onEdit: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("#\(step.pourNumber)")
-                .font(.headline)
-                .foregroundColor(.accentColor)
-            
+        VStack(alignment: .leading, spacing: 12) {
+            // 상단: 단계 번호와 물량
             HStack {
-                Text("\(Int(step.pourAmount))ml")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                Text("#\(step.pourNumber)")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.accentColor)
                 
                 Spacer()
                 
+                HStack(spacing: 4) {
+                    Image(systemName: "drop.fill")
+                        .foregroundColor(.blue)
+                    Text("\(Int(step.pourAmount))ml")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.blue)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.blue.opacity(0.1))
+                )
+            }
+            
+            // 중간: 시작 시간
+            HStack(spacing: 6) {
+                Image(systemName: "clock.fill")
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
                 Text("\(step.formattedTime)에 시작")
-                    .font(.subheadline)
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
             
+            // 하단: 설명 (있는 경우에만)
             if !step.desc.isEmpty {
                 Text(step.desc)
-                    .font(.body)
+                    .font(.system(size: 15))
+                    .foregroundColor(.primary)
+                    .padding(.top, 4)
             }
         }
-        .padding(.vertical, 4)
+        .padding(16)
+        .background(Color(uiColor: .systemBackground))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 1)
+        .onTapGesture {
+            onEdit()
+        }
     }
 }
 
@@ -435,6 +472,77 @@ private struct AddStepButton: View {
             .padding(.vertical, 12)
             .background(Color(uiColor: .secondarySystemBackground))
             .cornerRadius(12)
+        }
+    }
+}
+
+// MARK: - Edit Step View
+private struct EditStepView: View {
+    @Environment(\.dismiss) private var dismiss
+    let viewModel: RecipeFormViewModel
+    let step: BrewingStep
+    
+    @State private var pourAmount: Double
+    @State private var pourTime: Double
+    @State private var desc: String
+    
+    init(viewModel: RecipeFormViewModel, step: BrewingStep) {
+        self.viewModel = viewModel
+        self.step = step
+        _pourAmount = State(initialValue: step.pourAmount)
+        _pourTime = State(initialValue: step.pourTime)
+        _desc = State(initialValue: step.desc)
+    }
+    
+    var isValid: Bool {
+        pourAmount > 0 && pourTime > 0
+    }
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section("푸어링 정보") {
+                    ValueSliderInputView(
+                        title: "물의 양",
+                        unit: "ml",
+                        range: 0...200,
+                        step: 10,
+                        value: $pourAmount
+                    )
+                    
+                    ValueSliderInputView(
+                        title: "시작 시간",
+                        unit: "초",
+                        range: 0...300,
+                        step: 10,
+                        value: $pourTime
+                    )
+                    
+                    TextField("설명 (예: 중심부터 원을 그리며 부어주세요)", text: $desc)
+                }
+            }
+            .navigationTitle("푸어링 단계 수정")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("완료") {
+                        viewModel.updateStep(
+                            step,
+                            pourAmount: pourAmount,
+                            pourTime: pourTime,
+                            desc: desc
+                        )
+                        dismiss()
+                    }
+                    .disabled(!isValid)
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("취소") {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

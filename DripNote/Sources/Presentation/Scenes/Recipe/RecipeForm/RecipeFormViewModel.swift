@@ -64,6 +64,14 @@ public final class RecipeFormViewModel: ObservableObject {
         }
     }
     
+    func updateStep(_ step: BrewingStep, pourAmount: Double, pourTime: Double, desc: String) {
+        if let index = steps.firstIndex(where: { $0.pourNumber == step.pourNumber }) {
+            steps[index].pourAmount = pourAmount
+            steps[index].pourTime = pourTime
+            steps[index].desc = desc
+        }
+    }
+    
     func saveRecipe(modelContext: ModelContext) async throws {
         if let existingRecipe = recipe {
             // 기존 레시피 업데이트
