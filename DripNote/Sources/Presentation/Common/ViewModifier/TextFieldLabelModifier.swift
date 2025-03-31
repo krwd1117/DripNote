@@ -5,7 +5,7 @@ struct TextFieldLabelModifier: ViewModifier {
     let label: String
     let spacing: CGFloat
 
-    init(required: Bool = true, label: String, spacing: CGFloat = 6) {
+    init(required: Bool = false, label: String, spacing: CGFloat = 15) {
         self.required = required
         self.label = label
         self.spacing = spacing

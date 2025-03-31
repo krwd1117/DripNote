@@ -26,6 +26,8 @@ public struct RecipeFormView: View {
             )
             NotesSection(notes: $viewModel.notes)
         }
+        .scrollContentBackground(.hidden)
+        .background(Color(uiColor: .systemGroupedBackground))
         .navigationTitle(viewModel.recipe == nil ? "레시피 작성" : "레시피 수정")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -57,12 +59,19 @@ private struct BasicInfoSection: View {
     
     var body: some View {
         Section {
-            TextField("ex) 나만의 레시피", text: $viewModel.title)
-                .modifier(TextFieldLabelModifier(required: true, label: "레시피 제목"))
-            TextField("ex) 나", text: $viewModel.baristaName)
-                .modifier(TextFieldLabelModifier(label: "바리스타 이름"))
+            VStack(alignment: .leading, spacing: 16) {
+                TextField("ex) 나만의 레시피", text: $viewModel.title)
+                    .font(.system(size: 16))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .modifier(TextFieldLabelModifier(required: true, label: "레시피 제목"))
+                
+                TextField("ex) 나", text: $viewModel.baristaName)
+                    .font(.system(size: 16))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .modifier(TextFieldLabelModifier(label: "바리스타 이름"))
+            }
+            .padding(.vertical, 8)
         }
-        .background(Color.white)
     }
 }
 
@@ -71,26 +80,49 @@ private struct BrewingSettingsSection: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     
     var body: some View {
-        Section("원두 & 추출 설정") {
-            TextField("ex) 어린왕자", text: $viewModel.coffeeBeans)
-                .modifier(TextFieldLabelModifier(label: "원두 이름"))
-            
-            Picker("", selection: $viewModel.selectedMethod) {
-                ForEach(BrewingMethod.allCases, id: \.self) { method in
-                    Text(method.displayName)
-                        .tag(method)
+        Section {
+            VStack(spacing: 20) {
+                // 원두 정보
+                VStack(alignment: .leading, spacing: 16) {
+                    TextField("ex) 어린왕자", text: $viewModel.coffeeBeans)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .modifier(TextFieldLabelModifier(required: true, label: "원두 이름"))
+                    
+                    // 온도 설정 세그먼트
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("온도 설정")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .fontWeight(.semibold)
+                        
+                        TemperatureSegment(brewingTemperature: $viewModel.brewingTemperature)
+                    }
                 }
+                
+                // 추출 도구 및 분쇄도
+                VStack(alignment: .leading, spacing: 16) {
+                    Picker("", selection: $viewModel.selectedMethod) {
+                        ForEach(BrewingMethod.allCases, id: \.self) { method in
+                            Text(method.displayName)
+                                .tag(method)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .modifier(TextFieldLabelModifier(label: "추출도구"))
+                    
+                    TextField("ex) 중간 || 27 클릭", text: $viewModel.grindSize)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .modifier(TextFieldLabelModifier(label: "분쇄도"))
+                }
+                
+                // 물량 및 온도 설정
+                CoffeeWaterTemperatureView(
+                    coffeeWeight: $viewModel.coffeeWeight,
+                    waterWeight: $viewModel.waterWeight,
+                    temperature: $viewModel.waterTemperature
+                )
             }
-            .modifier(TextFieldLabelModifier(label: "추출도구"))
-            
-            TextField("ex) 중간 || 27 클릭", text: $viewModel.grindSize)
-                .modifier(TextFieldLabelModifier(label: "분쇄도"))
-            
-            CoffeeWaterTemperatureView(
-                coffeeWeight: $viewModel.coffeeWeight,
-                waterWeight: $viewModel.waterWeight,
-                temperature: $viewModel.waterTemperature
-            )
+            .padding(.vertical, 8)
         }
     }
 }
@@ -150,30 +182,27 @@ private struct BrewingStepsSection: View {
     @Binding var showingStepSheet: Bool
     
     var body: some View {
-        Section("추출 단계") {
-            if viewModel.steps.isEmpty {
-                Text("단계를 추가해주세요")
-                    .foregroundColor(.gray)
-            } else {
-                ForEach(
-                    viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
-                    id: \.pourNumber
-                ) { step in
-                    BrewingStepRow(step: step)
+        Section {
+            VStack(spacing: 16) {
+                if viewModel.steps.isEmpty {
+                    EmptyStepsView()
+                } else {
+                    ForEach(
+                        viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
+                        id: \.pourNumber
+                    ) { step in
+                        BrewingStepRow(step: step)
+                            .background(Color(uiColor: .secondarySystemBackground))
+                            .cornerRadius(12)
+                    }
+                    .onDelete { indexSet in
+                        indexSet.forEach { viewModel.removeStep(at: $0) }
+                    }
                 }
-                .onDelete { indexSet in
-                    indexSet.forEach { viewModel.removeStep(at: $0) }
-                }
+                
+                AddStepButton(showingStepSheet: $showingStepSheet)
             }
-            
-            Button {
-                showingStepSheet = true
-            } label: {
-                HStack {
-                    Image(systemName: "plus.circle.fill")
-                    Text("푸어링 단계 추가")
-                }
-            }
+            .padding(.vertical, 8)
         }
     }
 }
@@ -183,20 +212,27 @@ fileprivate struct BrewingStepRow: View {
     let step: BrewingStep
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("#\(step.pourNumber)")
+                .font(.headline)
+                .foregroundColor(.accentColor)
+            
             HStack {
-                Text("#\(step.pourNumber)")
-                    .font(.headline)
-                    .foregroundColor(.accentColor)
-                Spacer()
                 Text("\(Int(step.pourAmount))ml")
                     .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                Spacer()
+                
+                Text("\(step.formattedTime)에 시작")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
             }
-            Text("\(step.formattedTime)에 시작")
-                .font(.caption)
-                .foregroundColor(.gray)
-            Text(step.desc)
-                .font(.body)
+            
+            if !step.desc.isEmpty {
+                Text(step.desc)
+                    .font(.body)
+            }
         }
         .padding(.vertical, 4)
     }
@@ -208,6 +244,42 @@ fileprivate struct NotesSection: View {
     var body: some View {
         Section("메모") {
             TextField("메모를 입력하세요", text: $notes)
+        }
+    }
+}
+
+fileprivate struct TemperatureSegment: View {
+    @Binding var brewingTemperature: BrewingTemperature
+    @Namespace private var animation
+    
+    var body: some View {
+        HStack {
+            ForEach(BrewingTemperature.allCases, id: \.self) { temperature in
+                Button {
+                    withAnimation(.spring()) {
+                        brewingTemperature = temperature
+                    }
+                } label: {
+                    Text(temperature.displayName)
+                        .font(.system(size: 14, weight: .medium))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .foregroundColor(brewingTemperature == temperature ? .white : .gray)
+                        .background {
+                            if brewingTemperature == temperature {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(temperature == .hot ? .red : .blue)
+                                    .matchedGeometryEffect(id: "TAB", in: animation)
+                            }
+                        }
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(uiColor: .secondarySystemBackground))
         }
     }
 }
@@ -224,7 +296,19 @@ fileprivate struct ValueSliderInputView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(title)
+                
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text("*")
+                        .foregroundColor(.red)
+                        .font(.footnote)
+                        .bold()
+                    
+                    Text(title)
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .fontWeight(.semibold)
+                }
+                
                 Spacer()
                 HStack {
                     TextField("\(value)", text: $stringValue)
@@ -262,8 +346,12 @@ private struct AddStepView: View {
     let viewModel: RecipeFormViewModel
     
     @State private var pourAmount: Double = 60
-    @State private var pourTime: Double = 0
+    @State private var pourTime: Double = 30
     @State private var desc: String = ""
+    
+    var isValid: Bool {
+        pourAmount > 0 && pourTime > 0
+    }
     
     var body: some View {
         NavigationView {
@@ -300,7 +388,7 @@ private struct AddStepView: View {
                         )
                         dismiss()
                     }
-                    .disabled(pourAmount <= 0)
+                    .disabled(!isValid)
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
@@ -309,6 +397,44 @@ private struct AddStepView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+private struct EmptyStepsView: View {
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "list.bullet.clipboard")
+                .font(.system(size: 40))
+                .foregroundColor(.gray)
+            Text("단계를 추가해주세요")
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                .fontWeight(.semibold)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 24)
+    }
+}
+
+private struct AddStepButton: View {
+    @Binding var showingStepSheet: Bool
+    
+    var body: some View {
+        Button {
+            showingStepSheet = true
+        } label: {
+            HStack {
+                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(.accentColor)
+                Text("푸어링 단계 추가")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(Color(uiColor: .secondarySystemBackground))
+            .cornerRadius(12)
         }
     }
 }

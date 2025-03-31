@@ -27,32 +27,42 @@ public struct RecipeView: View {
                             systemImageName: "cup.and.saucer"
                         )
                     } else {
-                        List {
-                            ForEach(viewModel.recipes) { recipe in
-                                Button {
-                                    coordinator.push(.recipeDetail(recipe))
-                                } label: {
-                                    RecipeRow(recipe: recipe)
-                                }
-                                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                    Button(role: .destructive) {
-                                        viewModel.deleteRecipe(recipe)
-                                    } label: {
-                                        Label("삭제", systemImage: "trash")
-                                    }
-                                    
+                        ScrollView {
+                            LazyVGrid(
+                                columns: [
+                                    GridItem(.flexible(), spacing: 16),
+                                    GridItem(.flexible(), spacing: 16)
+                                ],
+                                spacing: 16
+                            ) {
+                                ForEach(viewModel.recipes) { recipe in
                                     Button {
-                                        coordinator.push(.recipeEdit(recipe))
+                                        coordinator.push(.recipeDetail(recipe))
                                     } label: {
-                                        Label("수정", systemImage: "pencil")
+                                        RecipeRow(recipe: recipe)
+                                            .contextMenu {
+                                                Button(role: .destructive) {
+                                                    viewModel.deleteRecipe(recipe)
+                                                } label: {
+                                                    Label("삭제", systemImage: "trash")
+                                                }
+                                                
+                                                Button {
+                                                    coordinator.push(.recipeEdit(recipe))
+                                                } label: {
+                                                    Label("수정", systemImage: "pencil")
+                                                }
+                                            }
                                     }
-                                    .tint(.orange)
                                 }
                             }
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
                         }
+                        .background(Color(uiColor: .systemGroupedBackground))
                     }
                 }
-                .navigationTitle("레시피")
+                .navigationTitle("나의 레시피")
                 .navigationDestination(for: RecipeCoordinator.Route.self) { route in
                     coordinator.view(for: route)
                 }
@@ -72,22 +82,85 @@ private struct RecipeRow: View {
     let recipe: BrewingRecipe
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(recipe.title)
-                .font(.headline)
-            Text(recipe.baristaName)
-                .font(.subheadline)
+        VStack(alignment: .leading, spacing: 12) {
+            // 상단 아이콘 및 메소드
+            HStack {
+                Image(systemName: recipe.brewingTemperature == .hot ? "flame.fill" : "snowflake")
+                    .foregroundStyle(recipe.brewingTemperature == .hot ? Color.red : Color.blue)
+                    .font(.system(size: 18))
+                
+                Spacer()
+                
+                Text(recipe.brewingMethod.displayName)
+                    .font(.caption)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color(uiColor: .secondarySystemBackground))
+                    .clipShape(Capsule())
+            }
+            
+            // 제목 및 바리스타
+            VStack(alignment: .leading, spacing: 4) {
+                Text(recipe.title)
+                    .font(.system(size: 16, weight: .semibold))
+                    .lineLimit(1)
+                
+                Text(recipe.baristaName)
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
+            
+            Divider()
+            
+            // 추출 정보
+            HStack(spacing: 12) {
+                HStack(spacing: 4) {
+                    Image(systemName: "timer")
+                        .font(.system(size: 12))
+                    Text("\(recipe.totalBrewTime, specifier: "%.0f")초")
+                        .font(.system(size: 12))
+                }
                 .foregroundColor(.gray)
-            Text("\(recipe.coffeeWeight, specifier: "%.0f")g")
-                .font(.caption)
+                
+                HStack(spacing: 4) {
+                    Text("\(recipe.coffeeWeight, specifier: "%.0f")g")
+                    Text(":")
+                    Text("\(recipe.waterWeight, specifier: "%.0f")ml")
+                }
+                .font(.system(size: 12))
                 .foregroundColor(.gray)
-            Text("\(recipe.waterWeight, specifier: "%.0f")ml")
-                .font(.caption)
-                .foregroundColor(.gray)
+            }
         }
+        .padding(16)
+        .background(Color(uiColor: .systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
     }
 }
 
-#Preview {
-    RecipeView(coordinator: RecipeCoordinator())
-}
+//#Preview {
+//    @StateObject var tabBarState: TabBarState = .init(isVisible: true)
+//    
+//    RecipeView(coordinator: RecipeCoordinator())
+//        .environmentObject(tabBarState)
+//}
+
+
+#Preview(body: {
+    let recipe = BrewingRecipe(
+        title: "레시피 제목",
+        baristaName: "바리스타 이름",
+        coffeeBeans: "원두",
+        brewingMethod: .v60,
+        brewingTemperature: .hot,
+        coffeeWeight: 20,
+        waterWeight: 200,
+        waterTemperature: 93,
+        grindSize: "27",
+        steps: [
+            .init(pourNumber: 1, pourAmount: 30, pourTime: 30, desc: "")
+        ],
+        notes: ""
+    )
+    RecipeRow(recipe: recipe)
+})

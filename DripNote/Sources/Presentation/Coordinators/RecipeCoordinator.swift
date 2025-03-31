@@ -35,7 +35,7 @@ public final class RecipeCoordinator: Coordinator {
         case .recipeCreate:
             RecipeFormView(recipe: nil, useCase: DIContainer.shared.resolve(RecipeUseCase.self))
         case .recipeDetail(let recipe):
-            let viewModel = RecipeDetailViewModel(recipe: recipe, modelContext: modelContext)
+            let viewModel = RecipeDetailViewModel(recipe: recipe)
             RecipeDetailView(viewModel: viewModel)
         case .recipeEdit(let recipe):
             RecipeFormView(recipe: recipe, useCase: DIContainer.shared.resolve(RecipeUseCase.self))

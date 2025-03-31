@@ -12,6 +12,10 @@ public struct RecipeDetailView: View {
     public var body: some View {
         ScrollView {
             VStack(spacing: 24) {
+                // 상단 배지
+                TemperatureBadge(temperature: viewModel.recipe.brewingTemperature)
+                    .padding(.top)
+                
                 // 기본 정보 섹션
                 BasicInfoSection(viewModel: viewModel)
                 
@@ -19,17 +23,42 @@ public struct RecipeDetailView: View {
                 BrewingSettingsSection(viewModel: viewModel)
                 
                 // 추출 단계 섹션
-                BrewingStepsSection(steps: viewModel.steps)
+                BrewingStepsSection(steps: viewModel.recipe.steps)
                 
                 // 메모 섹션
-                if let notes = viewModel.notes, !notes.isEmpty {
-                    NotesSection(notes: notes)
+                if !viewModel.recipe.notes.isEmpty {
+                    NotesSection(notes: viewModel.recipe.notes)
                 }
             }
             .padding()
         }
-        .navigationTitle(viewModel.title)
+        .background(Color(uiColor: .systemGroupedBackground))
+        .navigationTitle(viewModel.recipe.title)
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+// MARK: - Temperature Badge
+private struct TemperatureBadge: View {
+    let temperature: BrewingTemperature
+    
+    var body: some View {
+        HStack {
+            HStack(spacing: 8) {
+                Image(systemName: temperature == .hot ? "flame.fill" : "snowflake")
+                Text(temperature.displayName)
+                    .font(.system(size: 14, weight: .semibold))
+            }
+            .foregroundColor(.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(temperature == .hot ? Color.red : Color.blue)
+            )
+            
+            Spacer()
+        }
     }
 }
 
@@ -39,29 +68,15 @@ private struct BasicInfoSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("기본 정보")
-                .font(.title2)
-                .fontWeight(.bold)
+            SectionHeader(title: "기본 정보")
             
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("바리스타")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text(viewModel.baristaName)
-                }
-                
-                HStack {
-                    Text("원두")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text(viewModel.coffeeBeans)
-                }
+            VStack(alignment: .leading, spacing: 12) {
+                InfoRow(label: "바리스타", value: viewModel.recipe.baristaName)
+                InfoRow(label: "원두", value: viewModel.recipe.coffeeBeans)
+                InfoRow(label: "추출 도구", value: viewModel.recipe.brewingMethod.displayName)
             }
         }
-        .padding()
-        .background(Color(uiColor: .secondarySystemBackground))
-        .cornerRadius(12)
+        .modifier(CardModifier())
     }
 }
 
@@ -71,43 +86,52 @@ private struct BrewingSettingsSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("추출 설정")
-                .font(.title2)
-                .fontWeight(.bold)
+            SectionHeader(title: "추출 설정")
             
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("커피 : 물 비율")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text("\(viewModel.coffeeWeight, specifier: "%.1f")g : \(viewModel.waterWeight, specifier: "%.0f")ml")
-                }
+            VStack(alignment: .leading, spacing: 12) {
+                RatioView(coffeeWeight: viewModel.recipe.coffeeWeight, waterWeight: viewModel.recipe.waterWeight)
                 
-                HStack {
-                    Text("물 온도")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text("\(viewModel.waterTemperature, specifier: "%.0f")°C")
-                }
+                InfoRow(
+                    label: "물 온도",
+                    value: "\(viewModel.recipe.waterTemperature)°C", // specifier: "%.0f"
+                    valueColor: .orange
+                )
                 
-                HStack {
-                    Text("분쇄도")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text(viewModel.grindSize)
-                }
+                InfoRow(label: "분쇄도", value: viewModel.recipe.grindSize)
                 
-                HStack {
-                    Text("총 추출 시간")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text("\(viewModel.totalBrewTime)초")
-                }
+                InfoRow(
+                    label: "총 추출 시간",
+                    value: "\(viewModel.recipe.totalBrewTime)초",
+                    valueColor: .blue
+                )
             }
         }
-        .padding()
-        .background(Color(uiColor: .secondarySystemBackground))
-        .cornerRadius(12)
+        .modifier(CardModifier())
+    }
+}
+
+// MARK: - Ratio View
+private struct RatioView: View {
+    let coffeeWeight: Double
+    let waterWeight: Double
+    
+    var body: some View {
+        HStack {
+            Text("커피 : 물")
+                .foregroundColor(.gray)
+                .font(.system(size: 15))
+            
+            Spacer()
+            
+            Text("\(coffeeWeight, specifier: "%.1f")g")
+                .fontWeight(.semibold)
+            
+            Text(":")
+                .foregroundColor(.gray)
+            
+            Text("\(waterWeight, specifier: "%.0f")ml")
+                .fontWeight(.semibold)
+        }
     }
 }
 
@@ -117,20 +141,18 @@ private struct BrewingStepsSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("추출 단계")
-                .font(.title2)
-                .fontWeight(.bold)
+            SectionHeader(title: "추출 단계")
             
-            ForEach(
-                steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
-                id: \.pourNumber
-            ) { step in
-                StepCard(step: step)
+            VStack(spacing: 12) {
+                ForEach(
+                    steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
+                    id: \.pourNumber
+                ) { step in
+                    StepCard(step: step)
+                }
             }
         }
-        .padding()
-        .background(Color(uiColor: .secondarySystemBackground))
-        .cornerRadius(12)
+        .modifier(CardModifier())
     }
 }
 
@@ -138,44 +160,93 @@ private struct StepCard: View {
     let step: BrewingStep
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("단계 \(step.pourNumber)")
-                    .font(.headline)
+                Text("#\(step.pourNumber)")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.accentColor)
+                
                 Spacer()
-                Text("\(Int(step.pourAmount))ml")
-                    .font(.subheadline)
-                    .foregroundColor(.blue)
+                
+                HStack(spacing: 4) {
+                    Image(systemName: "drop.fill")
+                        .foregroundColor(.blue)
+                    Text("\(Int(step.pourAmount))ml")
+                        .foregroundColor(.blue)
+                        .fontWeight(.semibold)
+                }
             }
             
-            Text("\(step.formattedTime)에 시작")
-                .font(.subheadline)
-                .foregroundColor(.gray)
+            HStack {
+                Image(systemName: "clock")
+                    .foregroundColor(.gray)
+                Text("\(step.formattedTime)에 시작")
+                    .foregroundColor(.gray)
+            }
+            .font(.system(size: 14))
             
-            Text(step.desc)
-                .font(.body)
+            if !step.desc.isEmpty {
+                Text(step.desc)
+                    .font(.system(size: 15))
+                    .padding(.top, 4)
+            }
         }
         .padding()
         .background(Color(uiColor: .systemBackground))
-        .cornerRadius(8)
+        .cornerRadius(12)
     }
 }
 
 // MARK: - Notes Section
-fileprivate struct NotesSection: View {
+private struct NotesSection: View {
     let notes: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("메모")
-                .font(.title2)
-                .fontWeight(.bold)
+            SectionHeader(title: "메모")
             
             Text(notes)
-                .font(.body)
+                .font(.system(size: 15))
         }
-        .padding()
-        .background(Color(uiColor: .secondarySystemBackground))
-        .cornerRadius(12)
+        .modifier(CardModifier())
+    }
+}
+
+// MARK: - Common Views
+private struct SectionHeader: View {
+    let title: String
+    
+    var body: some View {
+        Text(title)
+            .font(.system(size: 20, weight: .bold))
+    }
+}
+
+private struct InfoRow: View {
+    let label: String
+    let value: String
+    var valueColor: Color = .primary
+    
+    var body: some View {
+        HStack {
+            Text(label)
+                .foregroundColor(.gray)
+                .font(.system(size: 15))
+            Spacer()
+            Text(value)
+                .foregroundColor(valueColor)
+                .fontWeight(.medium)
+        }
+    }
+}
+
+// MARK: - Modifiers
+private struct CardModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(16)
+            .background(Color(uiColor: .systemBackground))
+            .cornerRadius(16)
+            .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
     }
 }

@@ -8,6 +8,7 @@ public final class RecipeFormViewModel: ObservableObject {
     @Published var baristaName: String = ""
     @Published var coffeeBeans: String = ""
     @Published var selectedMethod: BrewingMethod = .v60
+    @Published var brewingTemperature: BrewingTemperature = .hot
     @Published var grindSize: String = ""
     @Published var coffeeWeight: Double = 20
     @Published var waterWeight: Double = 200
@@ -19,7 +20,11 @@ public final class RecipeFormViewModel: ObservableObject {
     private let useCase: RecipeUseCase
     
     var isValidRecipe: Bool {
-        !title.isEmpty && !steps.isEmpty
+        !title.isEmpty
+        && !coffeeBeans.isEmpty
+        && !coffeeWeight.isZero
+        && !waterWeight.isZero
+        && !waterTemperature.isZero
     }
     
     public init(recipe: BrewingRecipe? = nil, useCase: RecipeUseCase) {
@@ -31,6 +36,7 @@ public final class RecipeFormViewModel: ObservableObject {
             self.baristaName = recipe.baristaName
             self.coffeeBeans = recipe.coffeeBeans
             self.selectedMethod = recipe.brewingMethod
+            self.brewingTemperature = recipe.brewingTemperature
             self.grindSize = recipe.grindSize
             self.coffeeWeight = recipe.coffeeWeight
             self.waterWeight = recipe.waterWeight
@@ -64,6 +70,7 @@ public final class RecipeFormViewModel: ObservableObject {
             baristaName: baristaName,
             coffeeBeans: coffeeBeans,
             brewingMethod: selectedMethod,
+            brewingTemperature: brewingTemperature,
             coffeeWeight: coffeeWeight,
             waterWeight: waterWeight,
             waterTemperature: waterTemperature,
@@ -72,7 +79,7 @@ public final class RecipeFormViewModel: ObservableObject {
             notes: notes
         )
         
-        if let existingRecipe = self.recipe {
+        if let _ = self.recipe {
             try await useCase.updateRecipe(recipe)
         } else {
             try await useCase.createRecipe(recipe)

@@ -8,6 +8,7 @@ public final class BrewingRecipe: Identifiable {
     public var baristaName: String
     public var coffeeBeans: String
     public var brewingMethod: BrewingMethod
+    public var brewingTemperature: BrewingTemperature
     public var coffeeWeight: Double
     public var waterWeight: Double
     public var waterTemperature: Double
@@ -20,6 +21,7 @@ public final class BrewingRecipe: Identifiable {
         baristaName: String,
         coffeeBeans: String,
         brewingMethod: BrewingMethod,
+        brewingTemperature: BrewingTemperature,
         coffeeWeight: Double,
         waterWeight: Double,
         waterTemperature: Double,
@@ -31,6 +33,7 @@ public final class BrewingRecipe: Identifiable {
         self.baristaName = baristaName
         self.coffeeBeans = coffeeBeans
         self.brewingMethod = brewingMethod
+        self.brewingTemperature = brewingTemperature
         self.coffeeWeight = coffeeWeight
         self.waterWeight = waterWeight
         self.waterTemperature = waterTemperature
@@ -39,10 +42,9 @@ public final class BrewingRecipe: Identifiable {
         self.notes = notes
     }
     
-    // MARK: - Computed Properties
     public var totalBrewTime: Double {
         guard let lastStep = steps.max(by: { $0.pourTime < $1.pourTime }) else { return 0 }
-        return lastStep.pourTime + 30 // 마지막 푸어 후 30초 드립
+        return lastStep.pourTime
     }
     
     public var totalWaterAmount: Double {
