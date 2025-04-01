@@ -14,19 +14,6 @@ struct DripNoteApp: App {
     @State private var showingSplash = true
     @StateObject private var splashViewModel: SplashViewModel = SplashViewModel()
     
-    private let container: ModelContainer
-    
-    init() {
-        
-        do {
-            container = try ModelContainerFactory.create()
-        } catch {
-            fatalError("Could not initialize ModelContainer: \(error)")
-        }
-        
-        setupDependencies()
-    }
-    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -43,10 +30,6 @@ struct DripNoteApp: App {
                 }
             }
         }
-        .modelContainer(container)
-    }
-    
-    private func setupDependencies() {
-        DIContainer.shared.build(modelContext: container.mainContext)
+        .modelContainer(appDelegate.container)
     }
 }

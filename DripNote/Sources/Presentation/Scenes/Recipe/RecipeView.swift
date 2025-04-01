@@ -61,7 +61,8 @@ public struct RecipeView: View {
                     .background(Color.Custom.primaryBackground.color)
                 }
             }
-            .navigationTitle("나의 레시피")
+            .navigationTitle("내 레시피")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: RecipeCoordinator.Route.self) { route in
                 coordinator.view(for: route)
                     .environmentObject(coordinator)

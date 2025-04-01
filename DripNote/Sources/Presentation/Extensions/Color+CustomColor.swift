@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Color {
-    enum Custom {
+    public enum Custom {
         case accentBrown
         case calmSky
         case darkBrown
@@ -10,7 +10,7 @@ extension Color {
         case secondaryBackground
         case warmTerracotta
         
-        var color: Color {
+        public var color: Color {
             switch self {
             case .accentBrown:
                 Color("accentBrown")

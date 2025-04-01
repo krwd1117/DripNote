@@ -1,8 +1,15 @@
 import Foundation
 import SwiftData
 
+public protocol BrewingStepProtocol {
+    var pourNumber: Int { get set}
+    var pourAmount: Double { get set }
+    var pourTime: Double { get set }
+    var desc: String { get set }
+}
+
 @Model
-public final class BrewingStep {
+public final class BrewingStep: BrewingStepProtocol {
     public var pourNumber: Int
     public var pourAmount: Double
     public var pourTime: Double

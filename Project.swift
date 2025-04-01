@@ -103,7 +103,8 @@ let project = Project(
             sources: ["DripNote/Sources/Data/**"],
             resources: [],
             dependencies: [
-                .target(name: "DripNoteDomain")
+                .target(name: "DripNoteDomain"),
+                .package(product: "FirebaseFirestore")
             ]
         ),
         .target(

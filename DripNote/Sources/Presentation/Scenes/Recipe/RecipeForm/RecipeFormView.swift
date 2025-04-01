@@ -32,6 +32,7 @@ public struct RecipeFormView: View {
                     .listRowBackground(Color.clear)
             }
         }
+        .background(NavigationGestureEnabler())
         .scrollContentBackground(.hidden)
         .background(Color.Custom.primaryBackground.color)
         .ignoresSafeArea(.container, edges: .bottom)

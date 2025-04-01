@@ -41,8 +41,12 @@ public final class DIContainer {
 // MARK: - Registration
 private extension DIContainer {
     func registerRepositories(modelContext: ModelContext) {
-        let repository = RecipeRepositoryImpl(modelContext: modelContext)
+        let dataSource = LocalBrewingRecipeDataSource(modelContext: modelContext)
+        let repository = LocalBrewingRecipeRepositoryImpl(dataSource: dataSource)
         register(RecipeUseCase.self, instance: DefaultRecipeUseCase(repository: repository))
+        
+        let firebaseBrewingrepository = FirestoreBrewingRecipeRepositoryImpl()
+        register(FirestoreRecipeUseCase.self, instance: DefaultFirestoreRecipeUseCase(repository: firebaseBrewingrepository))
     }
     
     func registerUseCases() {}

@@ -5,4 +5,4 @@ public protocol RecipeRepository {
     func createRecipe(_ recipe: BrewingRecipe) async throws
     func updateRecipe(_ recipe: BrewingRecipe) async throws
     func deleteRecipe(_ recipe: BrewingRecipe) async throws
-} 
+}
