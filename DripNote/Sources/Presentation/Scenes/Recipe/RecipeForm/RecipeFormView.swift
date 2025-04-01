@@ -254,42 +254,17 @@ private struct BrewingStepsSection: View {
             if viewModel.steps.isEmpty {
                 EmptyStepsView()
             } else {
-                List {
-                    ForEach(
-                        viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
-                        id: \.pourNumber
-                    ) { step in
-                        BrewingStepRow(
-                            step: step,
-                            onEdit: {
-                                onEdit(step)
-                            }
-                        )
-                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
-                        .listRowSeparator(.hidden)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button {
-                                onEdit(step)
-                            } label: {
-                                Image(systemName: "pencil")
-                            }
-                            .tint(Color.Custom.accentBrown.color)
-                            
-                            Button(role: .destructive) {
-                                if let index = viewModel.steps.firstIndex(where: { $0.pourNumber == step.pourNumber }) {
-                                    viewModel.removeStep(at: index)
-                                }
-                            } label: {
-                                Image(systemName: "trash")
-                            }
-                            .tint(Color.Custom.warmTerracotta.color)
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
-                    }
+                ForEach(
+                    viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
+                    id: \.pourNumber
+                ) { step in
+                    Button(action: {
+                        onEdit(step)
+                    }, label: {
+                        RecipeStepRow(step: step)
+                    })
+                    .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
                 }
-                .listStyle(.inset)
-                .frame(height: CGFloat(viewModel.steps.count) * 100)
             }
             
             AddStepButton(showingStepSheet: $showingStepSheet)
@@ -311,7 +286,6 @@ fileprivate struct BrewingStepRow: View {
             onEdit()
         }, label: {
             RecipeStepRow(step: step)
-                .frame(height: 100)
         })
     }
 }
