@@ -25,6 +25,7 @@ let project = Project(
                         "UIColorName": "secondaryBackground",
                         "UIImageName": "",
                     ],
+                    "UIUserInterfaceStyle": "Light",
                     "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511"
                 ]
             ),
