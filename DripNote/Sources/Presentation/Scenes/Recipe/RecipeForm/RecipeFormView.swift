@@ -264,6 +264,16 @@ private struct BrewingStepsSection: View {
                         RecipeStepRow(step: step)
                     })
                     .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button(role: .destructive) {
+                            if let index = viewModel.steps.firstIndex(where: { $0.pourNumber == step.pourNumber }) {
+                                viewModel.removeStep(at: index)
+                            }
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(Color.Custom.warmTerracotta.color)
+                    }
                 }
             }
             
