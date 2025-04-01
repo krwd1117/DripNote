@@ -15,17 +15,16 @@ let project = Project(
     targets: [
         .target(
             name: "DripNote",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .app,
             bundleId: "com.krwd.dripnote",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(
                 with: [
                     "UILaunchScreen": [
-                        "UIColorName": "",
+                        "UIColorName": "secondaryBackground",
                         "UIImageName": "",
-                    ],
-                    "CFBundleDisplayName": "드립노트"
+                    ]
                 ]
             ),
             sources: ["DripNote/Sources/App/**"],
@@ -73,7 +72,7 @@ let project = Project(
         ),
         .target(
             name: "DripNoteCore",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .framework,
             bundleId: "com.krwd.dripnote.core",
             deploymentTargets: .iOS("17.0"),
@@ -84,7 +83,7 @@ let project = Project(
         ),
         .target(
             name: "DripNoteDomain",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .framework,
             bundleId: "com.krwd.dripnote.domain",
             deploymentTargets: .iOS("17.0"),
@@ -97,7 +96,7 @@ let project = Project(
         ),
         .target(
             name: "DripNoteData",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .framework,
             bundleId: "com.krwd.dripnote.data",
             deploymentTargets: .iOS("17.0"),
@@ -111,7 +110,7 @@ let project = Project(
         ),
         .target(
             name: "DripNotePresentation",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .framework,
             bundleId: "com.krwd.dripnote.presentation",
             deploymentTargets: .iOS("17.0"),
@@ -125,7 +124,7 @@ let project = Project(
         ),
         .target(
             name: "DripNoteDI",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .framework,
             bundleId: "com.krwd.dripnote.di",
             deploymentTargets: .iOS("17.0"),
@@ -139,7 +138,7 @@ let project = Project(
         ),
         .target(
             name: "DripNoteTests",
-            destinations: .iOS,
+            destinations: [.iPhone],
             product: .unitTests,
             bundleId: "com.krwd.dripnote.tests",
             deploymentTargets: .iOS("17.0"),
