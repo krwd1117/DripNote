@@ -28,7 +28,7 @@ public final class DIContainer {
         return instance
     }
     
-    public func build(modelContext: ModelContext) {
+    @MainActor public func build(modelContext: ModelContext) {
         registerRepositories(modelContext: modelContext)
         registerUseCases()
     }
@@ -40,7 +40,7 @@ public final class DIContainer {
 
 // MARK: - Registration
 private extension DIContainer {
-    func registerRepositories(modelContext: ModelContext) {
+    @MainActor func registerRepositories(modelContext: ModelContext) {
         let dataSource = LocalBrewingRecipeDataSource(modelContext: modelContext)
         let repository = LocalBrewingRecipeRepositoryImpl(dataSource: dataSource)
         register(RecipeUseCase.self, instance: DefaultRecipeUseCase(repository: repository))

@@ -34,10 +34,10 @@ struct StepFormView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section("푸어링 정보") {
+                Section(String(localized: "Recipe.PouringInfo")) {
                     ValueSliderInputView(
-                        title: "물의 양",
-                        unit: "ml",
+                        title: String(localized: "Recipe.WaterVolume"),
+                        unit: String(localized: "Unit.Milliliter"),
                         range: 0...200,
                         step: 10,
                         placholder: "60",
@@ -45,24 +45,25 @@ struct StepFormView: View {
                     )
                     
                     ValueSliderInputView(
-                        title: "시작 시간",
-                        unit: "초",
+                        title: String(localized: "Recipe.StartTime.Label"),
+                        unit: String(localized: "Unit.Second"),
                         range: 0...300,
                         step: 10,
                         placholder: "30",
                         value: $pourTime
                     )
                     
-                    TextField("설명 (예: 중심부터 원을 그리며 부어주세요)", text: $desc)
+                    TextField(String(localized: "Recipe.Description.Placeholder"), text: $desc)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
             }
             .scrollContentBackground(.hidden)
             .background(Color.Custom.primaryBackground.color)
-            .navigationTitle(editingStep == nil ? "푸어링 단계 추가" : "푸어링 단계 수정")
+            .navigationTitle(editingStep == nil ? String(localized: "Recipe.AddPouringStep") : String(localized: "Common.Edit"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(editingStep == nil ? "추가" : "완료") {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(editingStep == nil ? String(localized: "Common.Add") : String(localized: "RecipeForm.Save")) {
                         if let step = editingStep {
                             viewModel.updateStep(
                                 step,
@@ -82,8 +83,8 @@ struct StepFormView: View {
                     .disabled(!isValid)
                 }
                 
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("취소") {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(String(localized: "Common.Cancel")) {
                         dismiss()
                     }
                 }

@@ -27,34 +27,38 @@ public struct RecipeBrewingSettingsSection: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("추출 설정")
+            Text(String(localized: "Recipe.BrewingSettings"))
                 .font(.system(size: 18, weight: .bold))
                 .foregroundColor(Color.Custom.darkBrown.color)
             
             VStack(spacing: 12) {
                 RecipeSettingRow(
                     icon: "mug.fill",
-                    title: "추출 도구",
+                    title: String(localized: "Recipe.Method"),
                     value: brewingMethod.displayName
                 )
                 
                 RecipeSettingRow(
                     icon: brewingTemperature == .hot ? "flame.fill" : "snowflake",
-                    title: "물 온도",
-                    value: "\(Int(waterTemperature))°C",
+                    title: String(localized: "Recipe.Temperature"),
+                    value: String(format: String(localized: "Recipe.Temperature.Format"),
+                                Int(waterTemperature),
+                                String(localized: "Unit.Celsius")),
                     iconColor: brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color
                 )
                 
                 RecipeSettingRow(
                     icon: "gearshape.fill",
-                    title: "분쇄도",
+                    title: String(localized: "Recipe.GrindSize"),
                     value: grindSize
                 )
                 
                 RecipeSettingRow(
                     icon: "scalemass.fill",
-                    title: "커피 : 물 비율",
-                    value: "\(Int(coffeeWeight))g : \(Int(waterWeight))ml"
+                    title: String(localized: "Recipe.Ratio"),
+                    value: String(format: String(localized: "Recipe.Ratio.Format"),
+                                Int(coffeeWeight), String(localized: "Unit.Gram"),
+                                Int(waterWeight), String(localized: "Unit.Milliliter"))
                 )
             }
         }

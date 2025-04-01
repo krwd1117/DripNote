@@ -26,16 +26,15 @@ public struct SettingsView: View {
                             } label: {
                                 HStack {
                                     Image(systemName: "envelope.fill")
-                                    Text("문의하기")
+                                    Text("Settings.Contact")
                                 }
                             }
                             .foregroundColor(Color.Custom.darkBrown.color)
-
                         }
                         
                         Section {
                             HStack {
-                                Text("Version")
+                                Text("Settings.Version")
                                     .foregroundColor(Color.Custom.darkBrown.color)
                                 Spacer()
                                 Text(Bundle.main.appVersion)
@@ -46,19 +45,19 @@ public struct SettingsView: View {
                     .scrollContentBackground(.hidden)
                 }
             }
-            .tint(Color.Custom.darkBrown.color)
-            .navigationTitle("설정")
+            .navigationTitle(String(localized: "Settings.Title"))
             .navigationBarTitleDisplayMode(.inline)
+            .tint(Color.Custom.darkBrown.color)
             .navigationDestination(for: SettingsCoordinator.Route.self) { route in
                 coordinator.view(for: route)
             }
             .sheet(isPresented: $showingMailView) {
                 CustomMailView(isShowing: $showingMailView)
             }
-            .alert("이메일을 보낼 수 없습니다", isPresented: $showingMailError) {
-                Button("확인", role: .cancel) {}
+            .alert(String(localized: "Settings.EmailError.Title"), isPresented: $showingMailError) {
+                Button(String(localized: "Settings.EmailError.Confirm"), role: .cancel) {}
             } message: {
-                Text("기기에서 이메일 설정을 확인해주세요.")
+                Text("Settings.EmailError.Message")
             }
         }
     }

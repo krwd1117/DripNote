@@ -10,7 +10,7 @@ public struct RecipeNotesSection: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("메모")
+            Text("Recipe.Notes")
                 .font(.system(size: 18, weight: .bold))
                 .foregroundColor(Color.Custom.darkBrown.color)
             

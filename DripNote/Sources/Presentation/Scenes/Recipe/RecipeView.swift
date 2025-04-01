@@ -3,6 +3,7 @@ import DripNoteDI
 
 import SwiftUI
 import SwiftData
+import Foundation
 
 public struct RecipeView: View {
     @EnvironmentObject var tabBarState: TabBarState
@@ -21,8 +22,8 @@ public struct RecipeView: View {
             Group {
                 if viewModel.recipes.isEmpty {
                     CustomEmptyView(
-                        title: "저장된 레시피가 없어요",
-                        message: "새 레시피를 추가해 나만의 커피를 기록해보세요.",
+                        title: String(localized: "Recipe.Empty.Title"),
+                        message: String(localized: "Recipe.Empty.Message"),
                         systemImageName: "cup.and.saucer"
                     )
                 } else {
@@ -43,13 +44,13 @@ public struct RecipeView: View {
                                             Button(role: .destructive) {
                                                 viewModel.deleteRecipe(recipe)
                                             } label: {
-                                                Label("삭제", systemImage: "trash")
+                                                Label(String(localized: "Common.Delete"), systemImage: "trash")
                                             }
                                             
                                             Button {
                                                 coordinator.push(.recipeEdit(recipe))
                                             } label: {
-                                                Label("수정", systemImage: "pencil")
+                                                Label(String(localized: "Common.Edit"), systemImage: "pencil")
                                             }
                                         }
                                 }
@@ -61,7 +62,7 @@ public struct RecipeView: View {
                     .background(Color.Custom.primaryBackground.color)
                 }
             }
-            .navigationTitle("내 레시피")
+            .navigationTitle(String(localized: "Recipe.MyRecipe"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: RecipeCoordinator.Route.self) { route in
                 coordinator.view(for: route)
@@ -74,7 +75,6 @@ public struct RecipeView: View {
             .task {
                 await viewModel.fetchRecipes()
             }
-            
         }
     }
 }
@@ -119,18 +119,14 @@ private struct RecipeRow: View {
                 HStack(spacing: 4) {
                     Image(systemName: "timer")
                         .font(.system(size: 12))
-                    Text("\(recipe.totalBrewTime, specifier: "%.0f")초")
+                    Text(String(format: String(localized: "Recipe.Time.TotalTime"), Int(recipe.totalBrewTime)))
                         .font(.system(size: 12))
                 }
                 .foregroundColor(Color.Custom.darkBrown.color)
                 
-                HStack(spacing: 4) {
-                    Text("\(recipe.coffeeWeight, specifier: "%.0f")g")
-                    Text(":")
-                    Text("\(recipe.waterWeight, specifier: "%.0f")ml")
-                }
-                .font(.system(size: 12))
-                .foregroundColor(Color.Custom.darkBrown.color)
+                Text(String(format: String(localized: "Recipe.Weight.Ratio"), Int(recipe.coffeeWeight), Int(recipe.waterWeight)))
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.Custom.darkBrown.color)
             }
         }
         .padding(16)

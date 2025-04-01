@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 public protocol RecipeUseCase {
     func fetchRecipes() async throws -> [BrewingRecipe]
     func createRecipe(_ recipe: BrewingRecipe) async throws
@@ -7,6 +8,7 @@ public protocol RecipeUseCase {
     func deleteRecipe(_ recipe: BrewingRecipe) async throws
 }
 
+@MainActor
 public final class DefaultRecipeUseCase: RecipeUseCase {
     private let repository: RecipeRepository
     

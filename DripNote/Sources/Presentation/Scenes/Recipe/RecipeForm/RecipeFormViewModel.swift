@@ -72,6 +72,7 @@ public final class RecipeFormViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func saveRecipe(modelContext: ModelContext) async throws {
         if let existingRecipe = recipe {
             // 기존 레시피 업데이트

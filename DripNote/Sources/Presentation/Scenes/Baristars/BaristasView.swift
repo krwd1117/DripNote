@@ -26,6 +26,10 @@ public struct BaristasView: View {
                         ProgressView()
                             .scaleEffect(1.5)
                             .tint(Color.Custom.accentBrown.color)
+                        
+                        Text("Barista.Loading")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color.Custom.darkBrown.color)
                     }
                     .task {
                         await viewModel.fetchRecipes()
@@ -52,7 +56,7 @@ public struct BaristasView: View {
                     }
                 }
             }
-            .navigationTitle("바리스타 레시피")
+            .navigationTitle(String(localized: "Barista.Title"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: BaristasCoordinator.Route.self) { route in
                 coordinator.view(for: route)
@@ -74,7 +78,6 @@ private struct RecipeCard: View {
                     Text(recipe.title)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(Color.Custom.darkBrown.color)
-                        .lineLimit(1)
                     
                     Spacer()
                 }
@@ -84,6 +87,7 @@ private struct RecipeCard: View {
                     Text(recipe.baristaName)
                         .font(.system(size: 14))
                         .foregroundColor(Color.Custom.darkBrown.color)
+                    
                     Text(recipe.coffeeBeans)
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
@@ -97,7 +101,9 @@ private struct RecipeCard: View {
                     )
                     
                     Label(
-                        "\(Int(recipe.waterTemperature))°C",
+                        String(format: String(localized: "Recipe.Temperature.Format"),
+                              Int(recipe.waterTemperature),
+                              String(localized: "Unit.Celsius")),
                         systemImage: recipe.brewingTemperature == .hot ? "flame.fill" : "snowflake"
                     )
                     .foregroundColor(recipe.brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)

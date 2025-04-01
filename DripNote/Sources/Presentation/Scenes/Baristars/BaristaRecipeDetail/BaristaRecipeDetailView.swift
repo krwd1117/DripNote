@@ -86,7 +86,7 @@ private struct YoutubeSection: View {
             HStack {
                 Image(systemName: "play.circle.fill")
                     .font(.system(size: 24))
-                Text("유튜브에서 보기")
+                Text("Recipe.WatchOnYoutube")
                     .font(.system(size: 16, weight: .semibold))
             }
             .foregroundColor(.red)
@@ -104,7 +104,7 @@ private struct StoreInfoSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("매장 정보")
+            Text("Recipe.StoreInfo")
                 .font(.system(size: 18, weight: .bold))
                 .foregroundColor(Color.Custom.darkBrown.color)
             

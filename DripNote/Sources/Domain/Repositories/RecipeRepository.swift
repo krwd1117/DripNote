@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 public protocol RecipeRepository {
     func fetchRecipes() async throws -> [BrewingRecipe]
     func createRecipe(_ recipe: BrewingRecipe) async throws

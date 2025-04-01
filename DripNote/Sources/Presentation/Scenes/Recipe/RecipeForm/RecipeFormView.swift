@@ -10,6 +10,7 @@ public struct RecipeFormView: View {
     
     @StateObject private var viewModel: RecipeFormViewModel
     @State private var showingStepSheet = false
+    @State private var editingStep: BrewingStep?
     
     public init(recipe: BrewingRecipe? = nil, useCase: RecipeUseCase) {
         let viewModel = RecipeFormViewModel(recipe: recipe, useCase: useCase)
@@ -18,11 +19,30 @@ public struct RecipeFormView: View {
     
     public var body: some View {
         Form {
-            BasicInfoSection(viewModel: viewModel)
+            Section(String(localized: "RecipeForm.BasicInfo")) {
+                TextField("", text: $viewModel.title)
+                    .font(.system(size: 16))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .modifier(TextFieldLabelModifier(
+                        required: true,
+                        label: String(localized: "RecipeForm.RecipeTitle")
+                    ))
+                
+                TextField("", text: $viewModel.baristaName)
+                    .font(.system(size: 16))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .modifier(TextFieldLabelModifier(
+                        label: String(localized: "RecipeForm.BaristaName")
+                    ))
+            }
             BrewingSettingsSection(viewModel: viewModel)
             BrewingStepsSection(
                 viewModel: viewModel,
-                showingStepSheet: $showingStepSheet
+                showingStepSheet: $showingStepSheet,
+                onEdit: { step in
+                    editingStep = step
+                    showingStepSheet = true
+                }
             )
             NotesSection(notes: $viewModel.notes)
             
@@ -37,7 +57,9 @@ public struct RecipeFormView: View {
         .background(Color.Custom.primaryBackground.color)
         .ignoresSafeArea(.container, edges: .bottom)
         .tint(Color.Custom.darkBrown.color)
-        .navigationTitle(viewModel.recipe == nil ? "레시피 작성" : "레시피 수정")
+        .navigationTitle(viewModel.recipe == nil ? 
+            String(localized: "RecipeForm.Title.New") :
+            String(localized: "RecipeForm.Title.Edit"))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -52,7 +74,7 @@ public struct RecipeFormView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button("저장") {
+                Button(String(localized: "RecipeForm.Save")) {
                     Task {
                         try? await viewModel.saveRecipe(modelContext: modelContext)
                         dismiss()
@@ -64,13 +86,22 @@ public struct RecipeFormView: View {
         .toolbarBackground(.hidden, for: .tabBar)
         .tint(Color.Custom.accentBrown.color)
         .sheet(isPresented: $showingStepSheet) {
-            StepFormView(viewModel: viewModel)
+            if let editingStep = editingStep {
+                StepFormView(viewModel: viewModel, editingStep: editingStep)
+            } else {
+                StepFormView(viewModel: viewModel)
+            }
         }
         .onAppear {
             tabBarState.isVisible = false
         }
         .onDisappear {
             tabBarState.isVisible = true
+        }
+        .onChange(of: showingStepSheet) { newValue in
+            if !newValue {
+                editingStep = nil
+            }
         }
     }
 }
@@ -82,15 +113,20 @@ private struct BasicInfoSection: View {
     var body: some View {
         Section {
             VStack(alignment: .leading, spacing: 16) {
-                TextField("ex) 나만의 레시피", text: $viewModel.title)
+                TextField("", text: $viewModel.title)
                     .font(.system(size: 16))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .modifier(TextFieldLabelModifier(required: true, label: "레시피 제목"))
+                    .modifier(TextFieldLabelModifier(
+                        required: true,
+                        label: String(localized: "RecipeForm.RecipeTitle")
+                    ))
                 
-                TextField("ex) 나", text: $viewModel.baristaName)
+                TextField("", text: $viewModel.baristaName)
                     .font(.system(size: 16))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .modifier(TextFieldLabelModifier(label: "바리스타 이름"))
+                    .modifier(TextFieldLabelModifier(
+                        label: String(localized: "RecipeForm.BaristaName")
+                    ))
             }
             .padding(.vertical, 8)
         }
@@ -106,13 +142,16 @@ private struct BrewingSettingsSection: View {
             VStack(spacing: 20) {
                 // 원두 정보
                 VStack(alignment: .leading, spacing: 16) {
-                    TextField("ex) 어린왕자", text: $viewModel.coffeeBeans)
+                    TextField("", text: $viewModel.coffeeBeans)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .modifier(TextFieldLabelModifier(required: true, label: "원두 이름"))
+                        .modifier(TextFieldLabelModifier(
+                            required: true,
+                            label: String(localized: "Recipe.CoffeeBeans")
+                        ))
                     
                     // 온도 설정 세그먼트
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("온도 설정")
+                        Text("Recipe.TemperatureSetting")
                             .font(.footnote)
                             .foregroundColor(.secondary)
                             .fontWeight(.semibold)
@@ -130,11 +169,13 @@ private struct BrewingSettingsSection: View {
                         }
                     }
                     .pickerStyle(.menu)
-                    .modifier(TextFieldLabelModifier(label: "추출도구"))
+                    .modifier(TextFieldLabelModifier(label: String(localized: "Recipe.Method")))
                     
-                    TextField("ex) 중간 || 27 클릭", text: $viewModel.grindSize)
+                    TextField("", text: $viewModel.grindSize)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .modifier(TextFieldLabelModifier(label: "분쇄도"))
+                        .modifier(TextFieldLabelModifier(
+                            label: String(localized: "Recipe.GrindSize")
+                        ))
                 }
                 
                 // 물량 및 온도 설정
@@ -172,8 +213,8 @@ fileprivate struct CoffeeWaterTemperatureView: View {
     var body: some View {
         VStack {
             ValueSliderInputView(
-                title: "커피량",
-                unit: "g",
+                title: String(localized: "Recipe.CoffeeAmount"),
+                unit: String(localized: "Unit.Gram"),
                 range: 0...100,
                 step: 1,
                 placholder: "20",
@@ -181,8 +222,8 @@ fileprivate struct CoffeeWaterTemperatureView: View {
             )
             
             ValueSliderInputView(
-                title: "물량",
-                unit: "ml",
+                title: String(localized: "Recipe.WaterAmount"),
+                unit: String(localized: "Unit.Milliliter"),
                 range: 0...300,
                 step: 1,
                 placholder: "200",
@@ -190,8 +231,8 @@ fileprivate struct CoffeeWaterTemperatureView: View {
             )
             
             ValueSliderInputView(
-                title: "물 온도",
-                unit: "°C",
+                title: String(localized: "Recipe.WaterTemperature"),
+                unit: String(localized: "Unit.Celsius"),
                 range: 0...100,
                 step: 1,
                 placholder: "93",
@@ -206,6 +247,7 @@ private struct BrewingStepsSection: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     @Binding var showingStepSheet: Bool
     @State private var editingStep: BrewingStep?
+    let onEdit: (BrewingStep) -> Void
     
     var body: some View {
         Section {
@@ -219,13 +261,15 @@ private struct BrewingStepsSection: View {
                     ) { step in
                         BrewingStepRow(
                             step: step,
-                            onEdit: { editingStep = step }
+                            onEdit: {
+                                onEdit(step)
+                            }
                         )
                         .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                         .listRowSeparator(.hidden)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button {
-                                editingStep = step
+                                onEdit(step)
                             } label: {
                                 Image(systemName: "pencil")
                             }
@@ -245,7 +289,7 @@ private struct BrewingStepsSection: View {
                     }
                 }
                 .listStyle(.inset)
-                .frame(height: CGFloat(viewModel.steps.count) * 108)
+                .frame(height: CGFloat(viewModel.steps.count) * 100)
             }
             
             AddStepButton(showingStepSheet: $showingStepSheet)
@@ -266,53 +310,9 @@ fileprivate struct BrewingStepRow: View {
         Button(action: {
             onEdit()
         }, label: {
-            VStack(alignment: .leading, spacing: 12) {
-                // 상단: 단계 번호와 물량
-                HStack {
-                    Text("#\(step.pourNumber)")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 4) {
-                        Image(systemName: "drop.fill")
-                            .foregroundColor(Color.Custom.accentBrown.color)
-                        Text("\(Int(step.pourAmount))ml")
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundColor(Color.Custom.accentBrown.color)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.Custom.lightBrown.color.opacity(0.2))
-                    )
-                }
-                
-                // 중간: 시작 시간
-                HStack(spacing: 6) {
-                    Image(systemName: "clock.fill")
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                    Text("\(step.formattedTime)에 시작")
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                }
-                
-                // 하단: 설명 (있는 경우에만)
-                if !step.desc.isEmpty {
-                    Text(step.desc)
-                        .font(.system(size: 15))
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                        .padding(.top, 4)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
+            RecipeStepRow(step: step)
+                .frame(height: 100)
         })
-        .padding(16)
-        .frame(height: 100)
-        .background(Color.Custom.secondaryBackground.color)
     }
 }
 
@@ -320,8 +320,8 @@ fileprivate struct NotesSection: View {
     @Binding var notes: String
     
     var body: some View {
-        Section("메모") {
-            TextField("메모를 입력하세요", text: $notes)
+        Section(String(localized: "Recipe.Notes")) {
+            TextField(String(localized: "Recipe.Notes.Placeholder"), text: $notes)
         }
     }
 }
@@ -368,7 +368,7 @@ private struct EmptyStepsView: View {
             Image(systemName: "list.bullet.clipboard")
                 .font(.system(size: 40))
                 .foregroundColor(.gray)
-            Text("단계를 추가해주세요")
+            Text("Recipe.Steps.Empty")
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .fontWeight(.semibold)
@@ -388,7 +388,7 @@ private struct AddStepButton: View {
             HStack {
                 Image(systemName: "plus.circle.fill")
                     .foregroundColor(Color.Custom.accentBrown.color)
-                Text("푸어링 단계 추가")
+                Text("Recipe.AddPouringStep")
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .foregroundColor(Color.Custom.accentBrown.color)

@@ -2,6 +2,7 @@ import Foundation
 import SwiftData
 import DripNoteDomain
 
+@MainActor
 public final class LocalBrewingRecipeRepositoryImpl: RecipeRepository {
     private let dataSource: LocalBrewingRecipeDataSource
 

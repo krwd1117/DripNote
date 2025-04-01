@@ -65,7 +65,7 @@ public struct RecipeDetailView: View {
                 Button(action: {
                     coordinator.push(.recipeEdit(viewModel.recipe))
                 }, label: {
-                    Text("수정")
+                    Text("Common.Edit")
                         .foregroundColor(Color.Custom.accentBrown.color)
                 })
             }
