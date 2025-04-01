@@ -2,11 +2,13 @@ import SwiftUI
 import MessageUI
 
 public struct SettingsView: View {
-    @StateObject private var coordinator = SettingsCoordinator()
+    @ObservedObject private var coordinator = SettingsCoordinator()
     @State private var showingMailView = false
     @State private var showingMailError = false
     
-    public init() {}
+    public init(coordinator: SettingsCoordinator) {
+        self.coordinator = coordinator
+    }
     
     public var body: some View {
         NavigationStack(path: $coordinator.navigationPath) {

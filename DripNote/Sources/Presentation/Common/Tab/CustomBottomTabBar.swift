@@ -4,6 +4,8 @@ public struct CustomBottomTabBar: View {
     @Binding var selectedTab: TabItem
     let onTapFloatingButton: () -> Void
     
+    @Namespace private var animation
+    
     public init(
         selectedTab: Binding<TabItem>,
         onTapFloatingButton: @escaping () -> Void
@@ -15,7 +17,7 @@ public struct CustomBottomTabBar: View {
     public var body: some View {
         ZStack {
             // 메인 탭바
-            HStack {
+            HStack(spacing: 0) {
                 ForEach(TabItem.allCases, id: \.rawValue) { tab in
                     tabButton(tab: tab)
                         .frame(maxWidth: .infinity)
@@ -32,7 +34,7 @@ public struct CustomBottomTabBar: View {
             .background {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color(uiColor: .systemBackground))
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: -5)
+                    .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: -5)
             }
             .padding(.horizontal, 8)
             
@@ -52,7 +54,7 @@ public struct CustomBottomTabBar: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .offset(y: -30)
+                    .offset(y: -35)
                     .padding(.trailing, 20)
                 }
             }
@@ -62,25 +64,30 @@ public struct CustomBottomTabBar: View {
     @MainActor
     private func tabButton(tab: TabItem) -> some View {
         Button {
-            withAnimation() {
+            withAnimation(.smooth) {
                 selectedTab = tab
             }
         } label: {
-            VStack(spacing: 4) {
-                Image(systemName: selectedTab == tab ? tab.selectedIcon : tab.icon)
-                    .font(.system(size: 24))
+            VStack(spacing: 6) {
+                ZStack {
+                    if selectedTab == tab {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.Custom.secondaryBackground.color)
+                            .matchedGeometryEffect(id: "tabBackground", in: animation)
+                            .frame(width: 48, height: 36)
+                    }
+                    
+                    Image(systemName: selectedTab == tab ? tab.selectedIcon : tab.icon)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(selectedTab == tab ? Color.Custom.accentBrown.color : Color.Custom.darkBrown.color.opacity(0.5))
+                }
                 
                 Text(tab.title)
-                    .font(.system(size: 12))
+                    .font(.system(size: 11, weight: selectedTab == tab ? .semibold : .regular))
+                    .foregroundColor(selectedTab == tab ? Color.Custom.accentBrown.color : Color.Custom.darkBrown.color.opacity(0.5))
             }
-            .foregroundColor(selectedTab == tab ? Color.Custom.darkBrown.color : Color.Custom.darkBrown.color.opacity(0.5))
+            .frame(maxWidth: .infinity)
         }
+        .buttonStyle(.plain)
     }
-}
-
-#Preview {
-    CustomBottomTabBar(
-        selectedTab: .constant(.myRecipes),
-        onTapFloatingButton: {}
-    )
 }

@@ -4,6 +4,8 @@ public struct MainContainer: View {
     @State private var selectedTab: TabItem = .myRecipes
     @StateObject private var tabBarState = TabBarState()
     @StateObject private var recipeCoordinator = RecipeCoordinator()
+    @StateObject private var baristasCoordinator = BaristasCoordinator()
+    @StateObject private var settingCoordinator = SettingsCoordinator()
     
     public init() {}
     
@@ -13,10 +15,10 @@ public struct MainContainer: View {
                 RecipeView(coordinator: recipeCoordinator)
                     .tag(TabItem.myRecipes)
                 
-                BaristasView()
+                BaristasView(coordinator: baristasCoordinator)
                     .tag(TabItem.baristas)
                 
-                SettingsView()
+                SettingsView(coordinator: settingCoordinator)
                     .tag(TabItem.settings)
             }
             
