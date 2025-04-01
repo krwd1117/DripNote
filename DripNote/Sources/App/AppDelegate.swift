@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+
 import FirebaseCore
 
 import DripNoteDI
@@ -13,6 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+//        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         do {
             container = try ModelContainerFactory.create()

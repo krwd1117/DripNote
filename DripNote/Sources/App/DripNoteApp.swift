@@ -24,9 +24,11 @@ struct DripNoteApp: App {
                     MainContainer()
                 }
             }
-            .onReceive(splashViewModel.$isFinished) { _ in
+            .onReceive(splashViewModel.$isFinished) { isFinished in
                 withAnimation {
-                    showingSplash = false
+                    if isFinished {
+                        showingSplash = false
+                    }
                 }
             }
         }

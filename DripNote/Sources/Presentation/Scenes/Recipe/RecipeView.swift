@@ -136,14 +136,6 @@ private struct RecipeRow: View {
     }
 }
 
-//#Preview {
-//    @StateObject var tabBarState: TabBarState = .init(isVisible: true)
-//
-//    RecipeView(coordinator: RecipeCoordinator())
-//        .environmentObject(tabBarState)
-//}
-
-
 #Preview(body: {
     let recipe = BrewingRecipe(
         id: UUID(),

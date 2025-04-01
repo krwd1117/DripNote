@@ -10,7 +10,6 @@ public final class SplashViewModel: ObservableObject {
     }
     
     private func setupAnimation() {
-        // TODO: 사전 작업
         Task {
             await MainActor.run {
                 self.isFinished = true

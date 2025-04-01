@@ -3,8 +3,9 @@ import ProjectDescription
 let project = Project(
     name: "DripNote",
     packages: [
+        .remote(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", requirement: .upToNextMajor(from: "12.2.0")),
         .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .upToNextMajor(from: "11.9.0")),
-        .remote(url: "https://github.com/google/promises.git", requirement: .upToNextMajor(from: "2.3.1"))
+        .remote(url: "https://github.com/google/promises.git", requirement: .upToNextMajor(from: "2.3.1")),
     ],
         settings: .settings(
         base: [
@@ -63,6 +64,7 @@ let project = Project(
                 .package(product: "FirebaseAnalytics"),
                 .package(product: "FirebaseCrashlytics"),
                 .package(product: "FirebaseMessaging"), 
+                .package(product: "GoogleMobileAds"),
                 .target(name: "DripNoteCore"),
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteData"),

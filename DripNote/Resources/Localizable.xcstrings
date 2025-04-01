@@ -73,6 +73,24 @@
         }
       }
     },
+    "Common.Delete" : {
+      "comment" : "Delete button/action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
+          }
+        }
+      }
+    },
     "Common.Edit" : {
       "comment" : "Edit button",
       "extractionState" : "manual",
@@ -195,6 +213,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "설명 (예: 중심부터 원을 그리며 부어주세요)"
+          }
+        }
+      }
+    },
+    "Recipe.Empty.Message" : {
+      "comment" : "Empty state message when no recipes are saved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new recipe to record your own coffee"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 레시피를 추가해 나만의 커피를 기록해보세요"
+          }
+        }
+      }
+    },
+    "Recipe.Empty.Title" : {
+      "comment" : "Empty state title when no recipes are saved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Saved Recipes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장된 레시피가 없어요"
           }
         }
       }
@@ -379,6 +433,24 @@
         }
       }
     },
+    "Recipe.Steps.Empty" : {
+      "comment" : "Message shown when there are no brewing steps",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please add brewing steps"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단계를 추가해주세요"
+          }
+        }
+      }
+    },
     "Recipe.StoreInfo" : {
       "comment" : "Store information section title",
       "extractionState" : "manual",
@@ -451,6 +523,59 @@
         }
       }
     },
+    "Recipe.Time.MinutesAndSeconds" : {
+      "comment" : "Time format with minutes and seconds (e.g. '2min 30sec')",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d min %d sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d분 %d초"
+          }
+        }
+      }
+    },
+    "Recipe.Time.SecondsOnly" : {
+      "comment" : "Time format with seconds only (e.g. '30sec')",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d초"
+          }
+        }
+      }
+    },
+    "Recipe.Time.TotalTime" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d초"
+          }
+        }
+      }
+    },
     "Recipe.WatchOnYoutube" : {
       "comment" : "Watch on YouTube button",
       "extractionState" : "manual",
@@ -519,6 +644,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "물의 양"
+          }
+        }
+      }
+    },
+    "Recipe.Weight.Ratio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dg : %dml"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dg : %dml"
           }
         }
       }
@@ -897,148 +1039,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "초"
-          }
-        }
-      }
-    },
-    "Recipe.Empty.Title": {
-      "comment": "Empty state title when no recipes are saved",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No Saved Recipes"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "저장된 레시피가 없어요"
-          }
-        }
-      }
-    },
-    "Recipe.Empty.Message": {
-      "comment": "Empty state message when no recipes are saved",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add a new recipe to record your own coffee"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "새 레시피를 추가해 나만의 커피를 기록해보세요"
-          }
-        }
-      }
-    },
-    "Common.Delete": {
-      "comment": "Delete button/action",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "삭제"
-          }
-        }
-      }
-    },
-    "Recipe.Time.MinutesAndSeconds": {
-      "comment": "Time format with minutes and seconds (e.g. '2min 30sec')",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d min %d sec"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d분 %d초"
-          }
-        }
-      }
-    },
-    "Recipe.Time.SecondsOnly": {
-      "comment": "Time format with seconds only (e.g. '30sec')",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d sec"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d초"
-          }
-        }
-      }
-    },
-    "Recipe.Steps.Empty": {
-      "comment": "Message shown when there are no brewing steps",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Please add brewing steps"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "단계를 추가해주세요"
-          }
-        }
-      }
-    },
-    "Recipe.Time.TotalTime": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d sec"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d초"
-          }
-        }
-      }
-    },
-    "Recipe.Weight.Ratio": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%dg : %dml"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%dg : %dml"
           }
         }
       }
