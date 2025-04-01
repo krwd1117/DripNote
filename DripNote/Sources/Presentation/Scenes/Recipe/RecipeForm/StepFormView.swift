@@ -28,7 +28,7 @@ struct StepFormView: View {
     }
     
     var isValid: Bool {
-        pourAmount > 0 && pourTime > 0
+        pourAmount > 0 && pourTime >= 0
     }
     
     var body: some View {
@@ -38,7 +38,7 @@ struct StepFormView: View {
                     ValueSliderInputView(
                         title: String(localized: "Recipe.WaterVolume"),
                         unit: String(localized: "Unit.Milliliter"),
-                        range: 0...200,
+                        range: 0...300,
                         step: 10,
                         placholder: "60",
                         value: $pourAmount

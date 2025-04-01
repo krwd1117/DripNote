@@ -414,42 +414,6 @@
         }
       }
     },
-    "Recipe.StartTime" : {
-      "comment" : "Start time format",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start at %d sec"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d초에 시작"
-          }
-        }
-      }
-    },
-    "Recipe.StartTime.Label" : {
-      "comment" : "Start time label",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start Time"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "시작 시간"
-          }
-        }
-      }
-    },
     "Recipe.Steps.Empty" : {
       "comment" : "Message shown when there are no brewing steps",
       "extractionState" : "manual",
@@ -536,6 +500,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "온도 설정"
+          }
+        }
+      }
+    },
+    "Recipe.Time.Label" : {
+      "comment" : "Time label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "시간"
           }
         }
       }

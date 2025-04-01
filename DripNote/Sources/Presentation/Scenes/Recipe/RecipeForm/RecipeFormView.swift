@@ -224,8 +224,8 @@ fileprivate struct CoffeeWaterTemperatureView: View {
             ValueSliderInputView(
                 title: String(localized: "Recipe.WaterAmount"),
                 unit: String(localized: "Unit.Milliliter"),
-                range: 0...300,
-                step: 1,
+                range: 0...500,
+                step: 10,
                 placholder: "200",
                 value: $waterWeight
             )
