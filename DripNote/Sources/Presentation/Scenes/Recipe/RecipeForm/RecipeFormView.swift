@@ -63,7 +63,7 @@ public struct RecipeFormView: View {
         .toolbarBackground(.hidden, for: .tabBar)
         .tint(Color.Custom.accentBrown.color)
         .sheet(isPresented: $showingStepSheet) {
-            AddStepView(viewModel: viewModel)
+            StepFormView(viewModel: viewModel)
         }
         .onAppear {
             tabBarState.isVisible = false
@@ -174,7 +174,8 @@ fileprivate struct CoffeeWaterTemperatureView: View {
                 title: "커피량",
                 unit: "g",
                 range: 0...100,
-                step: 0.5,
+                step: 1,
+                placholder: "20",
                 value: $coffeeWeight
             )
             
@@ -182,7 +183,8 @@ fileprivate struct CoffeeWaterTemperatureView: View {
                 title: "물량",
                 unit: "ml",
                 range: 0...300,
-                step: 0.5,
+                step: 1,
+                placholder: "200",
                 value: $waterWeight
             )
             
@@ -191,6 +193,7 @@ fileprivate struct CoffeeWaterTemperatureView: View {
                 unit: "°C",
                 range: 0...100,
                 step: 1,
+                placholder: "93",
                 value: $temperature
             )
         }
@@ -248,10 +251,7 @@ private struct BrewingStepsSection: View {
         }
         .padding(.vertical, 8)
         .sheet(item: $editingStep) { step in
-            EditStepView(
-                viewModel: viewModel,
-                step: step
-            )
+            StepFormView(viewModel: viewModel, editingStep: step)
         }
     }
 }
@@ -361,127 +361,6 @@ fileprivate struct TemperatureSegment: View {
     }
 }
 
-fileprivate struct ValueSliderInputView: View {
-    let title: String
-    let unit: String
-    let range: ClosedRange<Double>
-    let step: Double
-    
-    @Binding var value: Double
-    @State private var stringValue: String = ""
-    
-    var body: some View {
-        VStack {
-            HStack {
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("*")
-                        .foregroundColor(Color.Custom.warmTerracotta.color)
-                        .font(.footnote)
-                        .bold()
-                    
-                    Text(title)
-                        .font(.footnote)
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                        .fontWeight(.semibold)
-                }
-                
-                Spacer()
-                HStack {
-                    TextField("\(value)", text: $stringValue)
-                        .keyboardType(.decimalPad)
-                        .frame(width: 100)
-                        .textFieldStyle(.roundedBorder)
-                        .onChange(of: stringValue) { _, newValue in
-                            if let newDouble = Double(newValue),
-                               newDouble != value,
-                               range.contains(newDouble) {
-                                value = newDouble
-                            }
-                        }
-                    Text(unit)
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                }
-            }
-            
-            Slider(value: $value, in: range, step: step)
-                .tint(Color.Custom.accentBrown.color)
-                .onChange(of: value) { _, newValue in
-                    let newValueString = String(format: "%.1f", newValue)
-                    if newValueString != stringValue {
-                        stringValue = newValueString
-                    }
-                }
-        }
-        .onAppear {
-            stringValue = String(format: "%.1f", value)
-        }
-    }
-}
-
-// MARK: - Add Step View
-private struct AddStepView: View {
-    @Environment(\.dismiss) private var dismiss
-    let viewModel: RecipeFormViewModel
-    
-    @State private var pourAmount: Double = 60
-    @State private var pourTime: Double = 30
-    @State private var desc: String = ""
-    
-    var isValid: Bool {
-        pourAmount > 0 && pourTime > 0
-    }
-    
-    var body: some View {
-        NavigationView {
-            Form {
-                Section("푸어링 정보") {
-                    ValueSliderInputView(
-                        title: "물의 양",
-                        unit: "ml",
-                        range: 0...200,
-                        step: 10,
-                        value: $pourAmount
-                    )
-                    
-                    ValueSliderInputView(
-                        title: "시작 시간",
-                        unit: "초",
-                        range: 0...300,
-                        step: 10,
-                        value: $pourTime
-                    )
-                    
-                    TextField("설명 (예: 중심부터 원을 그리며 부어주세요)", text: $desc)
-                }
-            }
-            .scrollContentBackground(.hidden)
-            .background(Color.Custom.primaryBackground.color)
-            .navigationTitle("푸어링 단계 추가")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("추가") {
-                        viewModel.addStep(
-                            pourAmount: pourAmount,
-                            pourTime: pourTime,
-                            desc: desc
-                        )
-                        dismiss()
-                    }
-                    .disabled(!isValid)
-                }
-                
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("취소") {
-                        dismiss()
-                    }
-                }
-            }
-            .tint(Color.Custom.accentBrown.color)
-        }
-    }
-}
-
 private struct EmptyStepsView: View {
     var body: some View {
         VStack(spacing: 8) {
@@ -517,80 +396,6 @@ private struct AddStepButton: View {
             .padding(.vertical, 12)
             .background(Color.Custom.secondaryBackground.color)
             .cornerRadius(12)
-        }
-    }
-}
-
-// MARK: - Edit Step View
-private struct EditStepView: View {
-    @Environment(\.dismiss) private var dismiss
-    let viewModel: RecipeFormViewModel
-    let step: BrewingStep
-    
-    @State private var pourAmount: Double
-    @State private var pourTime: Double
-    @State private var desc: String
-    
-    init(viewModel: RecipeFormViewModel, step: BrewingStep) {
-        self.viewModel = viewModel
-        self.step = step
-        _pourAmount = State(initialValue: step.pourAmount)
-        _pourTime = State(initialValue: step.pourTime)
-        _desc = State(initialValue: step.desc)
-    }
-    
-    var isValid: Bool {
-        pourAmount > 0 && pourTime > 0
-    }
-    
-    var body: some View {
-        NavigationView {
-            Form {
-                Section("푸어링 정보") {
-                    ValueSliderInputView(
-                        title: "물의 양",
-                        unit: "ml",
-                        range: 0...200,
-                        step: 10,
-                        value: $pourAmount
-                    )
-                    
-                    ValueSliderInputView(
-                        title: "시작 시간",
-                        unit: "초",
-                        range: 0...300,
-                        step: 10,
-                        value: $pourTime
-                    )
-                    
-                    TextField("설명 (예: 중심부터 원을 그리며 부어주세요)", text: $desc)
-                }
-            }
-            .scrollContentBackground(.hidden)
-            .background(Color.Custom.primaryBackground.color)
-            .navigationTitle("푸어링 단계 수정")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("완료") {
-                        viewModel.updateStep(
-                            step,
-                            pourAmount: pourAmount,
-                            pourTime: pourTime,
-                            desc: desc
-                        )
-                        dismiss()
-                    }
-                    .disabled(!isValid)
-                }
-                
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("취소") {
-                        dismiss()
-                    }
-                }
-            }
-            .tint(Color.Custom.accentBrown.color)
         }
     }
 }
