@@ -14,9 +14,10 @@ struct DripNoteApp: App {
     @State private var showingSplash = true
     @StateObject private var splashViewModel: SplashViewModel = SplashViewModel()
     
-    let container: ModelContainer
+    private let container: ModelContainer
     
     init() {
+        
         do {
             container = try ModelContainerFactory.create()
         } catch {

@@ -25,9 +25,16 @@ public struct RecipeFormView: View {
                 showingStepSheet: $showingStepSheet
             )
             NotesSection(notes: $viewModel.notes)
+            
+            Section {
+                Color.clear
+                    .frame(height: 50)
+                    .listRowBackground(Color.clear)
+            }
         }
         .scrollContentBackground(.hidden)
         .background(Color.Custom.primaryBackground.color)
+        .ignoresSafeArea(.container, edges: .bottom)
         .tint(Color.Custom.darkBrown.color)
         .navigationTitle(viewModel.recipe == nil ? "레시피 작성" : "레시피 수정")
         .navigationBarTitleDisplayMode(.inline)
@@ -53,6 +60,7 @@ public struct RecipeFormView: View {
                 .disabled(!viewModel.isValidRecipe)
             }
         }
+        .toolbarBackground(.hidden, for: .tabBar)
         .tint(Color.Custom.accentBrown.color)
         .sheet(isPresented: $showingStepSheet) {
             AddStepView(viewModel: viewModel)
@@ -197,10 +205,10 @@ private struct BrewingStepsSection: View {
     
     var body: some View {
         Section {
-            VStack(spacing: 16) {
-                if viewModel.steps.isEmpty {
-                    EmptyStepsView()
-                } else {
+            if viewModel.steps.isEmpty {
+                EmptyStepsView()
+            } else {
+                List {
                     ForEach(
                         viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
                         id: \.pourNumber
@@ -209,18 +217,36 @@ private struct BrewingStepsSection: View {
                             step: step,
                             onEdit: { editingStep = step }
                         )
-                        .background(Color(uiColor: .secondarySystemBackground))
-                        .cornerRadius(12)
-                    }
-                    .onDelete { indexSet in
-                        indexSet.forEach { viewModel.removeStep(at: $0) }
+                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                editingStep = step
+                            } label: {
+                                Image(systemName: "pencil")
+                            }
+                            .tint(Color.Custom.accentBrown.color)
+                            
+                            Button(role: .destructive) {
+                                if let index = viewModel.steps.firstIndex(where: { $0.pourNumber == step.pourNumber }) {
+                                    viewModel.removeStep(at: index)
+                                }
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .tint(Color.Custom.warmTerracotta.color)
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
                     }
                 }
-                
-                AddStepButton(showingStepSheet: $showingStepSheet)
+                .listStyle(.inset)
+                .frame(height: CGFloat(viewModel.steps.count) * 108)
             }
-            .padding(.vertical, 8)
+            
+            AddStepButton(showingStepSheet: $showingStepSheet)
         }
+        .padding(.vertical, 8)
         .sheet(item: $editingStep) { step in
             EditStepView(
                 viewModel: viewModel,
@@ -236,55 +262,56 @@ fileprivate struct BrewingStepRow: View {
     let onEdit: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // 상단: 단계 번호와 물량
-            HStack {
-                Text("#\(step.pourNumber)")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(Color.Custom.darkBrown.color)
-                
-                Spacer()
-                
-                HStack(spacing: 4) {
-                    Image(systemName: "drop.fill")
-                        .foregroundColor(Color.Custom.accentBrown.color)
-                    Text("\(Int(step.pourAmount))ml")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(Color.Custom.accentBrown.color)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.Custom.lightBrown.color.opacity(0.2))
-                )
-            }
-            
-            // 중간: 시작 시간
-            HStack(spacing: 6) {
-                Image(systemName: "clock.fill")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color.Custom.darkBrown.color)
-                Text("\(step.formattedTime)에 시작")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color.Custom.darkBrown.color)
-            }
-            
-            // 하단: 설명 (있는 경우에만)
-            if !step.desc.isEmpty {
-                Text(step.desc)
-                    .font(.system(size: 15))
-                    .foregroundColor(Color.Custom.darkBrown.color)
-                    .padding(.top, 4)
-            }
-        }
-        .padding(16)
-        .background(Color.Custom.secondaryBackground.color)
-        .cornerRadius(12)
-        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
-        .onTapGesture {
+        Button(action: {
             onEdit()
-        }
+        }, label: {
+            VStack(alignment: .leading, spacing: 12) {
+                // 상단: 단계 번호와 물량
+                HStack {
+                    Text("#\(step.pourNumber)")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "drop.fill")
+                            .foregroundColor(Color.Custom.accentBrown.color)
+                        Text("\(Int(step.pourAmount))ml")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(Color.Custom.accentBrown.color)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.Custom.lightBrown.color.opacity(0.2))
+                    )
+                }
+                
+                // 중간: 시작 시간
+                HStack(spacing: 6) {
+                    Image(systemName: "clock.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                    Text("\(step.formattedTime)에 시작")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                }
+                
+                // 하단: 설명 (있는 경우에만)
+                if !step.desc.isEmpty {
+                    Text(step.desc)
+                        .font(.system(size: 15))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                        .padding(.top, 4)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        })
+        .padding(16)
+        .frame(height: 100)
+        .background(Color.Custom.secondaryBackground.color)
     }
 }
 
@@ -573,3 +600,8 @@ private struct EditStepView: View {
     RecipeFormView(useCase: DIContainer.shared.resolve(RecipeUseCase.self))
         .environmentObject(tabBarState)
 }
+
+//#Preview(body: {
+//    let viewModel = RecipeFormViewModel(useCase: DIContainer.shared.resolve(RecipeUseCase.self))
+//    BrewingStepsSection(viewModel: viewModel, showingStepSheet: .constant(false))
+//})

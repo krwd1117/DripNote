@@ -34,36 +34,38 @@ public struct RecipeDetailView: View {
                     NotesSection(notes: viewModel.recipe.notes)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        coordinator.pop()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(Color.Custom.darkBrown.color)
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("수정") {
-                        coordinator.push(.recipeEdit(viewModel.recipe))
-                    }
-                }
-            }
             .padding()
         }
         .tint(Color.Custom.darkBrown.color)
-        .onAppear {
-            tabBarState.isVisible = false
-        }
-        .onDisappear {
-            tabBarState.isVisible = true
-        }
         .background(Color.Custom.primaryBackground.color)
         .navigationTitle(viewModel.recipe.title)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .toolbar() {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    coordinator.pop()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    coordinator.push(.recipeEdit(viewModel.recipe))
+                }, label: {
+                    Text("수정")
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                })
+            }
+        }
+        .toolbarBackground(.hidden, for: .tabBar)
+        .safeAreaInset(edge: .bottom) {
+            Color.clear
+                .frame(height: 50)
+        }
     }
 }
 

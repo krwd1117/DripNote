@@ -18,63 +18,62 @@ public struct RecipeView: View {
     
     public var body: some View {
         NavigationStack(path: $coordinator.navigationPath) {
-            ZStack {
-                Group {
-                    if viewModel.recipes.isEmpty {
-                        CustomEmptyView(
-                            title: "저장된 레시피가 없어요",
-                            message: "새 레시피를 추가해 나만의 커피를 기록해보세요.",
-                            systemImageName: "cup.and.saucer"
-                        )
-                    } else {
-                        ScrollView {
-                            LazyVGrid(
-                                columns: [
-                                    GridItem(.flexible(), spacing: 16),
-                                    GridItem(.flexible(), spacing: 16)
-                                ],
-                                spacing: 16
-                            ) {
-                                ForEach(viewModel.recipes) { recipe in
-                                    Button {
-                                        coordinator.push(.recipeDetail(recipe))
-                                    } label: {
-                                        RecipeRow(recipe: recipe)
-                                            .contextMenu {
-                                                Button(role: .destructive) {
-                                                    viewModel.deleteRecipe(recipe)
-                                                } label: {
-                                                    Label("삭제", systemImage: "trash")
-                                                }
-                                                
-                                                Button {
-                                                    coordinator.push(.recipeEdit(recipe))
-                                                } label: {
-                                                    Label("수정", systemImage: "pencil")
-                                                }
+            Group {
+                if viewModel.recipes.isEmpty {
+                    CustomEmptyView(
+                        title: "저장된 레시피가 없어요",
+                        message: "새 레시피를 추가해 나만의 커피를 기록해보세요.",
+                        systemImageName: "cup.and.saucer"
+                    )
+                } else {
+                    ScrollView {
+                        LazyVGrid(
+                            columns: [
+                                GridItem(.flexible(), spacing: 16),
+                                GridItem(.flexible(), spacing: 16)
+                            ],
+                            spacing: 16
+                        ) {
+                            ForEach(viewModel.recipes) { recipe in
+                                Button {
+                                    coordinator.push(.recipeDetail(recipe))
+                                } label: {
+                                    RecipeRow(recipe: recipe)
+                                        .contextMenu {
+                                            Button(role: .destructive) {
+                                                viewModel.deleteRecipe(recipe)
+                                            } label: {
+                                                Label("삭제", systemImage: "trash")
                                             }
-                                    }
+                                            
+                                            Button {
+                                                coordinator.push(.recipeEdit(recipe))
+                                            } label: {
+                                                Label("수정", systemImage: "pencil")
+                                            }
+                                        }
                                 }
                             }
-                            .padding(.horizontal, 16)
-                            .padding(.top, 16)
                         }
-                        .background(Color.Custom.primaryBackground.color)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 16)
                     }
-                }
-                .navigationTitle("나의 레시피")
-                .navigationDestination(for: RecipeCoordinator.Route.self) { route in
-                    coordinator.view(for: route)
-                        .environmentObject(coordinator)
-                }
-                .tint(Color.Custom.accentBrown.color)
-                .onAppear {
-                    tabBarState.isVisible = true
-                }
-                .task {
-                    await viewModel.fetchRecipes()
+                    .background(Color.Custom.primaryBackground.color)
                 }
             }
+            .navigationTitle("나의 레시피")
+            .navigationDestination(for: RecipeCoordinator.Route.self) { route in
+                coordinator.view(for: route)
+                    .environmentObject(coordinator)
+            }
+            .tint(Color.Custom.accentBrown.color)
+            .onAppear {
+                tabBarState.isVisible = true
+            }
+            .task {
+                await viewModel.fetchRecipes()
+            }
+            
         }
     }
 }
@@ -142,7 +141,7 @@ private struct RecipeRow: View {
 
 //#Preview {
 //    @StateObject var tabBarState: TabBarState = .init(isVisible: true)
-//    
+//
 //    RecipeView(coordinator: RecipeCoordinator())
 //        .environmentObject(tabBarState)
 //}
