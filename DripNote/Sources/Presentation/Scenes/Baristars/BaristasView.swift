@@ -16,7 +16,7 @@ public struct BaristasView: View {
     }
     
     public var body: some View {
-        NavigationStack {
+        NavigationStack(path: $coordinator.navigationPath) {
             ZStack {
                 Color.Custom.primaryBackground.color
                     .ignoresSafeArea()
@@ -54,6 +54,10 @@ public struct BaristasView: View {
             }
             .navigationTitle("바리스타 레시피")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: BaristasCoordinator.Route.self) { route in
+                coordinator.view(for: route)
+                    .environmentObject(coordinator)
+            }
         }
     }
 }

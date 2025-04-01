@@ -55,6 +55,7 @@ public struct BaristaRecipeDetailView: View {
         .background(NavigationGestureEnabler())
         .scrollContentBackground(.hidden)
         .background(Color.Custom.primaryBackground.color)
+        .navigationTitle("\(viewModel.recipe?.title ?? "")")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

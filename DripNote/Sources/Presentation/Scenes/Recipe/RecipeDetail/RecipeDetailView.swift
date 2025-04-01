@@ -47,6 +47,8 @@ public struct RecipeDetailView: View {
         .background(NavigationGestureEnabler())
         .scrollContentBackground(.hidden)
         .background(Color.Custom.primaryBackground.color)
+        .navigationTitle("\(viewModel.recipe.title)")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
