@@ -24,7 +24,8 @@ let project = Project(
                     "UILaunchScreen": [
                         "UIColorName": "secondaryBackground",
                         "UIImageName": "",
-                    ]
+                    ],
+                    "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511"
                 ]
             ),
             sources: ["DripNote/Sources/App/**"],

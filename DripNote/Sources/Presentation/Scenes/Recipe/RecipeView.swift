@@ -107,22 +107,26 @@ private struct RecipeRow: View {
                     .font(.system(size: 16, weight: .semibold))
                     .lineLimit(1)
                 
-                Text(recipe.baristaName)
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.Custom.darkBrown.color)
+                if recipe.baristaName.isEmpty == false {
+                    Text(recipe.baristaName)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                }
             }
             
             Divider()
             
             // 추출 정보
             HStack(spacing: 12) {
-                HStack(spacing: 4) {
-                    Image(systemName: "timer")
-                        .font(.system(size: 12))
-                    Text(String(format: String(localized: "Recipe.Time.TotalTime"), Int(recipe.totalBrewTime)))
-                        .font(.system(size: 12))
+                if recipe.totalBrewTime > 0 {
+                    HStack(spacing: 4) {
+                        Image(systemName: "timer")
+                            .font(.system(size: 12))
+                        Text(String(format: String(localized: "Recipe.Time.TotalTime"), Int(recipe.totalBrewTime)))
+                            .font(.system(size: 12))
+                    }
+                    .foregroundColor(Color.Custom.darkBrown.color)
                 }
-                .foregroundColor(Color.Custom.darkBrown.color)
                 
                 Text(String(format: String(localized: "Recipe.Weight.Ratio"), Int(recipe.coffeeWeight), Int(recipe.waterWeight)))
                     .font(.system(size: 12))

@@ -8,7 +8,7 @@ struct CustomMailView: UIViewControllerRepresentable {
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = context.coordinator
         composer.setToRecipients(["krwd1117@icloud.com"])
-        composer.setSubject("[DripNote] 문의하기")
+        composer.setSubject(String(localized: "Settings.Contact"))
         return composer
     }
     

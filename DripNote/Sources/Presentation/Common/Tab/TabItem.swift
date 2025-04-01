@@ -8,7 +8,7 @@ public enum TabItem: Int, CaseIterable {
     var title: String {
         switch self {
         case .myRecipes:
-            return String(localized: "Tab.Home")
+            return String(localized: "Tab.MyRecipe")
         case .baristas:
             return String(localized: "Tab.Barista")
         case .settings:

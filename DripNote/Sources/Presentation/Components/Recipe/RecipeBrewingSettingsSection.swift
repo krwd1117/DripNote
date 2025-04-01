@@ -39,12 +39,11 @@ public struct RecipeBrewingSettingsSection: View {
                 )
                 
                 RecipeSettingRow(
-                    icon: brewingTemperature == .hot ? "flame.fill" : "snowflake",
+                    icon: "thermometer.medium",
                     title: String(localized: "Recipe.Temperature"),
                     value: String(format: String(localized: "Recipe.Temperature.Format"),
                                 Int(waterTemperature),
-                                String(localized: "Unit.Celsius")),
-                    iconColor: brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color
+                                String(localized: "Unit.Celsius"))
                 )
                 
                 RecipeSettingRow(

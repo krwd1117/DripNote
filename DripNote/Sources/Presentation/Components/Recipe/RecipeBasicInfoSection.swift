@@ -33,12 +33,14 @@ public struct RecipeBasicInfoSection: View {
                     .foregroundColor(brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
             }
             
-            HStack {
-                Text("by")
-                    .foregroundColor(.secondary)
-                Text(baristaName)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(Color.Custom.darkBrown.color)
+            if baristaName.isEmpty == false {
+                HStack {
+                    Text("by")
+                        .foregroundColor(.secondary)
+                    Text(baristaName)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color.Custom.darkBrown.color)
+                }
             }
             
             Text(coffeeBeans)

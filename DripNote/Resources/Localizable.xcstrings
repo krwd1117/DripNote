@@ -109,6 +109,23 @@
         }
       }
     },
+    "NSUserTrackingUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This identifier will be used to deliver personalized ads to you."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "더 나은 광고 경험을 제공하기 위해 앱 사용 정보를 수집합니다."
+          }
+        }
+      }
+    },
     "Recipe.AddPouringStep" : {
       "comment" : "Add pouring step button",
       "extractionState" : "manual",
@@ -816,13 +833,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Contact"
+            "value" : "[DripNote] Contact Us"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "문의하기"
+            "state" : "needs_review",
+            "value" : "[DripNote] 문의하기"
           }
         }
       }
@@ -935,20 +952,19 @@
         }
       }
     },
-    "Tab.Home" : {
-      "comment" : "Tab Bar - Home tab title",
+    "Tab.MyRecipe" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Home"
+            "value" : "My Recipe"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "홈"
+            "state" : "needs_review",
+            "value" : "내 레시피"
           }
         }
       }
