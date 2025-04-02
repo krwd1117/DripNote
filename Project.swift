@@ -22,10 +22,7 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(
                 with: [
-                    "UILaunchScreen": [
-                        "UIColorName": "secondaryBackground",
-                        "UIImageName": "",
-                    ],
+                    "UILaunchStoryboardName": "LaunchScreen",
                     "ITSAppUsesNonExemptEncryption": false,
                     "UIUserInterfaceStyle": "Light",
                     "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511",
@@ -74,7 +71,6 @@ let project = Project(
                 .package(product: "FirebaseAnalytics"),
                 .package(product: "FirebaseCrashlytics"),
                 .package(product: "FirebaseMessaging"), 
-                .package(product: "GoogleMobileAds"),
                 .target(name: "DripNoteCore"),
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteData"),
@@ -131,7 +127,8 @@ let project = Project(
             dependencies: [
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteDI"),
-                .package(product: "YouTubeiOSPlayerHelper")
+                .package(product: "YouTubeiOSPlayerHelper"),
+                .package(product: "GoogleMobileAds"),
             ]
         ),
         .target(
