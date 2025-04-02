@@ -99,7 +99,7 @@ public struct RecipeFormView: View {
     }
 }
 
-// MARK: - BrewingInfoView
+// MARK: - Brewing Info View
 private struct BrewingInfoView: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     
@@ -186,7 +186,7 @@ private struct BrewingInfoView: View {
     }
 }
 
-// MARK: - BrewingSettingsView
+// MARK: - Brewing Settings View
 private struct BrewingSettingsView: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     
@@ -198,17 +198,13 @@ private struct BrewingSettingsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack(alignment: .leading, spacing: 16) {
-                Picker("", selection: $viewModel.selectedMethod) {
-                    ForEach(BrewingMethod.allCases, id: \.self) { method in
-                        Text(method.displayName)
-                            .tag(method)
-                    }
-                }
-                .pickerStyle(.menu)
-                .modifier(TextFieldLabelModifier(
-                    required: true,
-                    label: String(localized: "Recipe.Method")
-                ))
+                CustomMenuPicker(
+                    title: String(localized: "Recipe.Method"),
+                    items: BrewingMethod.allCases,
+                    itemTitle: { $0.displayName },
+                    selection: $viewModel.selectedMethod,
+                    required: true
+                )
                 
                 TextField("", text: $viewModel.grindSize)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -217,34 +213,11 @@ private struct BrewingSettingsView: View {
                     ))
             }
             
-            VStack(spacing: 16) {
-                ValueSliderInputView(
-                    title: String(localized: "Recipe.CoffeeAmount"),
-                    unit: String(localized: "Unit.Gram"),
-                    range: 0...100,
-                    step: 1,
-                    placholder: "20",
-                    value: $viewModel.coffeeWeight
-                )
-                
-                ValueSliderInputView(
-                    title: String(localized: "Recipe.WaterAmount"),
-                    unit: String(localized: "Unit.Milliliter"),
-                    range: 0...500,
-                    step: 10,
-                    placholder: "200",
-                    value: $viewModel.waterWeight
-                )
-                
-                ValueSliderInputView(
-                    title: String(localized: "Recipe.WaterTemperature"),
-                    unit: String(localized: "Unit.Celsius"),
-                    range: 0...100,
-                    step: 1,
-                    placholder: "93",
-                    value: $viewModel.waterTemperature
-                )
-            }
+            CoffeeWaterTemperatureView(
+                coffeeWeight: $viewModel.coffeeWeight,
+                waterWeight: $viewModel.waterWeight,
+                temperature: $viewModel.waterTemperature
+            )
         }
         .padding(16)
         .background(Color.Custom.secondaryBackground.color)
@@ -305,9 +278,10 @@ private struct BrewingSettingsView: View {
             }
         }
     }
+
 }
 
-// MARK: - BrewingStepsView
+// MARK: - Brewing Steps View
 private struct BrewingStepsView: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     @Binding var showingStepSheet: Bool
@@ -403,7 +377,7 @@ private struct BrewingStepsView: View {
     }
 }
 
-// MARK: - NotesView
+// MARK: - Notes View
 fileprivate struct NotesView: View {
     @Binding var notes: String
     

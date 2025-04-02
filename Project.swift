@@ -26,9 +26,10 @@ let project = Project(
                         "UIColorName": "secondaryBackground",
                         "UIImageName": "",
                     ],
+                    "ITSAppUsesNonExemptEncryption": false,
                     "UIUserInterfaceStyle": "Light",
                     "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511",
-                    "NSUserTrackingUsageDescription": "$(NSUserTrackingUsageDescription)"
+                    "NSUserTrackingUsageDescription": "This app uses your data for personalized advertising and to improve the user experience."
                 ]
             ),
             sources: ["DripNote/Sources/App/**"],
