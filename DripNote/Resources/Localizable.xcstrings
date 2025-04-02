@@ -1,0 +1,1046 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Barista.Loading" : {
+      "comment" : "Barista - Loading state message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading barista recipes..."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "바리스타들의 레시피를 가져오는 중..."
+          }
+        }
+      }
+    },
+    "Barista.Title" : {
+      "comment" : "Barista - Screen title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barista Recipes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "바리스타 레시피"
+          }
+        }
+      }
+    },
+    "Common.Add" : {
+      "comment" : "Add button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추가"
+          }
+        }
+      }
+    },
+    "Common.Cancel" : {
+      "comment" : "Cancel button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소"
+          }
+        }
+      }
+    },
+    "Common.Delete" : {
+      "comment" : "Delete button/action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
+          }
+        }
+      }
+    },
+    "Common.Edit" : {
+      "comment" : "Edit button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수정"
+          }
+        }
+      }
+    },
+    "NSUserTrackingUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This identifier will be used to deliver personalized ads to you."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "더 나은 광고 경험을 제공하기 위해 앱 사용 정보를 수집합니다."
+          }
+        }
+      }
+    },
+    "Recipe.AddPouringStep" : {
+      "comment" : "Add pouring step button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Pouring Step"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸어링 단계 추가"
+          }
+        }
+      }
+    },
+    "Recipe.BrewingSettings" : {
+      "comment" : "Recipe Detail - Brewing settings section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brewing Settings"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추출 설정"
+          }
+        }
+      }
+    },
+    "Recipe.BrewingSteps" : {
+      "comment" : "Recipe Detail - Brewing steps section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brewing Steps"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추출 단계"
+          }
+        }
+      }
+    },
+    "Recipe.CoffeeAmount" : {
+      "comment" : "Coffee amount label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coffee Amount"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "커피량"
+          }
+        }
+      }
+    },
+    "Recipe.CoffeeBeans" : {
+      "comment" : "Coffee beans name field label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coffee Beans"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "원두 이름"
+          }
+        }
+      }
+    },
+    "Recipe.Description.Placeholder" : {
+      "comment" : "Description input placeholder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description (e.g., Pour in circles from the center)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설명 (예: 중심부터 원을 그리며 부어주세요)"
+          }
+        }
+      }
+    },
+    "Recipe.Empty.Message" : {
+      "comment" : "Empty state message when no recipes are saved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new recipe to record your own coffee"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 레시피를 추가해 나만의 커피를 기록해보세요"
+          }
+        }
+      }
+    },
+    "Recipe.Empty.Title" : {
+      "comment" : "Empty state title when no recipes are saved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Saved Recipes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장된 레시피가 없어요"
+          }
+        }
+      }
+    },
+    "Recipe.GrindSize" : {
+      "comment" : "Recipe Detail - Grind size label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grind Size"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "분쇄도"
+          }
+        }
+      }
+    },
+    "Recipe.Method" : {
+      "comment" : "Recipe Detail - Brewing method label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brewing Method"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추출 도구"
+          }
+        }
+      }
+    },
+    "Recipe.MyRecipe" : {
+      "comment" : "My Recipes section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Recipe"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "내 레시피"
+          }
+        }
+      }
+    },
+    "Recipe.Notes" : {
+      "comment" : "Recipe Detail - Notes section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메모"
+          }
+        }
+      }
+    },
+    "Recipe.Notes.Placeholder" : {
+      "comment" : "Notes input placeholder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter notes"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메모를 입력하세요"
+          }
+        }
+      }
+    },
+    "Recipe.PouringInfo" : {
+      "comment" : "Pouring information section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pouring Information"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸어링 정보"
+          }
+        }
+      }
+    },
+    "Recipe.Ratio" : {
+      "comment" : "Recipe Detail - Coffee to water ratio label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coffee : Water Ratio"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "커피 : 물 비율"
+          }
+        }
+      }
+    },
+    "Recipe.Ratio.Format" : {
+      "comment" : "Coffee to water ratio format (e.g. '20g : 300ml')",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d%@ : %d%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d%@ : %d%@"
+          }
+        }
+      }
+    },
+    "Recipe.Steps.Empty" : {
+      "comment" : "Message shown when there are no brewing steps",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please add brewing steps"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단계를 추가해주세요"
+          }
+        }
+      }
+    },
+    "Recipe.StoreInfo" : {
+      "comment" : "Store information section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Store Information"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매장 정보"
+          }
+        }
+      }
+    },
+    "Recipe.Temperature" : {
+      "comment" : "Recipe Detail - Water temperature label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water Temperature"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "물 온도"
+          }
+        }
+      }
+    },
+    "Recipe.Temperature.Format" : {
+      "comment" : "Temperature format (e.g. '93°C')",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d%@"
+          }
+        }
+      }
+    },
+    "Recipe.TemperatureSetting" : {
+      "comment" : "Temperature setting label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temperature Setting"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "온도 설정"
+          }
+        }
+      }
+    },
+    "Recipe.Time.Label" : {
+      "comment" : "Time label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "시간"
+          }
+        }
+      }
+    },
+    "Recipe.Time.MinutesAndSeconds" : {
+      "comment" : "Time format with minutes and seconds (e.g. '2min 30sec')",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d min %d sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d분 %d초"
+          }
+        }
+      }
+    },
+    "Recipe.Time.SecondsOnly" : {
+      "comment" : "Time format with seconds only (e.g. '30sec')",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d초"
+          }
+        }
+      }
+    },
+    "Recipe.Time.TotalTime" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d초"
+          }
+        }
+      }
+    },
+    "Recipe.WatchOnYoutube" : {
+      "comment" : "Watch on YouTube button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch on YouTube"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유튜브에서 보기"
+          }
+        }
+      }
+    },
+    "Recipe.WaterAmount" : {
+      "comment" : "Water amount label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water Amount"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "물량"
+          }
+        }
+      }
+    },
+    "Recipe.WaterTemperature" : {
+      "comment" : "Water temperature label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water Temperature"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "물온도"
+          }
+        }
+      }
+    },
+    "Recipe.WaterVolume" : {
+      "comment" : "Water volume label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water Volume"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "물의 양"
+          }
+        }
+      }
+    },
+    "Recipe.Weight.Ratio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dg : %dml"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dg : %dml"
+          }
+        }
+      }
+    },
+    "RecipeForm.BaristaName" : {
+      "comment" : "Recipe Form - Barista name field label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barista Name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "바리스타 이름"
+          }
+        }
+      }
+    },
+    "RecipeForm.BaristaName.Placeholder" : {
+      "comment" : "Recipe Form - Barista name field placeholder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ex) John"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ex) 나"
+          }
+        }
+      }
+    },
+    "RecipeForm.BasicInfo" : {
+      "comment" : "Recipe Form - Basic information section title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic Information"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기본 정보"
+          }
+        }
+      }
+    },
+    "RecipeForm.RecipeTitle" : {
+      "comment" : "Recipe Form - Recipe title field label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recipe Title"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피 제목"
+          }
+        }
+      }
+    },
+    "RecipeForm.RecipeTitle.Placeholder" : {
+      "comment" : "Recipe Form - Recipe title field placeholder",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ex) My Recipe"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ex) 나만의 레시피"
+          }
+        }
+      }
+    },
+    "RecipeForm.Save" : {
+      "comment" : "Recipe Form - Save button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장"
+          }
+        }
+      }
+    },
+    "RecipeForm.Title.Edit" : {
+      "comment" : "Recipe Form - Edit recipe title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Recipe"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피 수정"
+          }
+        }
+      }
+    },
+    "RecipeForm.Title.New" : {
+      "comment" : "Recipe Form - New recipe title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Recipe"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레시피 작성"
+          }
+        }
+      }
+    },
+    "Settings.Contact" : {
+      "comment" : "Settings - Contact button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[DripNote] Contact Us"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[DripNote] 문의하기"
+          }
+        }
+      }
+    },
+    "Settings.EmailError.Confirm" : {
+      "comment" : "Settings - Email error alert confirm button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
+          }
+        }
+      }
+    },
+    "Settings.EmailError.Message" : {
+      "comment" : "Settings - Email error alert message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your email settings on your device."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기기에서 이메일 설정을 확인해주세요."
+          }
+        }
+      }
+    },
+    "Settings.EmailError.Title" : {
+      "comment" : "Settings - Email error alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot Send Email"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이메일을 보낼 수 없습니다"
+          }
+        }
+      }
+    },
+    "Settings.Title" : {
+      "comment" : "Settings - Screen title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정"
+          }
+        }
+      }
+    },
+    "Settings.Version" : {
+      "comment" : "Settings - Version label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버전"
+          }
+        }
+      }
+    },
+    "Tab.Barista" : {
+      "comment" : "Tab Bar - Barista tab title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barista"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "바리스타"
+          }
+        }
+      }
+    },
+    "Tab.MyRecipe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Recipe"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "내 레시피"
+          }
+        }
+      }
+    },
+    "Tab.Settings" : {
+      "comment" : "Tab Bar - Settings tab title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정"
+          }
+        }
+      }
+    },
+    "Unit.Celsius" : {
+      "comment" : "Temperature unit (Celsius)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°C"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°C"
+          }
+        }
+      }
+    },
+    "Unit.Gram" : {
+      "comment" : "Weight unit (gram)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "g"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "g"
+          }
+        }
+      }
+    },
+    "Unit.Milliliter" : {
+      "comment" : "Volume unit (milliliter)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ml"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ml"
+          }
+        }
+      }
+    },
+    "Unit.Second" : {
+      "comment" : "Time unit (second)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sec"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "초"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
