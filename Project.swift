@@ -38,6 +38,12 @@ let project = Project(
                         #!/bin/bash
                         set -e
 
+                        # Debug 빌드인 경우 dSYM 업로드를 건너뛰기
+                        if [ "$CONFIGURATION" = "Debug" ]; then
+                            echo "⚠️ Skipping Crashlytics dSYM upload in Debug configuration."
+                            exit 0
+                        fi
+
                         echo "🔍 Locating GoogleService-Info.plist..."
                         GOOGLE_SERVICE_PLIST="${PROJECT_DIR}/DripNote/Resources/GoogleService-Info.plist"
                         if [ ! -f "$GOOGLE_SERVICE_PLIST" ]; then
