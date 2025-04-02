@@ -21,7 +21,6 @@ public final class RecipeFormViewModel: ObservableObject {
     
     var isValidRecipe: Bool {
         !title.isEmpty
-        && !coffeeBeans.isEmpty
         && !coffeeWeight.isZero
         && !waterWeight.isZero
         && !waterTemperature.isZero

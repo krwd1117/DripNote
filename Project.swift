@@ -27,7 +27,8 @@ let project = Project(
                         "UIImageName": "",
                     ],
                     "UIUserInterfaceStyle": "Light",
-                    "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511"
+                    "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511",
+                    "NSUserTrackingUsageDescription": "$(NSUserTrackingUsageDescription)"
                 ]
             ),
             sources: ["DripNote/Sources/App/**"],

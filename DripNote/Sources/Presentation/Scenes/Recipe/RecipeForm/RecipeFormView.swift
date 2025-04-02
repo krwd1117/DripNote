@@ -127,7 +127,6 @@ private struct BrewingInfoView: View {
                 TextField("", text: $viewModel.coffeeBeans)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .modifier(TextFieldLabelModifier(
-                        required: true,
                         label: String(localized: "Recipe.CoffeeBeans")
                     ))
                 }
