@@ -27,7 +27,7 @@ public struct RecipeView: View {
                         systemImageName: "cup.and.saucer"
                     )
                 } else {
-                    ScrollView {
+                    ScrollView {    
                         LazyVGrid(
                             columns: [
                                 GridItem(.flexible(), spacing: 16),

@@ -39,15 +39,16 @@ public struct BaristaRecipeDetailView: View {
                         RecipeNotesSection(notes: recipe.notes)
                     }
                     
+                    // 매장 정보
+                    if let storeInfo = recipe.storeInfo {
+                        StoreInfoSection(info: storeInfo)
+                    }
+                    
                     // 유튜브 링크
                     if let youtubeURL = recipe.youtubeURL {
                         YoutubeSection(url: youtubeURL)
                     }
                     
-                    // 매장 정보
-                    if let storeInfo = recipe.storeInfo {
-                        StoreInfoSection(info: storeInfo)
-                    }
                 }
                 .padding(20)
             }
@@ -82,19 +83,9 @@ private struct YoutubeSection: View {
     let url: URL
     
     var body: some View {
-        Link(destination: url) {
-            HStack {
-                Image(systemName: "play.circle.fill")
-                    .font(.system(size: 24))
-                Text("Recipe.WatchOnYoutube")
-                    .font(.system(size: 16, weight: .semibold))
-            }
-            .foregroundColor(.red)
-            .frame(maxWidth: .infinity)
-            .padding(16)
-            .background(Color.Custom.secondaryBackground.color)
+        YouTubePlayerView(youtubeLink: url)
+            .frame(height: 300)
             .cornerRadius(12)
-        }
     }
 }
 
