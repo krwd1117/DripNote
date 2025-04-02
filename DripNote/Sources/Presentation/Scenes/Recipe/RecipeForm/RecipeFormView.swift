@@ -18,48 +18,41 @@ public struct RecipeFormView: View {
     }
     
     public var body: some View {
-        Form {
-            Section(String(localized: "RecipeForm.BasicInfo")) {
-                TextField("", text: $viewModel.title)
-                    .font(.system(size: 16))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .modifier(TextFieldLabelModifier(
-                        required: true,
-                        label: String(localized: "RecipeForm.RecipeTitle")
-                    ))
+        ScrollView {
+            VStack(spacing: 20) {
+                // 기본 정보
+                BrewingInfoView(viewModel: viewModel)
                 
-                TextField("", text: $viewModel.baristaName)
-                    .font(.system(size: 16))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .modifier(TextFieldLabelModifier(
-                        label: String(localized: "RecipeForm.BaristaName")
-                    ))
-            }
-            BrewingSettingsSection(viewModel: viewModel)
-            BrewingStepsSection(
-                viewModel: viewModel,
-                showingStepSheet: $showingStepSheet,
-                onEdit: { step in
-                    editingStep = step
-                    showingStepSheet = true
-                }
-            )
-            NotesSection(notes: $viewModel.notes)
-            
-            Section {
+                // 추출 설정
+                BrewingSettingsView(viewModel: viewModel)
+                
+                // 추출 단계
+                BrewingStepsView(
+                    viewModel: viewModel,
+                    showingStepSheet: $showingStepSheet,
+                    onEdit: { step in
+                        editingStep = step
+                        showingStepSheet = true
+                    }
+                )
+                
+                // 노트
+                NotesView(notes: $viewModel.notes)
+                
                 Color.clear
                     .frame(height: 50)
-                    .listRowBackground(Color.clear)
             }
+            .padding(16)
         }
-        .background(NavigationGestureEnabler())
+        .enableNavigationGesture()
+        .onTapHideKeyboard()
         .scrollContentBackground(.hidden)
         .background(Color.Custom.primaryBackground.color)
         .ignoresSafeArea(.container, edges: .bottom)
         .tint(Color.Custom.darkBrown.color)
-        .navigationTitle(viewModel.recipe == nil ? 
-            String(localized: "RecipeForm.Title.New") :
-            String(localized: "RecipeForm.Title.Edit"))
+        .navigationTitle(viewModel.recipe == nil ?
+                         String(localized: "RecipeForm.Title.New") :
+                            String(localized: "RecipeForm.Title.Edit"))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -98,7 +91,7 @@ public struct RecipeFormView: View {
         .onDisappear {
             tabBarState.isVisible = true
         }
-        .onChange(of: showingStepSheet) { newValue in
+        .onChange(of: showingStepSheet) { _, newValue in
             if !newValue {
                 editingStep = nil
             }
@@ -106,15 +99,19 @@ public struct RecipeFormView: View {
     }
 }
 
-// MARK: - Basic Info Section
-private struct BasicInfoSection: View {
+// MARK: - BrewingInfoView
+private struct BrewingInfoView: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     
     var body: some View {
-        Section {
+        VStack(spacing: 16) {
+            Text("Recipe.BrewingInfo")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(Color.Custom.darkBrown.color)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
             VStack(alignment: .leading, spacing: 16) {
                 TextField("", text: $viewModel.title)
-                    .font(.system(size: 16))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .modifier(TextFieldLabelModifier(
                         required: true,
@@ -122,276 +119,327 @@ private struct BasicInfoSection: View {
                     ))
                 
                 TextField("", text: $viewModel.baristaName)
-                    .font(.system(size: 16))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .modifier(TextFieldLabelModifier(
                         label: String(localized: "RecipeForm.BaristaName")
                     ))
+                
+                TextField("", text: $viewModel.coffeeBeans)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .modifier(TextFieldLabelModifier(
+                        required: true,
+                        label: String(localized: "Recipe.CoffeeBeans")
+                    ))
+                }
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Recipe.TemperatureSetting")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .fontWeight(.semibold)
+                
+                TemperatureSegment(brewingTemperature: $viewModel.brewingTemperature)
             }
-            .padding(.vertical, 8)
+        }
+        .padding(16)
+        .background(Color.Custom.secondaryBackground.color)
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.Custom.darkBrown.color.opacity(0.1), lineWidth: 1)
+        )
+    }
+    
+    fileprivate struct TemperatureSegment: View {
+        @Binding var brewingTemperature: BrewingTemperature
+        @Namespace private var animation
+        
+        var body: some View {
+            HStack {
+                ForEach(BrewingTemperature.allCases, id: \.self) { temperature in
+                    Button {
+                        withAnimation(.spring()) {
+                            brewingTemperature = temperature
+                        }
+                    } label: {
+                        Text(temperature.displayName)
+                            .font(.system(size: 14, weight: .medium))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .foregroundColor(brewingTemperature == temperature ? .white : Color.Custom.darkBrown.color)
+                            .background {
+                                if brewingTemperature == temperature {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(temperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
+                                        .matchedGeometryEffect(id: "TAB", in: animation)
+                                }
+                            }
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.Custom.secondaryBackground.color)
+            }
         }
     }
 }
 
-// MARK: - Brewing Settings Section
-private struct BrewingSettingsSection: View {
+// MARK: - BrewingSettingsView
+private struct BrewingSettingsView: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     
     var body: some View {
-        Section {
-            VStack(spacing: 20) {
-                // 원두 정보
-                VStack(alignment: .leading, spacing: 16) {
-                    TextField("", text: $viewModel.coffeeBeans)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .modifier(TextFieldLabelModifier(
-                            required: true,
-                            label: String(localized: "Recipe.CoffeeBeans")
-                        ))
-                    
-                    // 온도 설정 세그먼트
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Recipe.TemperatureSetting")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .fontWeight(.semibold)
-                        
-                        TemperatureSegment(brewingTemperature: $viewModel.brewingTemperature)
+        VStack(spacing: 20) {
+            Text("Recipe.BrewingSettings")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(Color.Custom.darkBrown.color)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack(alignment: .leading, spacing: 16) {
+                Picker("", selection: $viewModel.selectedMethod) {
+                    ForEach(BrewingMethod.allCases, id: \.self) { method in
+                        Text(method.displayName)
+                            .tag(method)
                     }
                 }
+                .pickerStyle(.menu)
+                .modifier(TextFieldLabelModifier(
+                    required: true,
+                    label: String(localized: "Recipe.Method")
+                ))
                 
-                // 추출 도구 및 분쇄도
-                VStack(alignment: .leading, spacing: 16) {
-                    Picker("", selection: $viewModel.selectedMethod) {
-                        ForEach(BrewingMethod.allCases, id: \.self) { method in
-                            Text(method.displayName)
-                                .tag(method)
-                        }
-                    }
-                    .pickerStyle(.menu)
-                    .modifier(TextFieldLabelModifier(label: String(localized: "Recipe.Method")))
-                    
-                    TextField("", text: $viewModel.grindSize)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .modifier(TextFieldLabelModifier(
-                            label: String(localized: "Recipe.GrindSize")
-                        ))
-                }
+                TextField("", text: $viewModel.grindSize)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .modifier(TextFieldLabelModifier(
+                        label: String(localized: "Recipe.GrindSize")
+                    ))
+            }
+            
+            VStack(spacing: 16) {
+                ValueSliderInputView(
+                    title: String(localized: "Recipe.CoffeeAmount"),
+                    unit: String(localized: "Unit.Gram"),
+                    range: 0...100,
+                    step: 1,
+                    placholder: "20",
+                    value: $viewModel.coffeeWeight
+                )
                 
-                // 물량 및 온도 설정
-                CoffeeWaterTemperatureView(
-                    coffeeWeight: $viewModel.coffeeWeight,
-                    waterWeight: $viewModel.waterWeight,
-                    temperature: $viewModel.waterTemperature
+                ValueSliderInputView(
+                    title: String(localized: "Recipe.WaterAmount"),
+                    unit: String(localized: "Unit.Milliliter"),
+                    range: 0...500,
+                    step: 10,
+                    placholder: "200",
+                    value: $viewModel.waterWeight
+                )
+                
+                ValueSliderInputView(
+                    title: String(localized: "Recipe.WaterTemperature"),
+                    unit: String(localized: "Unit.Celsius"),
+                    range: 0...100,
+                    step: 1,
+                    placholder: "93",
+                    value: $viewModel.waterTemperature
                 )
             }
-            .padding(.vertical, 8)
         }
+        .padding(16)
+        .background(Color.Custom.secondaryBackground.color)
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.Custom.darkBrown.color.opacity(0.1), lineWidth: 1)
+        )
     }
-}
-
-// MARK: - Coffee Water Ratio View
-fileprivate struct CoffeeWaterTemperatureView: View {
-    @Binding var coffeeWeight: Double
-    @Binding var waterWeight: Double
-    @Binding var temperature: Double
     
-    @State private var stringCoffeeWeight: String
-    @State private var stringWaterWeight: String
-    @State private var stringTemperature: String
-    
-    init(coffeeWeight: Binding<Double>, waterWeight: Binding<Double>, temperature: Binding<Double>) {
-        self._coffeeWeight = coffeeWeight
-        self._waterWeight = waterWeight
-        self._temperature = temperature
+    fileprivate struct CoffeeWaterTemperatureView: View {
+        @Binding var coffeeWeight: Double
+        @Binding var waterWeight: Double
+        @Binding var temperature: Double
         
-        self.stringCoffeeWeight = String(format: "%.1f", coffeeWeight.wrappedValue)
-        self.stringWaterWeight = String(format: "%.1f", waterWeight.wrappedValue)
-        self.stringTemperature = String(format: "%.1f", temperature.wrappedValue)
-    }
-    
-    var body: some View {
-        VStack {
-            ValueSliderInputView(
-                title: String(localized: "Recipe.CoffeeAmount"),
-                unit: String(localized: "Unit.Gram"),
-                range: 0...100,
-                step: 1,
-                placholder: "20",
-                value: $coffeeWeight
-            )
+        @State private var stringCoffeeWeight: String
+        @State private var stringWaterWeight: String
+        @State private var stringTemperature: String
+        
+        init(coffeeWeight: Binding<Double>, waterWeight: Binding<Double>, temperature: Binding<Double>) {
+            self._coffeeWeight = coffeeWeight
+            self._waterWeight = waterWeight
+            self._temperature = temperature
             
-            ValueSliderInputView(
-                title: String(localized: "Recipe.WaterAmount"),
-                unit: String(localized: "Unit.Milliliter"),
-                range: 0...500,
-                step: 10,
-                placholder: "200",
-                value: $waterWeight
-            )
-            
-            ValueSliderInputView(
-                title: String(localized: "Recipe.WaterTemperature"),
-                unit: String(localized: "Unit.Celsius"),
-                range: 0...100,
-                step: 1,
-                placholder: "93",
-                value: $temperature
-            )
+            self.stringCoffeeWeight = String(format: "%.1f", coffeeWeight.wrappedValue)
+            self.stringWaterWeight = String(format: "%.1f", waterWeight.wrappedValue)
+            self.stringTemperature = String(format: "%.1f", temperature.wrappedValue)
+        }
+        
+        var body: some View {
+            VStack {
+                ValueSliderInputView(
+                    title: String(localized: "Recipe.CoffeeAmount"),
+                    unit: String(localized: "Unit.Gram"),
+                    range: 0...100,
+                    step: 1,
+                    placholder: "20",
+                    value: $coffeeWeight
+                )
+                
+                ValueSliderInputView(
+                    title: String(localized: "Recipe.WaterAmount"),
+                    unit: String(localized: "Unit.Milliliter"),
+                    range: 0...500,
+                    step: 10,
+                    placholder: "200",
+                    value: $waterWeight
+                )
+                
+                ValueSliderInputView(
+                    title: String(localized: "Recipe.WaterTemperature"),
+                    unit: String(localized: "Unit.Celsius"),
+                    range: 0...100,
+                    step: 1,
+                    placholder: "93",
+                    value: $temperature
+                )
+            }
         }
     }
 }
 
-// MARK: - Brewing Steps Section
-private struct BrewingStepsSection: View {
+// MARK: - BrewingStepsView
+private struct BrewingStepsView: View {
     @ObservedObject var viewModel: RecipeFormViewModel
     @Binding var showingStepSheet: Bool
-    @State private var editingStep: BrewingStep?
     let onEdit: (BrewingStep) -> Void
     
     var body: some View {
-        Section {
+        VStack(spacing: 16) {
+            Text("Recipe.BrewingSteps")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(Color.Custom.darkBrown.color)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
             if viewModel.steps.isEmpty {
                 EmptyStepsView()
             } else {
-                ForEach(
-                    viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
-                    id: \.pourNumber
-                ) { step in
-                    Button(action: {
-                        onEdit(step)
-                    }, label: {
-                        RecipeStepRow(step: step)
-                    })
-                    .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                        Button(role: .destructive) {
-                            if let index = viewModel.steps.firstIndex(where: { $0.pourNumber == step.pourNumber }) {
-                                viewModel.removeStep(at: index)
+                VStack(spacing: 12) {
+                    ForEach(
+                        viewModel.steps.sorted(by: { $0.pourNumber < $1.pourNumber }),
+                        id: \.pourNumber
+                    ) { step in
+                        Button(action: {
+                            onEdit(step)
+                        }, label: {
+                            RecipeStepRow(step: step)
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 3, x: 0, y: 1)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                if let index = viewModel.steps.firstIndex(where: { $0.pourNumber == step.pourNumber }) {
+                                    viewModel.removeStep(at: index)
+                                }
+                            } label: {
+                                Image(systemName: "trash")
                             }
-                        } label: {
-                            Image(systemName: "trash")
+                            .tint(Color.Custom.warmTerracotta.color)
                         }
-                        .tint(Color.Custom.warmTerracotta.color)
                     }
                 }
             }
             
             AddStepButton(showingStepSheet: $showingStepSheet)
         }
-        .padding(.vertical, 8)
-        .sheet(item: $editingStep) { step in
-            StepFormView(viewModel: viewModel, editingStep: step)
+        .padding(16)
+        .background(Color.Custom.secondaryBackground.color)
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.Custom.darkBrown.color.opacity(0.1), lineWidth: 1)
+        )
+    }
+    
+    private struct EmptyStepsView: View {
+        var body: some View {
+            VStack(spacing: 12) {
+                Image(systemName: "list.bullet.clipboard")
+                    .font(.system(size: 40))
+                    .foregroundColor(Color.Custom.darkBrown.color.opacity(0.3))
+                Text("Recipe.Steps.Empty")
+                    .font(.system(size: 14))
+                    .foregroundColor(Color.Custom.darkBrown.color.opacity(0.5))
+                    .fontWeight(.medium)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 32)
+        }
+    }
+    
+    private struct AddStepButton: View {
+        @Binding var showingStepSheet: Bool
+        
+        var body: some View {
+            Button {
+                showingStepSheet = true
+            } label: {
+                HStack {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 16))
+                    Text("Recipe.AddPouringStep")
+                        .font(.system(size: 14, weight: .semibold))
+                }
+                .foregroundColor(Color.Custom.accentBrown.color)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(Color.Custom.primaryBackground.color)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(Color.Custom.accentBrown.color, lineWidth: 1)
+                )
+            }
         }
     }
 }
 
-// MARK: - Brewing Step Row
-fileprivate struct BrewingStepRow: View {
-    let step: BrewingStep
-    let onEdit: () -> Void
-    
-    var body: some View {
-        Button(action: {
-            onEdit()
-        }, label: {
-            RecipeStepRow(step: step)
-        })
-    }
-}
-
-fileprivate struct NotesSection: View {
+// MARK: - NotesView
+fileprivate struct NotesView: View {
     @Binding var notes: String
     
     var body: some View {
-        Section(String(localized: "Recipe.Notes")) {
-            TextField(String(localized: "Recipe.Notes.Placeholder"), text: $notes)
-        }
-    }
-}
-
-fileprivate struct TemperatureSegment: View {
-    @Binding var brewingTemperature: BrewingTemperature
-    @Namespace private var animation
-    
-    var body: some View {
-        HStack {
-            ForEach(BrewingTemperature.allCases, id: \.self) { temperature in
-                Button {
-                    withAnimation(.spring()) {
-                        brewingTemperature = temperature
-                    }
-                } label: {
-                    Text(temperature.displayName)
-                        .font(.system(size: 14, weight: .medium))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .foregroundColor(brewingTemperature == temperature ? .white : Color.Custom.darkBrown.color)
-                        .background {
-                            if brewingTemperature == temperature {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(temperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
-                                    .matchedGeometryEffect(id: "TAB", in: animation)
-                            }
-                        }
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(PlainButtonStyle())
-            }
-        }
-        .background {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color.Custom.secondaryBackground.color)
-        }
-    }
-}
-
-private struct EmptyStepsView: View {
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "list.bullet.clipboard")
-                .font(.system(size: 40))
-                .foregroundColor(.gray)
-            Text("Recipe.Steps.Empty")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .fontWeight(.semibold)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 24)
-    }
-}
-
-private struct AddStepButton: View {
-    @Binding var showingStepSheet: Bool
-    
-    var body: some View {
-        Button {
-            showingStepSheet = true
-        } label: {
+        VStack(spacing: 16) {
             HStack {
-                Image(systemName: "plus.circle.fill")
-                    .foregroundColor(Color.Custom.accentBrown.color)
-                Text("Recipe.AddPouringStep")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color.Custom.accentBrown.color)
+                Image(systemName: "note.text")
+                    .font(.system(size: 18, weight: .semibold))
+                Text("Recipe.Notes")
+                    .font(.system(size: 18, weight: .bold))
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(Color.Custom.secondaryBackground.color)
-            .cornerRadius(12)
+            .foregroundColor(Color.Custom.darkBrown.color)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            TextField(
+                String(localized: "Recipe.Notes.Placeholder"),
+                text: $notes,
+                axis: .vertical
+            )
+            .lineLimit(5...10)
+            .textFieldStyle(.plain)
+            .font(.system(size: 14))
         }
+        .padding(16)
+        .background(Color.Custom.secondaryBackground.color)
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.Custom.darkBrown.color.opacity(0.1), lineWidth: 1)
+        )
     }
 }
 
 #Preview {
-    @StateObject var tabBarState: TabBarState = .init(isVisible: false)
+    @Previewable @StateObject var tabBarState: TabBarState = .init(isVisible: false)
     RecipeFormView(useCase: DIContainer.shared.resolve(RecipeUseCase.self))
         .environmentObject(tabBarState)
 }
-
-//#Preview(body: {
-//    let viewModel = RecipeFormViewModel(useCase: DIContainer.shared.resolve(RecipeUseCase.self))
-//    BrewingStepsSection(viewModel: viewModel, showingStepSheet: .constant(false))
-//})

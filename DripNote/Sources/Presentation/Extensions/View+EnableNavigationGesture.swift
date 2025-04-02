@@ -1,6 +1,12 @@
 import SwiftUI
 
-struct NavigationGestureEnabler: UIViewControllerRepresentable {
+extension View {
+    func enableNavigationGesture() -> some View {
+        self.background(NavigationGestureEnabler())
+    }
+}
+
+fileprivate struct NavigationGestureEnabler: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         let controller = UIViewController()
         DispatchQueue.main.async {

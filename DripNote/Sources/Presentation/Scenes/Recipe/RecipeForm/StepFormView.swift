@@ -45,7 +45,7 @@ struct StepFormView: View {
                     )
                     
                     ValueSliderInputView(
-                        title: String(localized: "Recipe.StartTime.Label"),
+                        title: String(localized: "Recipe.Time.Label"),
                         unit: String(localized: "Unit.Second"),
                         range: 0...300,
                         step: 10,

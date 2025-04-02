@@ -53,7 +53,7 @@ public struct BaristaRecipeDetailView: View {
                 .padding(20)
             }
         }
-        .background(NavigationGestureEnabler())
+        .enableNavigationGesture()
         .scrollContentBackground(.hidden)
         .background(Color.Custom.primaryBackground.color)
         .navigationTitle("\(viewModel.recipe?.title ?? "")")

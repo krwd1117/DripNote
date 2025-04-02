@@ -127,6 +127,23 @@
         }
       }
     },
+    "Recipe.BrewingInfo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brewing Info"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추출 정보"
+          }
+        }
+      }
+    },
     "Recipe.BrewingSettings" : {
       "comment" : "Recipe Detail - Brewing settings section title",
       "extractionState" : "manual",
