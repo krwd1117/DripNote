@@ -13,6 +13,10 @@ public final class SplashViewModel: ObservableObject {
     
     func setup() {
         Task { @MainActor in
+            
+            // TestFilght를 통해 설치한 경우 권한 요청을 무시하고 넘어가는 경우가 발생하여 이를 해결하기 위해 추가
+            try await Task.sleep(for: .seconds(0.5))
+            
             await requestTrackingAuthorizationIfNeeded()
             await initializeAdMob()
             self.isFinished = true

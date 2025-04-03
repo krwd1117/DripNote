@@ -421,13 +421,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%0.2f %@ : %0.1f %@"
+            "value" : "%0.1f %@ : %0.1f %@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%0.2f %@ : %0.1f %@"
+            "state" : "translated",
+            "value" : "%0.1f %@ : %0.1f %@"
           }
         }
       }
@@ -493,13 +493,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%0.2f %@"
+            "value" : "%0.1f %@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%0.2f %@"
+            "state" : "translated",
+            "value" : "%0.1f %@"
           }
         }
       }

@@ -135,22 +135,7 @@ fileprivate struct RecipeGridView: View {
                 Divider()
                 
                 // 추출 정보
-                HStack(spacing: 12) {
-                    if recipe.totalBrewTime > 0 {
-                        HStack(spacing: 4) {
-                            Image(systemName: "timer")
-                                .font(.system(size: 12))
-                            Text(
-                                String(
-                                    format: String(localized: "Recipe.Time.TotalTime"),
-                                    Int(recipe.totalBrewTime)
-                                )
-                            )
-                                .font(.system(size: 12))
-                        }
-                        .foregroundColor(Color.Custom.darkBrown.color)
-                    }
-                    
+                HStack(spacing: 12) {                    
                     // 원두 양 : 물 양
                     Text(
                         String(
