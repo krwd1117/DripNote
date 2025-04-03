@@ -16,6 +16,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
     
         FirebaseApp.configure()
+        
+        initializeFirebaseRemoteConfig()
     
         do {
             container = try ModelContainerFactory.create()

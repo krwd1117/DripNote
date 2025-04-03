@@ -76,14 +76,37 @@ fileprivate struct GridView: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(viewModel.recipes) { recipe in
-                    Button {
-                        coordinator.push(.detail(recipe))
-                    } label: {
-                        RecipeCard(recipe: recipe)
+            let items: [GridItemType] = {
+                var result: [GridItemType] = []
+                for (index, recipe) in viewModel.recipes.enumerated() {
+                    result.append(.recipe(recipe))
+                    if (index + 1) % 3 == 0 {
+                        result.append(.ad(UUID()))
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
+                }
+                return result
+            }()
+            
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(items) { item in
+                    switch item {
+                    case .recipe(let recipe):
+                        Button {
+                            coordinator.push(.detail(recipe))
+                        } label: {
+                            RecipeCard(recipe: recipe)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+
+                    case .ad:
+                        VStack {
+                            NativeAdContainerView(backgroundColor: Color.Custom.secondaryBackground.color)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        .cornerRadius(16)
+                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 4, x: 0, y: 2)
+                        .gridCellColumns(2)
+                    }
                 }
             }
             .padding(16)

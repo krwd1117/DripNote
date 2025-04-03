@@ -155,7 +155,8 @@ let project = Project(
             resources: [],
             dependencies: [
                 .package(product: "YouTubeiOSPlayerHelper"),
-                .package(product: "GoogleMobileAds")
+                .package(product: "GoogleMobileAds"),
+                .package(product: "FirebaseRemoteConfig")
             ]
         ),
         .target(
