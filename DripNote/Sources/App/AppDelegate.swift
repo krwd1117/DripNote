@@ -3,6 +3,7 @@ import SwiftData
 
 import DripNoteDI
 import DripNoteData
+import DripNoteThirdParty
 
 import FirebaseCore
 

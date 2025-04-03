@@ -91,6 +91,24 @@
         }
       }
     },
+    "Common.Done" : {
+      "comment" : "Done button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "완료"
+          }
+        }
+      }
+    },
     "Common.Edit" : {
       "comment" : "Edit button",
       "extractionState" : "manual",
@@ -403,13 +421,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d%@ : %d%@"
+            "value" : "%0.2f %@ : %0.1f %@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d%@ : %d%@"
+            "state" : "needs_review",
+            "value" : "%0.2f %@ : %0.1f %@"
           }
         }
       }
@@ -475,13 +493,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%d%@"
+            "value" : "%0.2f %@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d%@"
+            "state" : "needs_review",
+            "value" : "%0.2f %@"
           }
         }
       }
@@ -611,24 +629,6 @@
         }
       }
     },
-    "Recipe.WaterTemperature" : {
-      "comment" : "Water temperature label",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Water Temperature"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "물온도"
-          }
-        }
-      }
-    },
     "Recipe.WaterVolume" : {
       "comment" : "Water volume label",
       "extractionState" : "manual",
@@ -643,23 +643,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "물의 양"
-          }
-        }
-      }
-    },
-    "Recipe.Weight.Ratio" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%dg : %dml"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%dg : %dml"
           }
         }
       }
@@ -826,6 +809,74 @@
         }
       }
     },
+    "Settings.CurrentTemperature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Temperature Unit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 온도 단위"
+          }
+        }
+      }
+    },
+    "Settings.CurrentUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Units"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 단위"
+          }
+        }
+      }
+    },
+    "Settings.CurrentVolume" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Volume Unit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 부피 단위"
+          }
+        }
+      }
+    },
+    "Settings.CurrentWeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Weight Unit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 무게 단위"
+          }
+        }
+      }
+    },
     "Settings.EmailError.Confirm" : {
       "comment" : "Settings - Email error alert confirm button",
       "extractionState" : "manual",
@@ -880,6 +931,176 @@
         }
       }
     },
+    "Settings.ImperialTemperature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fahrenheit (°F)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "화씨 (°F)"
+          }
+        }
+      }
+    },
+    "Settings.ImperialVolume" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluid Ounces (fl oz)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "액량 온스 (fl oz)"
+          }
+        }
+      }
+    },
+    "Settings.ImperialWeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ounces (oz)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "온스 (oz)"
+          }
+        }
+      }
+    },
+    "Settings.MetricTemperature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Celsius (°C)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "섭씨 (°C)"
+          }
+        }
+      }
+    },
+    "Settings.MetricVolume" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Milliliters (ml)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "밀리리터 (ml)"
+          }
+        }
+      }
+    },
+    "Settings.MetricWeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grams (g)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "그램 (g)"
+          }
+        }
+      }
+    },
+    "Settings.Preferences" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferences"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "환경 설정"
+          }
+        }
+      }
+    },
+    "Settings.SelectUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Unit"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단위 선택"
+          }
+        }
+      }
+    },
+    "Settings.Temperature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temperature"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "온도"
+          }
+        }
+      }
+    },
+    "Settings.TemperatureUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Metric Temperature (°C)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "섭씨 온도 단위 사용 (°C)"
+          }
+        }
+      }
+    },
     "Settings.Title" : {
       "comment" : "Settings - Screen title",
       "extractionState" : "manual",
@@ -898,6 +1119,57 @@
         }
       }
     },
+    "Settings.UnitDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can set each unit type independently"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "각 단위를 개별적으로 설정할 수 있습니다"
+          }
+        }
+      }
+    },
+    "Settings.UnitSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit Settings"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "단위 설정"
+          }
+        }
+      }
+    },
+    "Settings.UnitSystem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Metric System"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "미터법 사용"
+          }
+        }
+      }
+    },
     "Settings.Version" : {
       "comment" : "Settings - Version label",
       "extractionState" : "manual",
@@ -912,6 +1184,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "버전"
+          }
+        }
+      }
+    },
+    "Settings.Volume" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "부피"
+          }
+        }
+      }
+    },
+    "Settings.VolumeUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Metric Volume (ml)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "미터법 부피 단위 사용 (ml)"
+          }
+        }
+      }
+    },
+    "Settings.Weight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weight"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무게"
+          }
+        }
+      }
+    },
+    "Settings.WeightUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Metric Weight (g)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "미터법 무게 단위 사용 (g)"
           }
         }
       }
@@ -987,6 +1327,42 @@
         }
       }
     },
+    "Unit.Fahrenheit" : {
+      "comment" : "Temperature unit (Fahrenheit)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°F"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°F"
+          }
+        }
+      }
+    },
+    "Unit.Floz" : {
+      "comment" : "Volume unit (fl oz)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fl oz"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "fl oz"
+          }
+        }
+      }
+    },
     "Unit.Gram" : {
       "comment" : "Weight unit (gram)",
       "extractionState" : "manual",
@@ -1019,6 +1395,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ml"
+          }
+        }
+      }
+    },
+    "Unit.Oz" : {
+      "comment" : "Weight unit (oz)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oz"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "oz"
           }
         }
       }

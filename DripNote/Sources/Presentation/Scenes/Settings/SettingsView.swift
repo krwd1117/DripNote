@@ -2,9 +2,15 @@ import SwiftUI
 import MessageUI
 
 public struct SettingsView: View {
+    @AppStorage("useMetricWeight") var useMetricWeight: Bool = true
+    @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
+    @AppStorage("useMetricTemperature") private var useMetricTemperature: Bool = true
+    
     @ObservedObject private var coordinator = SettingsCoordinator()
+    
     @State private var showingMailView = false
     @State private var showingMailError = false
+    @State private var showingUnitSheet = false
     
     public init(coordinator: SettingsCoordinator) {
         self.coordinator = coordinator
@@ -35,6 +41,33 @@ public struct SettingsView: View {
                         }
                         
                         Section {
+                            Button {
+                                showingUnitSheet = true
+                            } label: {
+                                HStack {
+                                    Image(systemName: "ruler")
+                                        .foregroundColor(Color.Custom.darkBrown.color)
+                                    Text("Settings.UnitSettings")
+                                    Spacer()
+                                    Group {
+                                        Text(useMetricWeight ? "g" : "oz")
+                                        Text("/")
+                                        Text(useMetricVolume ? "ml" : "fl oz")
+                                        Text("/")
+                                        Text(useMetricTemperature ? "°C" : "°F")
+                                    }
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 13))
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        } header: {
+                            Text("Settings.Preferences")
+                        }
+                        
+                        Section {
                             HStack {
                                 Text("Settings.Version")
                                     .foregroundColor(Color.Custom.darkBrown.color)
@@ -55,6 +88,9 @@ public struct SettingsView: View {
             }
             .sheet(isPresented: $showingMailView) {
                 CustomMailView(isShowing: $showingMailView)
+            }
+            .sheet(isPresented: $showingUnitSheet) {
+                UnitSelectionSheet()
             }
             .alert(String(localized: "Settings.EmailError.Title"), isPresented: $showingMailError) {
                 Button(String(localized: "Settings.EmailError.Confirm"), role: .cancel) {}

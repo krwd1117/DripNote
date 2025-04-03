@@ -1,7 +1,7 @@
 import SwiftUI
 import DripNoteDomain
 
-public struct RecipeBrewingStepsSection<Step: BrewingStepProtocol>: View {
+public struct RecipeBrewingStepsSection<Step: BrewingStepProtocol>: View {    
     let steps: [Step]
     
     public init(steps: [Step]) {

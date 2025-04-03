@@ -129,7 +129,7 @@ private struct BrewingInfoView: View {
                     .modifier(TextFieldLabelModifier(
                         label: String(localized: "Recipe.CoffeeBeans")
                     ))
-                }
+            }
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("Recipe.TemperatureSetting")
@@ -233,52 +233,65 @@ private struct BrewingSettingsView: View {
         @Binding var waterWeight: Double
         @Binding var temperature: Double
         
-        @State private var stringCoffeeWeight: String
-        @State private var stringWaterWeight: String
-        @State private var stringTemperature: String
-        
-        init(coffeeWeight: Binding<Double>, waterWeight: Binding<Double>, temperature: Binding<Double>) {
-            self._coffeeWeight = coffeeWeight
-            self._waterWeight = waterWeight
-            self._temperature = temperature
-            
-            self.stringCoffeeWeight = String(format: "%.1f", coffeeWeight.wrappedValue)
-            self.stringWaterWeight = String(format: "%.1f", waterWeight.wrappedValue)
-            self.stringTemperature = String(format: "%.1f", temperature.wrappedValue)
-        }
+        @AppStorage("useMetricWeight") private var useMetricWeight: Bool = true
+        @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
+        @AppStorage("useMetricTemperature") private var useMetricTemperature: Bool = true
         
         var body: some View {
             VStack {
-                ValueSliderInputView(
+                UnitInputSlider(
                     title: String(localized: "Recipe.CoffeeAmount"),
-                    unit: String(localized: "Unit.Gram"),
-                    range: 0...100,
-                    step: 1,
-                    placholder: "20",
-                    value: $coffeeWeight
+                    unit: useMetricWeight ? String(localized: "Unit.Gram") : String(localized: "Unit.Oz"),
+                    range: useMetricWeight ? 0...100 : 0...3.5,
+                    step: useMetricWeight ? 1 : 0.1,
+                    placholder: useMetricWeight ? "20" : "0.7",
+                    value: Binding(
+                        get: { useMetricWeight ? coffeeWeight : coffeeWeight * 0.035274 },
+                        set: { newValue in
+                            coffeeWeight = useMetricWeight ? newValue : newValue / 0.035274
+                        }
+                    ),
+                    valueFormatter: { value in
+                        useMetricWeight ? String(Int(value)) : String(format: "%.1f", value)
+                    }
                 )
                 
-                ValueSliderInputView(
+                UnitInputSlider(
                     title: String(localized: "Recipe.WaterAmount"),
-                    unit: String(localized: "Unit.Milliliter"),
-                    range: 0...500,
-                    step: 10,
-                    placholder: "200",
-                    value: $waterWeight
+                    unit: useMetricVolume ? String(localized: "Unit.Milliliter") : String(localized: "Unit.Floz"),
+                    range: useMetricVolume ? 0...500 : 0...17,
+                    step: useMetricVolume ? 10 : 0.5,
+                    placholder: useMetricVolume ? "200" : "6.8",
+                    value: Binding(
+                        get: { useMetricVolume ? waterWeight : waterWeight * 0.033814 },
+                        set: { newValue in
+                            waterWeight = useMetricVolume ? newValue : newValue / 0.033814
+                        }
+                    ),
+                    valueFormatter: { value in
+                        useMetricVolume ? String(Int(value)) : String(format: "%.1f", value)
+                    }
                 )
                 
-                ValueSliderInputView(
-                    title: String(localized: "Recipe.WaterTemperature"),
-                    unit: String(localized: "Unit.Celsius"),
-                    range: 0...100,
+                UnitInputSlider(
+                    title: String(localized: "Recipe.Temperature"),
+                    unit: useMetricTemperature ? String(localized: "Unit.Celsius") : String(localized: "Unit.Fahrenheit"),
+                    range: useMetricTemperature ? 0...100 : 32...212,
                     step: 1,
-                    placholder: "93",
-                    value: $temperature
+                    placholder: useMetricTemperature ? "93" : "199",
+                    value: Binding(
+                        get: { useMetricTemperature ? temperature : temperature * 1.8 + 32 },
+                        set: { newValue in
+                            temperature = useMetricTemperature ? newValue : (newValue - 32) / 1.8
+                        }
+                    ),
+                    valueFormatter: { value in
+                        String(Int(value))
+                    }
                 )
             }
         }
     }
-
 }
 
 // MARK: - Brewing Steps View

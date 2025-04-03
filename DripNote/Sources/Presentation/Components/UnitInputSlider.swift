@@ -1,17 +1,41 @@
 import SwiftUI
 
-struct ValueSliderInputView: View {
+struct UnitInputSlider: View {
     let title: String
     let unit: String
     let range: ClosedRange<Double>
     let step: Double
     let placholder: String
+    let valueFormatter: ((Double) -> String)?
     
     @Binding var value: Double
     @State private var stringValue: String = ""
     
+    init(
+        title: String,
+        unit: String,
+        range: ClosedRange<Double>,
+        step: Double,
+        placholder: String,
+        value: Binding<Double>,
+        valueFormatter: ((Double) -> String)? = nil
+    ) {
+        self.title = title
+        self.unit = unit
+        self.range = range
+        self.step = step
+        self.placholder = placholder
+        self._value = value
+        self.valueFormatter = valueFormatter
+    }
+    
     private func formatValue(_ value: Double) -> String {
-        return value.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", value) : String(format: "%.1f", value)
+        if let formatter = valueFormatter {
+            return formatter(value)
+        }
+        return value.truncatingRemainder(dividingBy: 1) == 0 ?
+        String(format: "%.0f", value) :
+        String(format: "%.1f", value)
     }
     
     var body: some View {
@@ -35,6 +59,7 @@ struct ValueSliderInputView: View {
                         .keyboardType(.decimalPad)
                         .frame(width: 100)
                         .textFieldStyle(.roundedBorder)
+                        .multilineTextAlignment(.trailing)
                         .onChange(of: stringValue) { _, newValue in
                             if let newDouble = Double(newValue),
                                newDouble != value,

@@ -2,6 +2,10 @@ import SwiftUI
 import DripNoteDomain
 
 public struct RecipeBrewingSettingsSection: View {
+    @AppStorage("useMetricWeight") private var useMetricWeight: Bool = true
+    @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
+    @AppStorage("useMetricTemperature") private var useMetricTemperature: Bool = true
+    
     let brewingMethod: BrewingMethod
     let brewingTemperature: BrewingTemperature
     let waterTemperature: Double
@@ -41,9 +45,11 @@ public struct RecipeBrewingSettingsSection: View {
                 RecipeSettingRow(
                     icon: "thermometer.medium",
                     title: String(localized: "Recipe.Temperature"),
-                    value: String(format: String(localized: "Recipe.Temperature.Format"),
-                                Int(waterTemperature),
-                                String(localized: "Unit.Celsius"))
+                    value: String(
+                        format: String(localized: "Recipe.Temperature.Format"),
+                        Double(useMetricVolume ? waterTemperature : waterTemperature.convertTo(to: .fahrenheit)),
+                        String(localized: useMetricVolume ? "Unit.Celsius" : "Unit.Fahrenheit")
+                    )
                 )
                 
                 RecipeSettingRow(
@@ -55,9 +61,11 @@ public struct RecipeBrewingSettingsSection: View {
                 RecipeSettingRow(
                     icon: "scalemass.fill",
                     title: String(localized: "Recipe.Ratio"),
-                    value: String(format: String(localized: "Recipe.Ratio.Format"),
-                                Int(coffeeWeight), String(localized: "Unit.Gram"),
-                                Int(waterWeight), String(localized: "Unit.Milliliter"))
+                    value: String(
+                        format: String(localized: "Recipe.Ratio.Format"),
+                        Double(useMetricWeight ? coffeeWeight : coffeeWeight.convertTo(to: .oz)), String(localized: useMetricWeight ? "Unit.Gram" : "Unit.Oz"),
+                        Double(useMetricVolume ? waterWeight : waterWeight.convertTo(to: .floz)), String(localized: useMetricVolume ? "Unit.Milliliter" : "Unit.Floz")
+                    )
                 )
             }
         }

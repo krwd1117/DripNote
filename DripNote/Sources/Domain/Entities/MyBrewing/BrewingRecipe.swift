@@ -48,8 +48,4 @@ public final class BrewingRecipe: Identifiable {
         guard let lastStep = steps.max(by: { $0.pourTime < $1.pourTime }) else { return 0 }
         return lastStep.pourTime
     }
-    
-    public var totalWaterAmount: Double {
-        steps.reduce(0) { $0 + $1.pourAmount }
-    }
-} 
+}

@@ -2,6 +2,8 @@ import SwiftUI
 import DripNoteDomain
 
 public struct RecipeStepRow<Step: BrewingStepProtocol>: View {
+    @AppStorage("useMetricVolume") private var useMetricVolume = false
+    
     let step: Step
     
     public init(step: Step) {
@@ -19,12 +21,19 @@ public struct RecipeStepRow<Step: BrewingStepProtocol>: View {
                 
                 HStack(spacing: 12) {
                     Label(
-                        String(format: "%d%@", Int(step.pourAmount), String(localized: "Unit.Milliliter")),
+                        String(
+                            format: "%0.2f %@",
+                            useMetricVolume ? step.pourAmount : step.pourAmount.convertTo(to: .floz),
+                            String(localized: useMetricVolume ? "Unit.Milliliter" : "Unit.Floz")
+                        ),
                         systemImage: "drop.fill"
                     )
                     
                     Label(
-                        String(format: String(localized: "Recipe.Time.SecondsOnly"), Int(step.pourTime)),
+                        String(
+                            format: String(localized: "Recipe.Time.SecondsOnly"),
+                            Int(step.pourTime)
+                        ),
                         systemImage: "clock.fill"
                     )
                 }

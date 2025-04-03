@@ -5,6 +5,8 @@ import DripNoteDomain
 
 struct StepFormView: View {
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
+    
     let viewModel: RecipeFormViewModel
     let editingStep: BrewingStep?
     
@@ -28,29 +30,39 @@ struct StepFormView: View {
     }
     
     var isValid: Bool {
-        pourAmount > 0 && pourTime >= 0
+        let convertedAmount = useMetricVolume ? pourAmount : pourAmount / 0.033814
+        return convertedAmount > 0 && pourTime >= 0
     }
     
     var body: some View {
         NavigationView {
             Form {
                 Section(String(localized: "Recipe.PouringInfo")) {
-                    ValueSliderInputView(
+                    UnitInputSlider(
                         title: String(localized: "Recipe.WaterVolume"),
-                        unit: String(localized: "Unit.Milliliter"),
-                        range: 0...300,
-                        step: 10,
-                        placholder: "60",
-                        value: $pourAmount
+                        unit: useMetricVolume ? String(localized: "Unit.Milliliter") : String(localized: "Unit.Floz"),
+                        range: useMetricVolume ? 0...300 : 0...10,
+                        step: useMetricVolume ? 10 : 0.5,
+                        placholder: useMetricVolume ? "60" : "2.0",
+                        value: Binding(
+                            get: { useMetricVolume ? pourAmount : pourAmount.convertTo(to: .floz) },
+                            set: { newValue in
+                                pourAmount = useMetricVolume ? newValue : newValue.convertTo(to: .ml)
+                            }
+                        ),
+                        valueFormatter: { value in
+                            useMetricVolume ? String(Int(value)) : String(format: "%.2f", value)
+                        }
                     )
                     
-                    ValueSliderInputView(
+                    UnitInputSlider(
                         title: String(localized: "Recipe.Time.Label"),
                         unit: String(localized: "Unit.Second"),
                         range: 0...300,
                         step: 10,
                         placholder: "30",
-                        value: $pourTime
+                        value: $pourTime,
+                        valueFormatter: { String(Int($0)) }
                     )
                     
                     TextField(String(localized: "Recipe.Description.Placeholder"), text: $desc)
@@ -59,37 +71,46 @@ struct StepFormView: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color.Custom.primaryBackground.color)
-            .navigationTitle(editingStep == nil ? String(localized: "Recipe.AddPouringStep") : String(localized: "Common.Edit"))
+            .navigationTitle(editingStep == nil ?
+                String(localized: "Recipe.AddPouringStep") :
+                String(localized: "Common.Edit"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(editingStep == nil ? String(localized: "Common.Add") : String(localized: "RecipeForm.Save")) {
-                        if let step = editingStep {
-                            viewModel.updateStep(
-                                step,
-                                pourAmount: pourAmount,
-                                pourTime: pourTime,
-                                desc: desc
-                            )
-                        } else {
-                            viewModel.addStep(
-                                pourAmount: pourAmount,
-                                pourTime: pourTime,
-                                desc: desc
-                            )
-                        }
-                        dismiss()
-                    }
-                    .disabled(!isValid)
-                }
-                
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(String(localized: "Common.Cancel")) {
                         dismiss()
                     }
                 }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(editingStep == nil ?
+                        String(localized: "Common.Add") :
+                        String(localized: "RecipeForm.Save")
+                    ) {
+                        saveStep()
+                    }
+                    .disabled(!isValid)
+                }
             }
             .tint(Color.Custom.accentBrown.color)
         }
+    }
+    
+    private func saveStep() {
+        if let step = editingStep {
+            viewModel.updateStep(
+                step,
+                pourAmount: pourAmount,
+                pourTime: pourTime,
+                desc: desc
+            )
+        } else {
+            viewModel.addStep(
+                pourAmount: pourAmount,
+                pourTime: pourTime,
+                desc: desc
+            )
+        }
+        dismiss()
     }
 }

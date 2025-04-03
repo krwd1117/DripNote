@@ -38,9 +38,11 @@ public struct BaristaRecipeRow: View {
                 )
                 
                 Label(
-                    String(format: String(localized: "Recipe.Temperature.Format"),
-                          Int(recipe.waterTemperature),
-                          String(localized: "Unit.Celsius")),
+                    String(
+                        format: String(localized: "Recipe.Temperature.Format"),
+                        Int(recipe.waterTemperature),
+                        String(localized: "Unit.Celsius")
+                    ),
                     systemImage: recipe.brewingTemperature == .hot ? "flame.fill" : "snowflake"
                 )
                 .foregroundColor(recipe.brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)

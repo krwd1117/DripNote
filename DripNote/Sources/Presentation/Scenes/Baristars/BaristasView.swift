@@ -23,7 +23,7 @@ public struct BaristasView: View {
                 if viewModel.isLoading {
                     LoadingView(viewModel: viewModel)
                 } else {
-                    GridView(coordinator: coordinator, viewModel: viewModel)
+                    BaristasGridView(coordinator: coordinator, viewModel: viewModel)
                 }
             }
             .navigationTitle(String(localized: "Barista.Title"))
@@ -53,14 +53,14 @@ fileprivate struct LoadingView: View {
 }
 
 // MARK: - Grid View
-fileprivate struct GridView: View {
+fileprivate struct BaristasGridView: View {
     @ObservedObject var coordinator: BaristasCoordinator
     @ObservedObject var viewModel: BaristasViewModel
     
     enum GridItemType: Identifiable {
         case recipe(BaristaBrewingRecipe)
         case ad(UUID)
-
+        
         var id: String {
             switch self {
             case .recipe(let recipe): return recipe.id
@@ -94,10 +94,10 @@ fileprivate struct GridView: View {
                         Button {
                             coordinator.push(.detail(recipe))
                         } label: {
-                            RecipeCard(recipe: recipe)
+                            BaristasGridCell(recipe: recipe)
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
-
+                        
                     case .ad:
                         VStack {
                             NativeAdContainerView(backgroundColor: Color.Custom.secondaryBackground.color)
@@ -122,7 +122,11 @@ fileprivate struct GridView: View {
         }
     }
     
-    private struct RecipeCard: View {
+    private struct BaristasGridCell: View {        
+        @AppStorage("useMetricWeight") private var useMetricWeight: Bool = true
+        @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
+        @AppStorage("useMetricTemperature") private var useMetricTemperature: Bool = true
+        
         let recipe: BaristaBrewingRecipe
         
         var body: some View {
@@ -158,8 +162,9 @@ fileprivate struct GridView: View {
                     
                     Label(
                         String(format: String(localized: "Recipe.Temperature.Format"),
-                              Int(recipe.waterTemperature),
-                              String(localized: "Unit.Celsius")),
+                               useMetricTemperature ? recipe.waterTemperature : recipe.waterTemperature.convertTo(to: .fahrenheit),
+                               String(localized: useMetricTemperature ? "Unit.Celsius" : "Unit.Fahrenheit")
+                              ),
                         systemImage: recipe.brewingTemperature == .hot ? "flame.fill" : "snowflake"
                     )
                     .foregroundColor(recipe.brewingTemperature == .hot ? Color.Custom.warmTerracotta.color : Color.Custom.calmSky.color)
