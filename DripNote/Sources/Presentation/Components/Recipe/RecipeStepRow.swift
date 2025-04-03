@@ -2,7 +2,7 @@ import SwiftUI
 import DripNoteDomain
 
 public struct RecipeStepRow<Step: BrewingStepProtocol>: View {
-    @AppStorage("useMetricVolume") private var useMetricVolume = false
+    @AppStorage("useMetricVolume") private var useMetricVolume = true
     
     let step: Step
     
