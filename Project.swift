@@ -127,8 +127,7 @@ let project = Project(
             dependencies: [
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteDI"),
-                .package(product: "YouTubeiOSPlayerHelper"),
-                .package(product: "GoogleMobileAds"),
+                .target(name: "DripNoteThirdParty")
             ]
         ),
         .target(
@@ -143,6 +142,20 @@ let project = Project(
             dependencies: [
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteData"),
+            ]
+        ),
+        .target(
+            name: "DripNoteThirdParty",
+            destinations: [.iPhone],
+            product: .framework,
+            bundleId: "com.krwd.dripnote.thirdparty",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
+            sources: ["DripNote/Sources/ThirdParty/**"],
+            resources: [],
+            dependencies: [
+                .package(product: "YouTubeiOSPlayerHelper"),
+                .package(product: "GoogleMobileAds")
             ]
         ),
         .target(

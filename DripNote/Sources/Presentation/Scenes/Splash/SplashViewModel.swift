@@ -3,7 +3,8 @@ import DripNoteCore
 
 import AppTrackingTransparency
 import AdSupport
-import GoogleMobileAds
+
+import DripNoteThirdParty
 
 public final class SplashViewModel: ObservableObject {
     @Published public var isFinished: Bool = false
@@ -28,16 +29,5 @@ public final class SplashViewModel: ObservableObject {
             }
             print("🛡️ Tracking status: \(status.rawValue)")
         }
-    }
-    
-    @MainActor
-    private func initializeAdMob() async {
-        let status = await withCheckedContinuation { continuation in
-            MobileAds.shared.start() { status in
-                continuation.resume(returning: status)
-            }
-        }
-        
-        print("📡 AdMob initialized. Ready adapters: \(status)")
     }
 }
