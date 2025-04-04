@@ -11,6 +11,12 @@
             "value" : "Loading barista recipes..."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バリスタのレシピを読み込んでいます..."
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27,6 +33,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Barista Recipes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バリスタレシピ"
           }
         },
         "ko" : {
@@ -47,6 +59,12 @@
             "value" : "Add"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -63,6 +81,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         },
         "ko" : {
@@ -83,6 +107,12 @@
             "value" : "Delete"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -99,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
           }
         },
         "ko" : {
@@ -119,6 +155,12 @@
             "value" : "Edit"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編集"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -137,6 +179,12 @@
             "value" : "Add Pouring Step"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プアリング手順を追加"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -152,6 +200,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brewing Info"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抽出情報"
           }
         },
         "ko" : {
@@ -172,6 +226,12 @@
             "value" : "Brewing Settings"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抽出設定"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -188,6 +248,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Brewing Steps"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抽出手順"
           }
         },
         "ko" : {
@@ -208,6 +274,12 @@
             "value" : "Coffee Amount"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コーヒー量"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -224,6 +296,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coffee Beans"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コーヒー豆"
           }
         },
         "ko" : {
@@ -244,6 +322,12 @@
             "value" : "Description (e.g., Pour in circles from the center)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "説明（例：中心から円を描くように注ぎます）"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -260,6 +344,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a new recipe to record your own coffee"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいレシピを追加して、あなたのコーヒーを記録しましょう"
           }
         },
         "ko" : {
@@ -280,6 +370,12 @@
             "value" : "No Saved Recipes"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピが保存されていません"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -296,6 +392,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Grind Size"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挽き目"
           }
         },
         "ko" : {
@@ -316,6 +418,12 @@
             "value" : "Brewing Method"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抽出方法"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -332,6 +440,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "My Recipe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マイレシピ"
           }
         },
         "ko" : {
@@ -352,6 +466,12 @@
             "value" : "Notes"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモ・備考"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -368,6 +488,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter notes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモを入力してください"
           }
         },
         "ko" : {
@@ -388,6 +514,12 @@
             "value" : "Pouring step %d completed"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d番目のプアリングが完了しました"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -404,6 +536,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pouring Information"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プアリング情報"
           }
         },
         "ko" : {
@@ -424,6 +562,12 @@
             "value" : "Coffee : Water Ratio"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コーヒー : 水の比率"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -437,6 +581,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%0.1f %@ : %0.1f %@"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%0.1f %@ : %0.1f %@"
@@ -460,6 +610,12 @@
             "value" : "Please add brewing steps"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抽出手順を追加してください"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -476,6 +632,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Store Information"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "店舗情報"
           }
         },
         "ko" : {
@@ -496,6 +658,12 @@
             "value" : "Water Temperature"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抽出温度"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -509,6 +677,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%0.1f %@"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%0.1f %@"
@@ -532,6 +706,12 @@
             "value" : "Temperature Setting"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "温度設定"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -550,9 +730,15 @@
             "value" : "Time"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時間"
+          }
+        },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "시간"
           }
         }
@@ -566,6 +752,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%d min %d sec"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d分%d秒"
           }
         },
         "ko" : {
@@ -586,6 +778,12 @@
             "value" : "%d sec"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d秒"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -601,6 +799,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%d sec"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d秒"
           }
         },
         "ko" : {
@@ -621,6 +825,12 @@
             "value" : "Watch on YouTube"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YouTubeで見る"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -637,6 +847,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Water Amount"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水量"
           }
         },
         "ko" : {
@@ -657,6 +873,12 @@
             "value" : "Water Volume"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水の量"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -673,6 +895,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Barista Name"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バリスタ名"
           }
         },
         "ko" : {
@@ -693,6 +921,12 @@
             "value" : "ex) John"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "例）山田"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -709,6 +943,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Basic Information"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "基本情報"
           }
         },
         "ko" : {
@@ -729,6 +969,12 @@
             "value" : "Recipe Title"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピ名"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -745,6 +991,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ex) My Recipe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "例）マイレシピ"
           }
         },
         "ko" : {
@@ -765,6 +1017,12 @@
             "value" : "Save"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -781,6 +1039,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit Recipe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レシピを編集"
           }
         },
         "ko" : {
@@ -801,6 +1065,12 @@
             "value" : "New Recipe"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新規レシピ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -819,9 +1089,15 @@
             "value" : "[DripNote] Contact Us"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[DripNote] お問い合わせ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "[DripNote] 문의하기"
           }
         }
@@ -834,6 +1110,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Current Temperature Unit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の温度単位"
           }
         },
         "ko" : {
@@ -853,6 +1135,12 @@
             "value" : "Current Units"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の単位"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -870,6 +1158,12 @@
             "value" : "Current Volume Unit"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の容量単位"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -885,6 +1179,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Current Weight Unit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の重量単位"
           }
         },
         "ko" : {
@@ -905,6 +1205,12 @@
             "value" : "OK"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -921,6 +1227,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please check your email settings on your device."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスのメール設定をご確認ください。"
           }
         },
         "ko" : {
@@ -941,6 +1253,12 @@
             "value" : "Cannot Send Email"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メールを送信できません"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -956,6 +1274,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fahrenheit (°F)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "華氏温度 (°F)"
           }
         },
         "ko" : {
@@ -975,6 +1299,12 @@
             "value" : "Fluid Ounces (fl oz)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "液量オンス (fl oz)"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -990,6 +1320,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ounces (oz)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オンス (oz)"
           }
         },
         "ko" : {
@@ -1009,6 +1345,12 @@
             "value" : "Celsius (°C)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "摂氏温度 (°C)"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1024,6 +1366,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Milliliters (ml)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ミリリットル (ml)"
           }
         },
         "ko" : {
@@ -1043,6 +1391,12 @@
             "value" : "Grams (g)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グラム (g)"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1058,6 +1412,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preferences"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "環境設定"
           }
         },
         "ko" : {
@@ -1077,6 +1437,12 @@
             "value" : "Select Unit"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "単位を選択"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1094,6 +1460,12 @@
             "value" : "Temperature"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "温度"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1109,6 +1481,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use Metric Temperature (°C)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "摂氏温度を使用 (°C)"
           }
         },
         "ko" : {
@@ -1129,6 +1507,12 @@
             "value" : "Settings"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1144,6 +1528,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You can set each unit type independently"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "各単位は個別に設定することができます"
           }
         },
         "ko" : {
@@ -1163,6 +1553,12 @@
             "value" : "Unit Settings"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "単位設定"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1178,6 +1574,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use Metric System"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メートル法を使用"
           }
         },
         "ko" : {
@@ -1198,6 +1600,12 @@
             "value" : "Version"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1213,6 +1621,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Volume"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "容量"
           }
         },
         "ko" : {
@@ -1232,6 +1646,12 @@
             "value" : "Use Metric Volume (ml)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メートル法の容量を使用 (ml)"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1249,6 +1669,12 @@
             "value" : "Weight"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重量"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1264,6 +1690,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use Metric Weight (g)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メートル法の重さを使用 (g)"
           }
         },
         "ko" : {
@@ -1284,6 +1716,12 @@
             "value" : "Barista"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バリスタ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1299,6 +1737,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "My Recipe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マイレシピ"
           }
         },
         "ko" : {
@@ -1319,6 +1763,12 @@
             "value" : "Settings"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1332,6 +1782,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°C"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "°C"
@@ -1355,6 +1811,12 @@
             "value" : "°F"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "°F"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1368,6 +1830,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fl oz"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "fl oz"
@@ -1391,6 +1859,12 @@
             "value" : "g"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "g"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1404,6 +1878,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ml"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ml"
@@ -1427,6 +1907,12 @@
             "value" : "oz"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oz"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1443,6 +1929,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "sec"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "秒"
           }
         },
         "ko" : {
