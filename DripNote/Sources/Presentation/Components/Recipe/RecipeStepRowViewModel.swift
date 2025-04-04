@@ -84,7 +84,10 @@ final class RecipeStepRowViewModel<Step: BrewingStepProtocol>: ObservableObject 
             if granted {
                 // 알림 내용 설정
                 let content = UNMutableNotificationContent()
-                content.title = "#\(self.step.pourNumber)번 째 푸어링이 끝났습니다."
+                content.title = String(
+                    format: String(localized: "Recipe.PouringComplete"),
+                    self.step.pourNumber
+                )
                 content.sound = .default
                 
                 // 지정한 시간 후 알림 트리거 설정 (타이머 시간에 맞춰 수정 가능)

@@ -378,6 +378,24 @@
         }
       }
     },
+    "Recipe.PouringComplete" : {
+      "comment" : "Message shown when a pouring step is completed",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pouring step %d completed"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d번 째 푸어링이 끝났습니다"
+          }
+        }
+      }
+    },
     "Recipe.PouringInfo" : {
       "comment" : "Pouring information section title",
       "extractionState" : "manual",
@@ -1285,7 +1303,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "내 레시피"
           }
         }
@@ -1357,7 +1375,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "fl oz"
           }
         }
@@ -1411,7 +1429,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "oz"
           }
         }
