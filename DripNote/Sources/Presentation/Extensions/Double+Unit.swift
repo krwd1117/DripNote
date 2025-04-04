@@ -1,10 +1,3 @@
-//
-//  Unit.swift
-//  DripNote
-//
-//  Created by 김정완 on 4/3/25.
-//
-
 import Foundation
 
 extension Double {

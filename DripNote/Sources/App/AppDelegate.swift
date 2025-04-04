@@ -14,11 +14,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
-    ) -> Bool {
-    
+    ) -> Bool {    
         FirebaseApp.configure()
         
         initializeFirebaseRemoteConfig()
+        
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self  // delegate 지정
     
         do {
             container = try ModelContainerFactory.create()
@@ -28,5 +30,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         
         return true
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    // 포그라운드에서 알림을 표시하기 위한 delegate 메서드
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound, .banner, .badge])
     }
 }
