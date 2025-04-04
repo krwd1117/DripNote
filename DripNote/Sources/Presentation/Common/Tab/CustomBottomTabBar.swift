@@ -64,7 +64,7 @@ public struct CustomBottomTabBar: View {
     @MainActor
     private func tabButton(tab: TabItem) -> some View {
         Button {
-            withAnimation(.smooth) {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                 selectedTab = tab
             }
         } label: {
@@ -80,14 +80,26 @@ public struct CustomBottomTabBar: View {
                     Image(systemName: selectedTab == tab ? tab.selectedIcon : tab.icon)
                         .font(.system(size: 20, weight: .semibold))
                         .foregroundColor(selectedTab == tab ? Color.Custom.accentBrown.color : Color.Custom.darkBrown.color.opacity(0.5))
+                        .scaleEffect(selectedTab == tab ? 1.1 : 1.0)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: selectedTab == tab)
                 }
                 
                 Text(tab.title)
                     .font(.system(size: 11, weight: selectedTab == tab ? .semibold : .regular))
                     .foregroundColor(selectedTab == tab ? Color.Custom.accentBrown.color : Color.Custom.darkBrown.color.opacity(0.5))
+                    .opacity(selectedTab == tab ? 1 : 0.8)
+                    .animation(.easeInOut(duration: 0.2), value: selectedTab == tab)
             }
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.plain)
     }
+}
+
+#Preview {
+    @Previewable @State var selectedTab: TabItem = .baristas
+    CustomBottomTabBar(
+        selectedTab: $selectedTab,
+        onTapFloatingButton: {}
+    )
 }
