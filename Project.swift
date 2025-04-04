@@ -128,7 +128,17 @@ let project = Project(
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteDI"),
                 .target(name: "DripNoteThirdParty")
-            ]
+            ],
+            settings: .settings(
+                configurations: [
+                    .debug(name: "Debug", settings: [
+                        "SWIFT_OPTIMIZATION_LEVEL": "-Onone"
+                    ]),
+                    .release(name: "Release", settings: [
+                        "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule"
+                    ])
+                ]
+            )
         ),
         .target(
             name: "DripNoteDI",
