@@ -15,7 +15,6 @@ public func fetchRemoteConfig() async throws -> String {
     
     let remoteConfig = RemoteConfig.remoteConfig()
     let status = try await remoteConfig.fetchAndActivate()
-
     guard status == .successFetchedFromRemote || status == .successUsingPreFetchedData else {
         throw RemoteConfigError.activateFailed
     }

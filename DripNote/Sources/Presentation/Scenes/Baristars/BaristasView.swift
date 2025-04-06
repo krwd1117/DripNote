@@ -74,16 +74,41 @@ fileprivate struct BaristasGridView: View {
         GridItem(.flexible(), spacing: 16)
     ]
     
+    private var items: [GridItemType] {
+        var result: [GridItemType] = []
+        for (index, recipe) in self.viewModel.recipes.enumerated() {
+            result.append(.recipe(recipe))
+            if (index + 1) % 3 == 0 {
+                result.append(.ad(UUID()))
+            }
+        }
+        return result
+    }
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(viewModel.recipes, id: \.id) { recipe in
-                    Button {
-                        coordinator.push(.detail(recipe))
-                    } label: {
-                        BaristasGridCell(recipe: recipe)
+                ForEach(items) { item in
+                    switch item {
+                    case .recipe(let recipe):
+                        Button {
+                            coordinator.push(.detail(recipe))
+                        } label: {
+                            BaristasGridCell(recipe: recipe)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        
+                    case .ad:
+                        VStack {
+                            NativeAdContainerView(
+                                backgroundColor: Color.Custom.secondaryBackground.color
+                            )
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        .cornerRadius(16)
+                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 4, x: 0, y: 2)
+                        .gridCellColumns(2)
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .padding(16)
