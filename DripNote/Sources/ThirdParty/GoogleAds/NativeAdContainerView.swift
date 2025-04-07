@@ -88,26 +88,23 @@ public struct NativeAdContainerView: View {
             func adLoader(_ adLoader: AdLoader, didReceive nativeAd: NativeAd) {
                 guard let containerView = containerView else { return }
                 containerView.subviews.forEach { $0.removeFromSuperview() }
-                
+
                 let nativeAdView = NativeAdView()
                 nativeAdView.translatesAutoresizingMaskIntoConstraints = false
                 nativeAdView.backgroundColor = UIColor(parent.backgroundColor)
-                
+
                 // Headline
                 let headlineLabel = UILabel()
                 headlineLabel.font = .boldSystemFont(ofSize: 16)
                 headlineLabel.text = nativeAd.headline
                 headlineLabel.translatesAutoresizingMaskIntoConstraints = false
-                
-                // Image
-                let imageView = UIImageView()
-                imageView.contentMode = .scaleAspectFill
-                imageView.clipsToBounds = true
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                if let firstImage = nativeAd.images?.first as? NativeAdImage {
-                    imageView.image = firstImage.image
-                }
-                
+
+                // Media
+                let mediaView = MediaView()
+                mediaView.contentMode = .scaleAspectFill
+                mediaView.clipsToBounds = true
+                mediaView.translatesAutoresizingMaskIntoConstraints = false
+
                 // Icon
                 let iconImageView = UIImageView()
                 iconImageView.contentMode = .scaleAspectFit
@@ -115,14 +112,14 @@ public struct NativeAdContainerView: View {
                 if let icon = nativeAd.icon {
                     iconImageView.image = icon.image
                 }
-                
+
                 // Body
                 let bodyLabel = UILabel()
                 bodyLabel.font = .systemFont(ofSize: 14)
                 bodyLabel.text = nativeAd.body ?? ""
                 bodyLabel.numberOfLines = 2
                 bodyLabel.translatesAutoresizingMaskIntoConstraints = false
-                
+
                 // CTA
                 let ctaButton = UIButton(type: .system)
                 ctaButton.setTitle(nativeAd.callToAction ?? "더보기", for: .normal)
@@ -130,43 +127,81 @@ public struct NativeAdContainerView: View {
                 ctaButton.setTitleColor(.white, for: .normal)
                 ctaButton.layer.cornerRadius = 5
                 ctaButton.translatesAutoresizingMaskIntoConstraints = false
+                ctaButton.isUserInteractionEnabled = false
                 nativeAdView.callToActionView = ctaButton
-                ctaButton.isUserInteractionEnabled = false  // Google SDK가 제어하도록 설정
-                
-                [headlineLabel, imageView, iconImageView, bodyLabel, ctaButton].forEach {
+
+                // Ad Label ("광고")
+                let adLabel = UILabel()
+                adLabel.text = "광고"
+                adLabel.font = .systemFont(ofSize: 10)
+                adLabel.textColor = .white
+                adLabel.backgroundColor = .gray
+                adLabel.textAlignment = .center
+                adLabel.layer.cornerRadius = 3
+                adLabel.clipsToBounds = true
+                adLabel.translatesAutoresizingMaskIntoConstraints = false
+                nativeAdView.advertiserView = adLabel
+
+                // AdChoicesView
+                let adChoicesView = AdChoicesView()
+                adChoicesView.translatesAutoresizingMaskIntoConstraints = false
+                nativeAdView.adChoicesView = adChoicesView
+                nativeAdView.addSubview(adChoicesView)
+
+                // Required view mappings
+                nativeAdView.headlineView = headlineLabel
+                nativeAdView.mediaView = mediaView
+
+                [headlineLabel, mediaView, iconImageView, bodyLabel, ctaButton, adLabel, adChoicesView].forEach {
                     nativeAdView.addSubview($0)
                 }
-                
+
                 NSLayoutConstraint.activate([
-                    headlineLabel.topAnchor.constraint(equalTo: nativeAdView.topAnchor, constant: 12),
+                    // Ad label
+                    adLabel.topAnchor.constraint(equalTo: nativeAdView.topAnchor, constant: 8),
+                    adLabel.leadingAnchor.constraint(equalTo: nativeAdView.leadingAnchor, constant: 8),
+                    adLabel.widthAnchor.constraint(equalToConstant: 30),
+                    adLabel.heightAnchor.constraint(equalToConstant: 16),
+
+                    // AdChoices
+                    adChoicesView.topAnchor.constraint(equalTo: nativeAdView.topAnchor, constant: 24),
+                    adChoicesView.trailingAnchor.constraint(equalTo: nativeAdView.trailingAnchor, constant: -24),
+                    adChoicesView.widthAnchor.constraint(equalToConstant: 20),
+                    adChoicesView.heightAnchor.constraint(equalToConstant: 20),
+                    
+                    // Headline
+                    headlineLabel.topAnchor.constraint(equalTo: adLabel.bottomAnchor, constant: 8),
                     headlineLabel.leadingAnchor.constraint(equalTo: nativeAdView.leadingAnchor, constant: 12),
                     headlineLabel.trailingAnchor.constraint(equalTo: nativeAdView.trailingAnchor, constant: -12),
-                    
-                    imageView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 8),
-                    imageView.leadingAnchor.constraint(equalTo: nativeAdView.leadingAnchor),
-                    imageView.trailingAnchor.constraint(equalTo: nativeAdView.trailingAnchor),
-                    imageView.heightAnchor.constraint(equalToConstant: 180),
-                    
-                    iconImageView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+
+                    // MediaView
+                    mediaView.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 8),
+                    mediaView.leadingAnchor.constraint(equalTo: nativeAdView.leadingAnchor),
+                    mediaView.trailingAnchor.constraint(equalTo: nativeAdView.trailingAnchor),
+                    mediaView.heightAnchor.constraint(equalToConstant: 180),
+
+                    // Icon + Body
+                    iconImageView.topAnchor.constraint(equalTo: mediaView.bottomAnchor, constant: 8),
                     iconImageView.leadingAnchor.constraint(equalTo: nativeAdView.leadingAnchor, constant: 12),
                     iconImageView.widthAnchor.constraint(equalToConstant: 40),
                     iconImageView.heightAnchor.constraint(equalToConstant: 40),
-                    
+
                     bodyLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor),
                     bodyLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 8),
                     bodyLabel.trailingAnchor.constraint(equalTo: nativeAdView.trailingAnchor, constant: -12),
-                    
+
+                    // CTA
                     ctaButton.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 12),
                     ctaButton.leadingAnchor.constraint(equalTo: nativeAdView.leadingAnchor, constant: 12),
                     ctaButton.trailingAnchor.constraint(equalTo: nativeAdView.trailingAnchor, constant: -12),
                     ctaButton.heightAnchor.constraint(equalToConstant: 40),
-                    
+
                     ctaButton.bottomAnchor.constraint(equalTo: nativeAdView.bottomAnchor, constant: -12)
                 ])
-                
+
                 nativeAdView.nativeAd = nativeAd
                 containerView.addSubview(nativeAdView)
-                
+
                 NSLayoutConstraint.activate([
                     nativeAdView.topAnchor.constraint(equalTo: containerView.topAnchor),
                     nativeAdView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
@@ -174,7 +209,6 @@ public struct NativeAdContainerView: View {
                     nativeAdView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
                 ])
             }
-            
             func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
                 print("❌ 광고 로드 실패: \(error.localizedDescription)")
             }
