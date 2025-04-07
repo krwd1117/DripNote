@@ -101,6 +101,7 @@ fileprivate struct BaristasGridView: View {
                     case .ad:
                         VStack {
                             NativeAdContainerView(
+                                unitID: .baristas_grid_cell_unit_id,
                                 backgroundColor: Color.Custom.secondaryBackground.color
                             )
                             .frame(maxWidth: .infinity, alignment: .center)

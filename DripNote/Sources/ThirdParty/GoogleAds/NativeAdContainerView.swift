@@ -3,9 +3,11 @@ import GoogleMobileAds
 
 public struct NativeAdContainerView: View {
     @State private var adUnitID: String = ""
+    private let unitID: UnitID
     private let backgroundColor: Color
     
-    public init(backgroundColor: Color) {
+    public init(unitID: UnitID, backgroundColor: Color) {
+        self.unitID = unitID
         self.backgroundColor = backgroundColor
     }
     
@@ -15,7 +17,7 @@ public struct NativeAdContainerView: View {
                 ProgressView()
                     .task {
                         do {
-                            adUnitID = try await fetchRemoteConfig()
+                            adUnitID = try await fetchRemoteConfig(type: unitID)
                         } catch {
                             print("❌ Failed to fetch ad unit ID: \(error)")
                         }

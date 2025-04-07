@@ -1,5 +1,7 @@
 import SwiftUI
+
 import DripNoteDomain
+import DripNoteThirdParty
 
 public struct BaristaRecipeDetailView: View {
     @Environment(\.dismiss) private var dismiss
@@ -52,6 +54,14 @@ public struct BaristaRecipeDetailView: View {
                         YoutubeSection(url: youtubeURL)
                     }
                     
+                    NativeAdContainerView(
+                        unitID: .barista_detail_unit_id,
+                        backgroundColor: Color.Custom.secondaryBackground.color
+                    )
+                    .frame(height: 300, alignment: .leading)
+                    .padding(16)
+                    .background(Color.Custom.secondaryBackground.color)
+                    .cornerRadius(12)
                 }
                 .padding(20)
             }
