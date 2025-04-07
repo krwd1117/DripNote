@@ -6,7 +6,9 @@ public final class BaristaBrewingRecipe: Identifiable, Codable {
     public var title: String
     public var baristaName: String
     public var coffeeBeans: String
+    public var coffeeBeansStoreURL: LocalizedURL?
     public var brewingMethod: BrewingMethod
+    public var brewingMethodStoreURL: LocalizedURL?
     public var brewingTemperature: BrewingTemperature
     public var coffeeWeight: Double
     public var waterWeight: Double
@@ -22,7 +24,9 @@ public final class BaristaBrewingRecipe: Identifiable, Codable {
         title: String,
         baristaName: String,
         coffeeBeans: String,
+        coffeeBeansStoreURL: LocalizedURL? = nil,
         brewingMethod: BrewingMethod,
+        brewingMethodStoreURL: LocalizedURL? = nil,
         brewingTemperature: BrewingTemperature,
         coffeeWeight: Double,
         waterWeight: Double,
@@ -37,7 +41,9 @@ public final class BaristaBrewingRecipe: Identifiable, Codable {
         self.title = title
         self.baristaName = baristaName
         self.coffeeBeans = coffeeBeans
+        self.coffeeBeansStoreURL = coffeeBeansStoreURL
         self.brewingMethod = brewingMethod
+        self.brewingMethodStoreURL = brewingMethodStoreURL
         self.brewingTemperature = brewingTemperature
         self.coffeeWeight = coffeeWeight
         self.waterWeight = waterWeight
@@ -60,7 +66,9 @@ public final class BaristaBrewingRecipe: Identifiable, Codable {
             title: self.title,
             baristaName: self.baristaName,
             coffeeBeans: self.coffeeBeans,
+            coffeeBeansStoreURL: self.coffeeBeansStoreURL,
             brewingMethod: self.brewingMethod,
+            brewingMethodStoreURL: self.brewingMethodStoreURL,
             brewingTemperature: self.brewingTemperature,
             coffeeWeight: self.coffeeWeight,
             waterWeight: self.waterWeight,

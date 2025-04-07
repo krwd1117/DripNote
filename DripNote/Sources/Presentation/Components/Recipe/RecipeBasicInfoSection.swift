@@ -2,29 +2,33 @@ import SwiftUI
 import DripNoteDomain
 
 public struct RecipeBasicInfoSection: View {
-    let title: String
-    let baristaName: String
-    let coffeeBeans: String
-    let brewingTemperature: BrewingTemperature
+    private var title: String
+    private var baristaName: String
+    private var coffeeBeans: String
+    private var coffeeBeansStoreURL: LocalizedURL?
+    private var brewingTemperature: BrewingTemperature
     
     public init(
         title: String,
         baristaName: String,
         coffeeBeans: String,
+        coffeeBeansStoreURL: LocalizedURL? = nil,
         brewingTemperature: BrewingTemperature
     ) {
         self.title = title
         self.baristaName = baristaName
         self.coffeeBeans = coffeeBeans
+        self.coffeeBeansStoreURL = coffeeBeansStoreURL
         self.brewingTemperature = brewingTemperature
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .center, spacing: 8) {
                 Text(title)
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(Color.Custom.darkBrown.color)
+                    .multilineTextAlignment(.leading)
                 
                 Spacer()
                 
@@ -43,13 +47,62 @@ public struct RecipeBasicInfoSection: View {
                 }
             }
             
-            Text(coffeeBeans)
-                .font(.system(size: 14))
-                .foregroundColor(.secondary)
+            if coffeeBeans.isEmpty == false {
+                CoffeeBeans(coffeeBeans: coffeeBeans, coffeeBeansStoreURL: coffeeBeansStoreURL)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
         .background(Color.Custom.secondaryBackground.color)
         .cornerRadius(12)
     }
-} 
+    
+    struct CoffeeBeans: View {
+        @Environment(\.openURL) private var openURL
+        
+        var coffeeBeans: String
+        var coffeeBeansStoreURL: LocalizedURL?
+        
+        var body: some View {
+            let storeURL = coffeeBeansStoreURL?.url()
+
+            VStack(spacing: 8) {
+                HStack {
+                    Text(coffeeBeans)
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                    
+                    if let storeURL = storeURL {
+                        Spacer()
+                        
+                        Button {
+                            openURL(storeURL)
+                        } label: {
+                            HStack(spacing: 4) {
+                                Text("Recipe.ShopCoffeeBeans")
+                                    .font(.system(size: 12))
+                                Image(systemName: "arrow.up.right")
+                                    .font(.system(size: 10))
+                            }
+                            .foregroundColor(Color.Custom.accentBrown.color)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.Custom.accentBrown.color.opacity(0.1))
+                            .clipShape(Capsule())
+                        }
+                    }
+                }
+                
+                if storeURL != nil {
+                    HStack {
+                        Text("Disclaimer.Affiliate")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.Custom.accentBrown.color)
+                        
+                        Spacer()
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,7 +7,9 @@ public final class BrewingRecipe: Identifiable {
     public var title: String
     public var baristaName: String
     public var coffeeBeans: String
+    public var coffeeBeansStoreURL: LocalizedURL?
     public var brewingMethod: BrewingMethod
+    public var brewingMethodStoreURL: LocalizedURL?
     public var brewingTemperature: BrewingTemperature
     public var coffeeWeight: Double
     public var waterWeight: Double
@@ -21,7 +23,9 @@ public final class BrewingRecipe: Identifiable {
         title: String,
         baristaName: String,
         coffeeBeans: String,
+        coffeeBeansStoreURL: LocalizedURL? = nil,
         brewingMethod: BrewingMethod,
+        brewingMethodStoreURL: LocalizedURL? = nil,
         brewingTemperature: BrewingTemperature,
         coffeeWeight: Double,
         waterWeight: Double,
@@ -34,7 +38,9 @@ public final class BrewingRecipe: Identifiable {
         self.title = title
         self.baristaName = baristaName
         self.coffeeBeans = coffeeBeans
+        self.coffeeBeansStoreURL = coffeeBeansStoreURL
         self.brewingMethod = brewingMethod
+        self.brewingMethodStoreURL = brewingMethodStoreURL
         self.brewingTemperature = brewingTemperature
         self.coffeeWeight = coffeeWeight
         self.waterWeight = waterWeight

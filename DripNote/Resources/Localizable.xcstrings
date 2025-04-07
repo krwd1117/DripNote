@@ -169,6 +169,29 @@
         }
       }
     },
+    "Disclaimer.Affiliate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This post contains affiliate links, and I may earn commissions from purchases."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本コンテンツにはアフィリエイトリンクが含まれており、対象のリンクから購入された場合、当方が収益を得ることがあります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 포스팅에는 제휴 링크가 포함되어 있으며, 구매 시 수수료를 제공받을 수 있습니다."
+          }
+        }
+      }
+    },
     "Recipe.AddPouringStep" : {
       "comment" : "Add pouring step button",
       "extractionState" : "manual",
@@ -596,6 +619,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%0.1f %@ : %0.1f %@"
+          }
+        }
+      }
+    },
+    "Recipe.ShopBrewingTool" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shop Tools"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Tools"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "도구 구매"
+          }
+        }
+      }
+    },
+    "Recipe.ShopCoffeeBeans" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shop Beans"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Beans"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "원두 구매"
           }
         }
       }

@@ -124,7 +124,8 @@ fileprivate struct BaristasGridView: View {
         }
     }
     
-    private struct BaristasGridCell: View {        
+    // MARK: - BaristasGrid Cell
+    private struct BaristasGridCell: View {
         @AppStorage("useMetricWeight") private var useMetricWeight: Bool = true
         @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
         @AppStorage("useMetricTemperature") private var useMetricTemperature: Bool = true
@@ -141,6 +142,7 @@ fileprivate struct BaristasGridView: View {
                     
                     Spacer()
                 }
+                .multilineTextAlignment(.leading)
                 
                 // 중간: 바리스타 이름과 원두
                 VStack(alignment: .leading, spacing: 4) {
@@ -181,3 +183,5 @@ fileprivate struct BaristasGridView: View {
         }
     }
 }
+
+

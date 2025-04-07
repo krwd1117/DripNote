@@ -2,11 +2,14 @@ import SwiftUI
 import DripNoteDomain
 
 public struct RecipeBrewingSettingsSection: View {
+    @Environment(\.openURL) private var openURL
+    
     @AppStorage("useMetricWeight") private var useMetricWeight: Bool = true
     @AppStorage("useMetricVolume") private var useMetricVolume: Bool = true
     @AppStorage("useMetricTemperature") private var useMetricTemperature: Bool = true
     
     let brewingMethod: BrewingMethod
+    let brewingMethodStoreURL: LocalizedURL?
     let brewingTemperature: BrewingTemperature
     let waterTemperature: Double
     let grindSize: String
@@ -15,6 +18,7 @@ public struct RecipeBrewingSettingsSection: View {
     
     public init(
         brewingMethod: BrewingMethod,
+        brewingMethodStoreURL: LocalizedURL? = nil,
         brewingTemperature: BrewingTemperature,
         waterTemperature: Double,
         grindSize: String,
@@ -22,6 +26,7 @@ public struct RecipeBrewingSettingsSection: View {
         waterWeight: Double
     ) {
         self.brewingMethod = brewingMethod
+        self.brewingMethodStoreURL = brewingMethodStoreURL
         self.brewingTemperature = brewingTemperature
         self.waterTemperature = waterTemperature
         self.grindSize = grindSize
@@ -36,11 +41,41 @@ public struct RecipeBrewingSettingsSection: View {
                 .foregroundColor(Color.Custom.darkBrown.color)
             
             VStack(spacing: 12) {
-                RecipeSettingRow(
-                    icon: "mug.fill",
-                    title: String(localized: "Recipe.Method"),
-                    value: brewingMethod.displayName
-                )
+                VStack(spacing: 8) {
+                    HStack {
+                        RecipeSettingRow(
+                            icon: "mug.fill",
+                            title: String(localized: "Recipe.Method"),
+                            value: brewingMethod.displayName
+                        )
+                        
+                        if let brewingMethodStoreURL = brewingMethodStoreURL?.url() {
+                            Spacer()
+                            
+                            Button(action: {
+                                openURL(brewingMethodStoreURL)
+                            }) {
+                                HStack(spacing: 4) {
+                                    Text("Recipe.ShopBrewingTool")
+                                        .font(.system(size: 12))
+                                    Image(systemName: "arrow.up.right")
+                                        .font(.system(size: 10))
+                                }
+                                .foregroundColor(Color.Custom.accentBrown.color)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.Custom.accentBrown.color.opacity(0.1))
+                                .clipShape(Capsule())
+                            }
+                        }
+                    }
+                    
+                    if let _ = brewingMethodStoreURL?.url() {
+                        Text("Disclaimer.Affiliate")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.Custom.accentBrown.color)
+                    }
+                }
                 
                 RecipeSettingRow(
                     icon: "thermometer.medium",
@@ -109,4 +144,4 @@ public struct RecipeSettingRow: View {
         }
         .font(.system(size: 14))
     }
-} 
+}

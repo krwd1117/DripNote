@@ -3,6 +3,7 @@ import DripNoteDomain
 
 public struct BaristaRecipeDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     @StateObject private var viewModel: BaristaRecipeDetailViewModel
     
     public init(recipe: BaristaBrewingRecipe) {
@@ -18,12 +19,14 @@ public struct BaristaRecipeDetailView: View {
                         title: recipe.title,
                         baristaName: recipe.baristaName,
                         coffeeBeans: recipe.coffeeBeans,
+                        coffeeBeansStoreURL: recipe.coffeeBeansStoreURL,
                         brewingTemperature: recipe.brewingTemperature
                     )
                     
                     // 추출 설정 섹션
                     RecipeBrewingSettingsSection(
                         brewingMethod: recipe.brewingMethod,
+                        brewingMethodStoreURL: recipe.brewingMethodStoreURL,
                         brewingTemperature: recipe.brewingTemperature,
                         waterTemperature: recipe.waterTemperature,
                         grindSize: recipe.grindSize,
