@@ -88,7 +88,7 @@ fileprivate struct BaristasGridView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(viewModel.recipes) { item in
+                ForEach(items) { item in
                     switch item {
                     case .recipe(let recipe):
                         Button {
