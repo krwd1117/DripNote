@@ -14,23 +14,8 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="AppIconImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="j8g-Oc-tKz">
-                                <rect key="frame" x="68.666666666666686" y="298" width="256" height="256"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="256" id="WGi-ZQ-8si"/>
-                                    <constraint firstAttribute="width" constant="256" id="Y39-Wk-u6k"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.97254901959999995" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="j8g-Oc-tKz" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="HvU-Sj-zCG"/>
-                            <constraint firstItem="j8g-Oc-tKz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="i3a-q8-x5g"/>
-                            <constraint firstItem="j8g-Oc-tKz" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="kFh-QE-fvB"/>
-                            <constraint firstItem="j8g-Oc-tKz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zPQ-vr-vJp"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -38,7 +23,4 @@
             <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="AppIconImage.png" width="1024" height="1024"/>
-    </resources>
 </document>

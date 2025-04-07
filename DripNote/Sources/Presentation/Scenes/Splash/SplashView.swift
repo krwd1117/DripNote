@@ -12,15 +12,15 @@ public struct SplashView: View {
         ZStack {
             Color.Custom.secondaryBackground.color.ignoresSafeArea()
             
-            VStack {
-                Spacer()
-                Image("AppIconImage")
-                    .resizable()
-                    .frame(width: 256, height: 256)
-                Spacer()
-            }
-            .frame(maxHeight: .infinity)
-            .ignoresSafeArea()
+//            VStack {
+//                Spacer()
+//                Image("AppIconImage")
+//                    .resizable()
+//                    .frame(width: 256, height: 256)
+//                Spacer()
+//            }
+//            .frame(maxHeight: .infinity)
+//            .ignoresSafeArea()
         }
         .task {
             withAnimation {
