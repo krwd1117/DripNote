@@ -7,14 +7,13 @@ import DripNoteThirdParty
 
 import FirebaseCore
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
     var container: ModelContainer!
     
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
-    ) -> Bool {    
+    ) -> Bool {
         FirebaseApp.configure()
         
         initializeFirebaseRemoteConfig()

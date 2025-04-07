@@ -1,5 +1,6 @@
 import SwiftUI
 import DripNoteDomain
+import DripNoteThirdParty
 
 public struct RecipeBasicInfoSection: View {
     private var title: String
@@ -63,6 +64,13 @@ public struct RecipeBasicInfoSection: View {
         var coffeeBeans: String
         var coffeeBeansStoreURL: LocalizedURL?
         
+        var showAffiliate: Bool {
+            guard let urlString = coffeeBeansStoreURL?.url()?.absoluteString.lowercased() else { return false }
+            return urlString.contains("coupang")
+            || urlString.contains("amzn")
+            || urlString.contains("amazon")
+        }
+        
         var body: some View {
             let storeURL = coffeeBeansStoreURL?.url()
 
@@ -76,6 +84,12 @@ public struct RecipeBasicInfoSection: View {
                         Spacer()
                         
                         Button {
+                            AnalyticsManager().logEvent(
+                                .coffeeBeansShopClick(
+                                    coffeeName: coffeeBeans,
+                                    storeURL: storeURL.absoluteString
+                                )
+                            )
                             openURL(storeURL)
                         } label: {
                             HStack(spacing: 4) {
@@ -93,7 +107,7 @@ public struct RecipeBasicInfoSection: View {
                     }
                 }
                 
-                if storeURL != nil {
+                if showAffiliate {
                     HStack {
                         Text("Disclaimer.Affiliate")
                             .font(.system(size: 12))

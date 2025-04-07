@@ -67,14 +67,11 @@ let project = Project(
                 ),
             ],
             dependencies: [
-                .package(product: "FirebaseCore"),
-                .package(product: "FirebaseAnalytics"),
-                .package(product: "FirebaseCrashlytics"),
-                .package(product: "FirebaseMessaging"), 
                 .target(name: "DripNoteCore"),
                 .target(name: "DripNoteDomain"),
                 .target(name: "DripNoteData"),
-                .target(name: "DripNotePresentation")
+                .target(name: "DripNotePresentation"),
+                .package(product: "FirebaseCore")
             ]
         ),
         .target(
@@ -166,7 +163,10 @@ let project = Project(
             dependencies: [
                 .package(product: "YouTubeiOSPlayerHelper"),
                 .package(product: "GoogleMobileAds"),
-                .package(product: "FirebaseRemoteConfig")
+                .package(product: "FirebaseRemoteConfig"),
+                .package(product: "FirebaseAnalytics"),
+                .package(product: "FirebaseCrashlytics"),
+                .package(product: "FirebaseMessaging"), 
             ]
         ),
         .target(

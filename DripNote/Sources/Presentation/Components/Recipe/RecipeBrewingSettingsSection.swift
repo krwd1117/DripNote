@@ -1,5 +1,6 @@
 import SwiftUI
 import DripNoteDomain
+import DripNoteThirdParty
 
 public struct RecipeBrewingSettingsSection: View {
     @Environment(\.openURL) private var openURL
@@ -53,6 +54,12 @@ public struct RecipeBrewingSettingsSection: View {
                             Spacer()
                             
                             Button(action: {
+                                AnalyticsManager().logEvent(
+                                    .brewingToolShopClick(
+                                        brewingMethod: brewingMethod.displayName,
+                                        storeURL: brewingMethodStoreURL.absoluteString
+                                    )
+                                )
                                 openURL(brewingMethodStoreURL)
                             }) {
                                 HStack(spacing: 4) {
