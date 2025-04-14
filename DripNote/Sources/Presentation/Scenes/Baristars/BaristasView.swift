@@ -88,28 +88,39 @@ fileprivate struct BaristasGridView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(items) { item in
-                    switch item {
-                    case .recipe(let recipe):
-                        Button {
-                            coordinator.push(.detail(recipe))
-                        } label: {
-                            BaristasGridCell(recipe: recipe)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                    case .ad:
-                        VStack {
-                            NativeAdContainerView(
-                                unitID: .baristas_grid_cell_unit_id,
-                                backgroundColor: Color.Custom.secondaryBackground.color
-                            )
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        }
-                        .cornerRadius(16)
-                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 4, x: 0, y: 2)
-                        .gridCellColumns(2)
+                // 광고 O
+//                ForEach(items) { item in
+//                    switch item {
+//                    case .recipe(let recipe):
+//                        Button {
+//                            coordinator.push(.detail(recipe))
+//                        } label: {
+//                            BaristasGridCell(recipe: recipe)
+//                        }
+//                        .frame(maxWidth: .infinity, alignment: .center)
+//                        
+//                    case .ad:
+//                        VStack {
+//                            NativeAdContainerView(
+//                                unitID: .baristas_grid_cell_unit_id,
+//                                backgroundColor: Color.Custom.secondaryBackground.color
+//                            )
+//                            .frame(maxWidth: .infinity, alignment: .center)
+//                        }
+//                        .cornerRadius(16)
+//                        .shadow(color: Color.Custom.darkBrown.color.opacity(0.05), radius: 4, x: 0, y: 2)
+//                        .gridCellColumns(2)
+//                    }
+//                }
+                
+                // 광고 X
+                ForEach(viewModel.recipes) { recipe in
+                    Button {
+                        coordinator.push(.detail(recipe))
+                    } label: {
+                        BaristasGridCell(recipe: recipe)
                     }
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .padding(16)
