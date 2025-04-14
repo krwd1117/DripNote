@@ -1,6 +1,8 @@
 import SwiftUI
 import SwiftData
+
 import DripNoteDomain
+import DripNoteThirdParty
 
 public struct RecipeDetailView: View {
     @EnvironmentObject private var coordinator: RecipeCoordinator
@@ -41,6 +43,15 @@ public struct RecipeDetailView: View {
                 if !viewModel.recipe.notes.isEmpty {
                     RecipeNotesSection(notes: viewModel.recipe.notes)
                 }
+                
+                NativeAdContainerView(
+                    unitID: .barista_detail_unit_id,
+                    backgroundColor: Color.Custom.secondaryBackground.color
+                )
+                .frame(height: 300, alignment: .leading)
+                .padding(16)
+                .background(Color.Custom.secondaryBackground.color)
+                .cornerRadius(12)
             }
             .padding(20)
         }
