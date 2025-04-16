@@ -1,4 +1,5 @@
 import SwiftUI
+import AdSupport
 import GoogleMobileAds
 
 public struct NativeAdContainerView: View {
@@ -211,6 +212,7 @@ public struct NativeAdContainerView: View {
                     nativeAdView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
                 ])
             }
+            
             func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
                 print("❌ 광고 로드 실패: \(error.localizedDescription)")
             }
