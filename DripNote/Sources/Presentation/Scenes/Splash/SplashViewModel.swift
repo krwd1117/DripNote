@@ -18,7 +18,6 @@ public final class SplashViewModel: ObservableObject {
             try await Task.sleep(for: .seconds(0.5))
             
             await requestTrackingAuthorizationIfNeeded()
-            await initializeAdMob()
             self.isFinished = true
         }
     }

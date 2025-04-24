@@ -16,7 +16,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         FirebaseApp.configure()
         
-        initializeFirebaseRemoteConfig()
         
         let center = UNUserNotificationCenter.current()
         center.delegate = self  // delegate 지정

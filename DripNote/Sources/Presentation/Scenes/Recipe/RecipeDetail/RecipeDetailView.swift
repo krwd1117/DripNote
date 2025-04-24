@@ -43,9 +43,6 @@ public struct RecipeDetailView: View {
                 if !viewModel.recipe.notes.isEmpty {
                     RecipeNotesSection(notes: viewModel.recipe.notes)
                 }
-                
-
-                BannerAdContainerView(unitID: .user_detail_banner_unit_id)
             }
             .padding(20)
         }

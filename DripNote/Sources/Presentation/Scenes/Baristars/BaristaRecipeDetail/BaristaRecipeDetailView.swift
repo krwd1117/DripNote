@@ -53,8 +53,6 @@ public struct BaristaRecipeDetailView: View {
                     if let youtubeURL = recipe.youtubeURL {
                         YoutubeSection(url: youtubeURL)
                     }
-                    
-                    BannerAdContainerView(unitID: .barsitas_detail_banner_unit_id)
                 }
                 .padding(20)
             }
