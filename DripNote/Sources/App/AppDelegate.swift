@@ -6,15 +6,20 @@ import DripNoteData
 import DripNoteThirdParty
 
 import FirebaseCore
+import Supabase
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     var container: ModelContainer!
+    var supabaseClient: SupabaseClient!
     
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+
+        supabaseClient = SupabaseClient(supabaseURL: URL(string: SupabaseConfig.url)!, supabaseKey: SupabaseConfig.anonKey)
+        DIContainer.shared.register(SupabaseClient.self, instance: supabaseClient)
         
         
         let center = UNUserNotificationCenter.current()

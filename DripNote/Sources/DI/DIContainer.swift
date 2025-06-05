@@ -1,5 +1,6 @@
 import DripNoteDomain
 import DripNoteData
+import Supabase
 
 import Foundation
 import SwiftData
@@ -44,9 +45,15 @@ private extension DIContainer {
         let dataSource = LocalBrewingRecipeDataSource(modelContext: modelContext)
         let repository = LocalBrewingRecipeRepositoryImpl(dataSource: dataSource)
         register(RecipeUseCase.self, instance: DefaultRecipeUseCase(repository: repository))
-        
+
         let firebaseBrewingrepository = FirestoreBrewingRecipeRepositoryImpl()
         register(FirestoreRecipeUseCase.self, instance: DefaultFirestoreRecipeUseCase(repository: firebaseBrewingrepository))
+
+        if let client = dependencies[String(describing: SupabaseClient.self)] as? SupabaseClient {
+            let authRepository = SupabaseAuthRepositoryImpl(client: client)
+            register(AuthenticationRepository.self, instance: authRepository)
+            register(AuthUseCase.self, instance: DefaultAuthUseCase(repository: authRepository))
+        }
     }
     
     func registerUseCases() {}
