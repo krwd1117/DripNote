@@ -1,8 +1,18 @@
 import SwiftUI
 
 struct HomePage: View {
+    @StateObject var viewModel: HomeViewModel
+    
+    // For navigation to detail page (to be implemented with Coordinator)
+    var onRecipeSelect: (String) -> Void
+    
+    init(onRecipeSelect: @escaping (String) -> Void, repository: RecipeRepository) {
+        _viewModel = StateObject(wrappedValue: HomeViewModel(repository: repository))
+        self.onRecipeSelect = onRecipeSelect
+    }
+
     var body: some View {
-        NavigationView {
+        NavigationView { // For navigation stack within the tab
             ZStack {
                 Color.backgroundPrimary.edgesIgnoringSafeArea(.all) // Full screen background
 
@@ -35,14 +45,17 @@ struct HomePage: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 16) {
-                                    ForEach(0..<5) { _ in // Placeholder cards
+                                    ForEach(viewModel.recommendedRecipes) { recipe in
                                         RecipeCard(
-                                            title: "에티오피아 예가체프",
-                                            baristaName: "김정완",
-                                            coffeeBeans: "Ethiopia Yirgacheffe G1",
-                                            imageUrl: "https://source.unsplash.com/random/400x300?coffee,beans"
+                                            title: recipe.title,
+                                            baristaName: recipe.baristaName,
+                                            coffeeBeans: recipe.coffeeBeans,
+                                            imageUrl: recipe.coffeeBeansStoreURL?.ko // Using ko url for demo
                                         )
                                         .frame(width: 200)
+                                        .onTapGesture {
+                                            onRecipeSelect(recipe.id.uuidString)
+                                        }
                                     }
                                 }
                                 .padding(.horizontal)
@@ -56,15 +69,18 @@ struct HomePage: View {
                                 .foregroundColor(.textPrimary)
                                 .padding(.horizontal)
                             
-                            ForEach(0..<3) { _ in // Placeholder history items
-                                Text("Recent Item Placeholder")
+                            ForEach(viewModel.recentBrewings) { recipe in
+                                Text(recipe.title)
                                     .font(.appBody)
-                                    .foregroundColor(.textSecondary)
+                                    .foregroundColor(.textPrimary)
                                     .frame(maxWidth: .infinity)
                                     .padding()
                                     .background(Color.backgroundSecondary)
                                     .cornerRadius(12)
                                     .padding(.horizontal)
+                                    .onTapGesture {
+                                        onRecipeSelect(recipe.id.uuidString)
+                                    }
                             }
                         }
                     }
@@ -78,6 +94,8 @@ struct HomePage: View {
 
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
-        HomePage()
+        // Mock repository for preview
+        let mockRepository = RecipeDetailViewModel.MockRecipeRepository()
+        HomePage(onRecipeSelect: { _ in }, repository: mockRepository)
     }
 }
