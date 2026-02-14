@@ -7,6 +7,7 @@ let project = Project(
         .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .upToNextMajor(from: "11.9.0")),
         .remote(url: "https://github.com/google/promises.git", requirement: .upToNextMajor(from: "2.3.1")),
         .remote(url: "https://github.com/youtube/youtube-ios-player-helper.git", requirement: .upToNextMajor(from: "1.0.4")),
+        .remote(url: "https://github.com/supabase-community/supabase-swift.git", requirement: .upToNextMajor(from: "0.2.0")),
     ],
         settings: .settings(
         base: [
@@ -160,7 +161,8 @@ let project = Project(
             resources: [],
             dependencies: [
                 .target(name: "DripNoteDomain"),
-                .package(product: "FirebaseFirestore")
+                .package(product: "FirebaseFirestore"),
+                .package(product: "Supabase")
             ]
         ),
         .target(
